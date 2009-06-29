@@ -1,0 +1,52 @@
+#summary Templates and Buffer - Samstyle PHP Framework Documentation
+
+===Documentation Details===
+For Samstyle PHP Framework
+Revision 1
+
+= Introduction =
+
+On this page, you're going to learn more about Templates in Samstyle PHP Framework. Basically Samstyle PHP Framework uses a template system that is easy to implement and understand.
+
+On top of the usual HTML and XHTML, Samstyle PHP Framework uses the <$tagname$> tags to insert content, variables and blocks into the template and then echo out the buffer.
+
+= Template Flow =
+
+  # Output is buffered into `$_PAGE['content']` variable through the use of p($string) function.
+  # Before the end of the PHP script, the `$_PAGE['content']` buffer is parsed by the framework.
+  # Then the final buffer that contains the actual contents will be output to the browser.
+
+= Reasons behind this flow =
+
+  * By reducing the number of echo output and instead use a variable buffering, the load time is reduced. This has been tested. (Test was to output "testing 123<br/>" 10000 times by buffering then echo, and directly echo. Time taken for buffering is 0.0580809116364 seconds and for direct echo is 0.183017015457 seconds)
+  * Allows header() calls within code and output.
+  * Allows a more consistent output.
+
+= Tags in the templates =
+
+These are the following standard tags that will be parsed from the templates and the contents of the corresponding tags will replace the tags.
+{{{
+
+$_TEMPLATE = array(
+   '<$content$>'=>$_PAGE['content'],
+   '<$title$>'=>$_PAGE['title'],
+   '<$copyright$>' => $_SITEINFO['copyright'],
+   '<$cssurl$>' => $_PAGE['css'],
+   '<$baseurl$>' => $s_http[0],
+   '<$robots$>' => $_PAGE['robots'],
+   '<$header$>' => $_PAGE['header'],
+   '<$metarevisit$>' => '1',
+   '<$pagekeywords$>' => $_SITEINFO['keywords'],
+   '<$pagedescription$>' => $_SITEINFO['description'],
+   '<$logourl$>'=>$_PAGE['logourl'],
+   '<$content$>'=>$_PAGE['content'],
+   '<$version$>' => $_SITEINFO['ver'],
+   '<$footer$>' => $_PAGE['footer'],
+   '<$sitename$>' => $_SITEINFO['name'],
+   '<$approot$>'=>$_SITEINFO['approot'],
+   '<$sitelang$>'=>'en-gb',
+   '<$sessid$>' => session_id(),
+   '<$self$>' => $_SERVER['PHP_SELF']
+);
+
+}}}
