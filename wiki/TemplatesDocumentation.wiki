@@ -18,8 +18,8 @@ On top of the usual HTML and XHTML, Samstyle PHP Framework uses the <$tagname$> 
 
 = Reasons behind this flow =
 
-  * By reducing the number of echo output and instead use a variable buffering, the load time is reduced. This has been tested. (Test was to output "testing 123<br/>" 10000 times by buffering then echo, and directly echo. Time taken for buffering is 0.0580809116364 seconds and for direct echo is 0.183017015457 seconds)
-  * Allows header() calls within code and output.
+  * By reducing the number of echo output and instead use a variable buffering, the load time is reduced. This has been tested. (Test was to output `"testing 123<br/>"` 10000 times by buffering then echo, and directly echo. Time taken for buffering is 0.0580809116364 seconds and for direct echo is 0.183017015457 seconds)
+  * Allows `header()` calls within code and output instead of only before output.
   * Allows a more consistent output.
 
 = Tags in the templates =
