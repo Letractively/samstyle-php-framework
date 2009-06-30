@@ -29,7 +29,7 @@ blocks => array('memberbar'=>'blocks/memberbar.php','menubar'=>'blocks/menubar.p
 );
 
 $includes = array(
-
+'inc/functions.inc.php'
 );
 
 ?>

@@ -125,9 +125,15 @@ function no_magic_quotes($val) {
 
 function parse_http_args($http_params, $keys) {
   $result = array();
+if(count($keys)>0){
   foreach ($keys as $key) {
     $result[$key] = no_magic_quotes(idx($http_params, $key));
   }
+}else{
+foreach($http_params as $k => $v){
+$result[$k] = no_magic_quotes($v);
+}
+}
   return $result;
 }
 
