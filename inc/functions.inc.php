@@ -116,11 +116,16 @@ function get_domain($url) {
 }
 
 function no_magic_quotes($val) {
+if(is_array($val)){
+foreach($val as $k=> $v){$val[$k] = no_magic_quotes($v);}
+return $val;
+}else{
   if (get_magic_quotes_gpc()) {
     return stripslashes($val);
   } else {
     return $val;
   }
+}
 }
 
 function parse_http_args($http_params, $keys) {

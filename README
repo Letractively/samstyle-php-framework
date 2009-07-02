@@ -1,0 +1,14 @@
+Samstyle PHP Framework
+Readme Documentation
+Created by: Sam Yong | Date/Time: 7.19am 3rd July 2009 GMT+8
+
+
+Thank you for downloading Samstyle PHP Framework. We hope that you'd like this framework as much as we do.
+
+To start off, you will need to do a little configuration. Proceed to "inc/config.inc.php".
+
+In the $_SITE array variable, you can change your application name, version, copyright, URL root, enable GZIP or not.  Configure them as much as you want.
+
+Note that modifying the $_PAGE array variable will affect all your pages that are viewed on the browser.
+
+This Framework is under GNU General Public License v2. You are free to download, redistribute, and/or modify the source code. Commercial usage of the framework is allowed at no cost.

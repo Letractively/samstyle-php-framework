@@ -3,13 +3,12 @@
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
 $_SITE = array(
-'name' => 'Samstyle Application',
-'ver' => '1.0.0',
-'domain_name' => '',
+'name' => 'Samstyle Application', 	/* Application name */
+'ver' => '1.0.0',			/* Application version */
 'copyright' => 'Copyright (c) CompanyName 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
 // 'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'table','connection'=>null),
-'enablegzip'=>true,
-'approot'=>'http://localhost/s2s/'
+'enablegzip'=>true,		/* Enable GZIP or not */
+'approot'=>'http://localhost/ssphpfw/'  /* Application root URL - for use at base tag and referencing */
 );
 
 $_PAGE = array(
