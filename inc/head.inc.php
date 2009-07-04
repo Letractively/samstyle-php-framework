@@ -76,8 +76,16 @@ exit();
 
 /* ************************************************
 *   
-* create a session hash for security usage.
+* security stuff
 *
 ************************************************ */
 $session_hash = dechex(crc32(session_id()));
+if($_SITE['autoparsehttpargs']){
+$post = parse_http_args($_POST);
+$get = parse_http_args($_GET);
+}else{
+$post = $_POST;
+$get = $_GET;
+}
+
 ?>

@@ -16,12 +16,27 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 $_SITE = array(
-'name' => 'Samstyle Application', 	/* Application name */
-'ver' => '1.0.0',			/* Application version */
-'copyright' => 'Copyright (c) CompanyName 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
+'name' => 'Samstyle Framework Test Application',
+/* Application name */
+
+'ver' => '1.0.0',
+/* Application version */
+
+'copyright' => 'Copyright (c) Sam Yong 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
+/* Copyright Information */
+
 'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'table','connection'=>null),
-'enablegzip'=>true,		/* Enable GZIP or not */
-'approot'=>'http://localhost/ssphpfw/'  /* Application root URL - for use at base tag and referencing */
+/* MySQL login information */
+
+'enablegzip'=>true,
+/* Enable GZIP or not */
+
+'approot'=>'http://localhost/ssphpfw/',
+ /* Application root URL - for use at base tag and referencing */
+
+'autoparsehttpargs'=>true 
+/* specify whether will auto parse HTTP arguments ($_GET or $_POST)
+into $get and $post to prevent injection/XSS or other threats */
 );
 
 /* *************************************************
