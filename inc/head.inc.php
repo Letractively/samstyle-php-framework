@@ -1,19 +1,40 @@
 <?php
-
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
+/* *************************************************
+*
+*  head.inc.php
+*  Samstyle PHP Framework
+*  Framework Main Engine
+*
+************************************************* */
 
+/* ************************************************
+*   include configuration file
+*
+************************************************ */
 $c = @include_once('inc/config.inc.php');
 
-// include all required components
+/* ************************************************
+*   include all required components
+*
+************************************************ */
 if(count($includes)>0){
 foreach($includes as $inc){@include_once($inc);}
 }
 
-// setting session
-session_set_cookie_params((time()+36000), '/',$_SITE['domain_name'],false,true);
+
+/* ************************************************
+*   setting session
+*
+************************************************ */
+session_set_cookie_params((time()+36000), '/',get_domain($_SITE['approot']),false,true);
 session_start();
 
-// setting out headers
+
+/* ************************************************
+*   setting out headers
+*
+************************************************ */
 header('cache-control: no-cache');
 header('pragma:no-cache');
 header('Expires:'.gmdate('r',time()+(20)));
@@ -22,7 +43,10 @@ header('Copyright: '.$_SITE['copyright']);
 header('Vary: Accept');
 header('Content-Type: text/html; charset=utf-8');
 
-// check for enable gzip
+/* ************************************************
+*   Enabling GZIP or not?
+*
+************************************************ */
 if($_SITE['enablegzip']==true){
 $acceptencoding = explode(',' ,$_SERVER['HTTP_ACCEPT_ENCODING']);
 foreach($acceptencoding as $id=>$encode){$acceptencoding[$id] = trim($encode);}
@@ -32,6 +56,10 @@ while(ob_get_level()){ob_end_flush();}
 if(ob_get_length()===false){ob_start();}
 }
 
+/* ************************************************
+*   Connecting to MySQL Database with the login information
+*
+************************************************ */
 if($_SITE['mysql_info']){
 $link = @mysql_connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p']);
 if(!$link){
@@ -46,6 +74,10 @@ exit();
 }
 }
 
-// create a session hash for security usage.
+/* ************************************************
+*   
+* create a session hash for security usage.
+*
+************************************************ */
 $session_hash = dechex(crc32(session_id()));
 ?>
