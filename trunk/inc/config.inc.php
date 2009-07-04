@@ -1,16 +1,35 @@
 <?php
-
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
+/* *************************************************
+*
+*  config.inc.php
+*  Samstyle PHP Framework
+*  Framework Configuration
+*
+************************************************* */
 
+/* *************************************************
+*
+*  $_SITE
+*  Website information: Application name, Version, Copyright,
+*  	MySQL information, GZip, application root
+*
+************************************************* */
 $_SITE = array(
 'name' => 'Samstyle Application', 	/* Application name */
 'ver' => '1.0.0',			/* Application version */
 'copyright' => 'Copyright (c) CompanyName 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
-// 'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'table','connection'=>null),
+'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'table','connection'=>null),
 'enablegzip'=>true,		/* Enable GZIP or not */
 'approot'=>'http://localhost/ssphpfw/'  /* Application root URL - for use at base tag and referencing */
 );
 
+/* *************************************************
+*
+*  $_PAGE
+*  Page information
+*
+************************************************* */
 $_PAGE = array(
 'title' => $_SITE['name'],
 'keywords' => '',
@@ -27,8 +46,16 @@ $_PAGE = array(
 blocks => array('memberbar'=>'blocks/memberbar.php','menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php')
 );
 
+/* *************************************************
+*
+*  $includes
+*  files that will be included
+*
+************************************************* */
 $includes = array(
-'inc/functions.inc.php'
+'inc/functions.inc.php',
+'inc/dao.inc.php', // mysql DAO management
+'inc/dao.inc.php' // cache
 );
 
 ?>

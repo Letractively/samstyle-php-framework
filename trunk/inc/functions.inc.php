@@ -1,11 +1,31 @@
 <?php
-
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
+
+/* *************************************************
+*
+*  functions.inc.php
+*  Samstyle PHP Framework
+*  Functions Library
+*
+************************************************* */
 
 /* output buffering */
 function p($s){
 global $_PAGE;
 $_PAGE['content'] .= $s;
+}
+
+/*
+*  function cblock()
+*    allows you to define and call and block easily
+*    $b - the block identifier
+*    $c - the content/file of the block
+*/
+function cblock($b,$c){
+if($b == '' || !is_string($b)){return false;}
+global $_PAGE;
+$_PAGE['blocks'][b] = $c;
+p('<$block:'.$b.'$>');
 }
 
 /*
@@ -107,13 +127,7 @@ function idx($arr, $idx, $default=null) {
 /*
  * Extract the domain from a relatively-well-formed URL
  */
-function get_domain($url) {
-  $info = parse_url($url);
-  if (isset($info['host'])) {
-    return $info['host'];
-  }
-  return $info['path'];
-}
+function get_domain($url){$i=parse_url($url);if(isset($i['host'])){return $i['host'];}return $i['path'];}
 
 function no_magic_quotes($val) {
 if(is_array($val)){

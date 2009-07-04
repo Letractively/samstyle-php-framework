@@ -1,6 +1,12 @@
 <?php
-
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
+/* *************************************************
+*
+*  template.inc.php
+*  Samstyle PHP Framework
+*  Framework Template Parser
+*
+************************************************* */
 
 $template = @file_get_contents($_PAGE['template']);
 if($template !== false){
@@ -39,7 +45,7 @@ $_TEMPLATE['<$block:'.$name.'$>'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLA
 $_PAGE['buffer'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
 
 }else{
-echo 'Sorry, website currently unavailable. Please try again later.<br/>'."\r\n".'ErrorCode:26s545z8<br/>'."\r\n".'Site: '.$s_http[0];
+echo 'Sorry, website currently unavailable. Please try again later.<br/>'."\r\n".'8<br/>'."\r\n".'Site: '.$s_http[0];
 exit;
 }
 
