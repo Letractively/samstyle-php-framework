@@ -142,7 +142,7 @@ return $val;
 }
 }
 
-function parse_http_args($http_params, $keys) {
+function parse_http_args($http_params, $keys=array()) {
   $result = array();
 if(count($keys)>0){
   foreach ($keys as $key) {

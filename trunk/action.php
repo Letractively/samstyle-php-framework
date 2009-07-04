@@ -3,18 +3,16 @@ include('inc/head.inc.php');
 
 // for ajax returns
 $result = array();
-$post = parse_http_args($_POST, array());
-$get = parse_http_args($_GET, array());
 
-if(count($_POST) == 0 && count($_GET)== 0){header('Location: index.php');exit();}
+if(count($post) == 0 && count($get)== 0){redirect('index.php');}
 
-if(count($_POST) > 0  && count($_GET) > 0){
+if(count($post) > 0  && count($get) > 0){
 // get and post
 
 }else if(count($_POST) > 0){
 // post only
 
-switch(strtolower($_POST['action'])){
+switch(strtolower($post['action'])){
 
 }
 
@@ -22,7 +20,7 @@ switch(strtolower($_POST['action'])){
 }else{
 // get only
 
-switch(strtolower($_GET['a'])){
+switch(strtolower($get['a'])){
 }
 
 }
