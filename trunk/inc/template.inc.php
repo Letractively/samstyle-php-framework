@@ -33,7 +33,7 @@ $_TEMPLATE = array(
 );
 
 foreach($_PAGE['blocks'] as $name => $block){
-if(file_exists($block)){
+if(@file_exists($block)){
 $content = '';
 @include($block);
 $_TEMPLATE['<$block:'.$name.'$>'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$content);
