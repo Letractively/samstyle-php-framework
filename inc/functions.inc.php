@@ -21,12 +21,9 @@ $_PAGE['content'] .= $s;
 *    $b - the block identifier
 *    $c - the content/file of the block
 */
-function cblock($b,$c){
-if($b == '' || !is_string($b)){return false;}
-global $_PAGE;
-$_PAGE['blocks'][b] = $c;
-p('<$block:'.$b.'$>');
-}
+function cblock($b,$c){if($b == '' || !is_string($b)){return false;}global $_PAGE;$_PAGE['blocks'][$b] = $c;
+if(@file_exists($c)){$content = '';@include($c);p($content);}else{p($c);}}
+
 
 /*
 * Email validation
