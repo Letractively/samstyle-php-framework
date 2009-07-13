@@ -1,4 +1,5 @@
 #summary Templates and Buffer - Samstyle PHP Framework Documentation
+#labels Phase-Implementation
 
 ===Documentation Details===
 For Samstyle PHP Framework
