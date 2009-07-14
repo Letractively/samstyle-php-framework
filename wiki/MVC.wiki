@@ -13,7 +13,7 @@ As for Core, it will be the library of functions and features that are provided 
 
 == Model ==
 
-The model as defined in the MVC architecture, is the part where data are processed and manipulated. In Samstyle PHP Framework, we use the idea of [http://en.wikipedia.org/wiki/Data_access_object Data Access Object (DAO)] or persistence methods to [http://en.wikipedia.org/wiki/CRUD CRUD] data from database.
+The model as defined in the MVC architecture, is the part where data are processed and manipulated. In Samstyle PHP Framework, we use the idea of [http://en.wikipedia.org/wiki/Data_access_object Data Access Object (DAO)] or persistence methods to [http://en.wikipedia.org/wiki/Create,_read,_update_and_delete CRUD] data from database.
 
 The framework consists of the "dao" folder, which inside should be containing files with persistence fucntions. Files should be named as `*.dao.php` e.g. `settings.dao.php`, `users.dao.php`. All persistence functions in the same file should have a prefix: e.g. In the file `settings.dao.php`, all functions should be prefixed with "`settings_`" like "`settings_Get()`".
 
