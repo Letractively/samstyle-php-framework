@@ -2,13 +2,26 @@ Samstyle PHP Framework
 Readme Documentation
 Created by: Sam Yong | Date/Time: 7.19am 3rd July 2009 GMT+8
 
-
-Thank you for downloading Samstyle PHP Framework. We hope that you'd like this framework as much as we do.
+Thank you for downloading Samstyle PHP Framework. We hope that you will
+like using this framework as much as we do.
 
 To start off, you will need to do a little configuration. Proceed to "inc/config.inc.php".
 
-In the $_SITE array variable, you can change your application name, version, copyright, URL root, enable GZIP or not.  Configure them as much as you want.
+In the $_SITE array variable, you can change your application name, version, copyright,
+URL root, enable GZIP or not.  Configure them as much as you want.
 
-Note that modifying the $_PAGE array variable will affect all your pages that are viewed on the browser.
+Note that modifying the $_PAGE array variable will affect all your pages that are viewed
+on the browser.
 
-This Framework is under GNU General Public License v2. You are free to download, redistribute, and/or modify the source code. Commercial usage of the framework is allowed at no cost.
+In order for "dao/settings.dao.php" and MySQL connection to work, you need to first
+configure the connection information at "config.inc.php". Then, restore the "dbapp.sql"
+file. The "dbapp.sql" file will create a schema/database called "dbapp" with a table
+named "settings".
+
+This Framework is hosted on Google Code at http://code.google.com/p/samstyle-php-framework/
+you can download the source code, submit and track issues over at the project page.
+You may also refer to the guides and documentation written on Google Code.
+
+This Framework is under GNU General Public License v2. You are free to download,
+redistribute, and/or modify the source code. Commercial usage of the framework is
+allowed at no cost.

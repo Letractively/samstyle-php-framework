@@ -25,7 +25,7 @@ $_SITE = array(
 'copyright' => 'Copyright (c) Sam Yong 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
 /* Copyright Information */
 
-'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'table','connection'=>null),
+'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'dbapp','connection'=>null),
 /* MySQL login information */
 
 'enablegzip'=>true,
@@ -68,9 +68,10 @@ blocks => array('memberbar'=>'blocks/memberbar.php','menubar'=>'blocks/menubar.p
 *
 ************************************************* */
 $includes = array(
-'inc/functions.inc.php',
+'inc/library.inc.php',
+'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
-'inc/dao.inc.php' // cache
+'inc/cache.inc.php' // cache
 );
 
 ?>
