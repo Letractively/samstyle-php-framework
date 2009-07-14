@@ -15,12 +15,12 @@ $_TEMPLATE = array(
 '<$title$>'=>$_PAGE['title'],
 '<$copyright$>' => $_SITE['copyright'],
 '<$cssurl$>' => $_PAGE['css'],
-'<$baseurl$>' => $s_http[0],
+'<$baseurl$>' => $_SITE['approot'],
 '<$robots$>' => $_PAGE['robots'],
 '<$header$>' => $_PAGE['header'],
 '<$metarevisit$>' => '1',
-'<$pagekeywords$>' => $_SITE['keywords'],
-'<$pagedescription$>' => $_SITE['description'],
+'<$pagekeywords$>' => $_PAGE['keywords'],
+'<$pagedescription$>' => $_PAGE['description'],
 '<$logourl$>'=>$_PAGE['logourl'],
 '<$content$>'=>$_PAGE['content'],
 '<$version$>' => $_SITE['ver'],
@@ -32,6 +32,7 @@ $_TEMPLATE = array(
 '<$self$>' => $_SERVER['PHP_SELF']
 );
 
+/* /////// OLD BLOCK RENDERING CODE ///////// 
 foreach($_PAGE['blocks'] as $name => $block){
 if(@file_exists($block)){
 $content = '';
@@ -41,11 +42,27 @@ $_TEMPLATE['<$block:'.$name.'$>'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLA
 $_TEMPLATE['<$block:'.$name.'$>'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$block);
 }
 }
+/////// OLD BLOCK RENDERING CODE ///////// */
 
+/* *********************************************
+* code for rendering blocks
+********************************************** */
 $_PAGE['buffer'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
+preg_match_all('`(<\$block\:)(.*[^ -/$.&*])(\$>)`', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+foreach($arr as $m){
+$block = $_PAGE['blocks'][$m[2]]; // get the block content from $_PAGE['block']
+if($block==""){continue;} // continue if empty
+if(strpos('.php',$block)>0 && @file_exists($block)){ // check if block is a file
+$content = '';
+@include($block);
+$_PAGE['buffer'] = str_ireplace($m[0],$content,$_PAGE['buffer']);
+}else{
+$_PAGE['buffer'] = str_ireplace($m[0],$block,$_PAGE['buffer']);
+}
+}
 
 }else{
-echo 'Sorry, website currently unavailable. Please try again later.<br/>'."\r\n".'8<br/>'."\r\n".'Site: '.$s_http[0];
+echo 'Sorry, website currently unavailable. Please try again later.<br/>'."\r\n".'8<br/>'."\r\n".'Site: '.$_SITE['approot'];
 exit;
 }
 

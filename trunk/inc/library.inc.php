@@ -3,9 +3,9 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
 /* *************************************************
 *
-*  functions.inc.php
+*  library.inc.php
 *  Samstyle PHP Framework
-*  Functions Library
+*  Framework Functions Library
 *
 ************************************************* */
 
