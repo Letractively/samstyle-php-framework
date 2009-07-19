@@ -1,6 +1,14 @@
 <?php
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
+/* ****************************************************
+*
+*  Samstyle PHP Framework
+*  Include-only HTTP helper class
+*  Created by: Sam Yong | Date/Time: 12:25pm 19th July 2009 GMT+8
+*
+**************************************************** */
+
 class http{
 
 public static function redirect($u){

@@ -1,6 +1,14 @@
 <?php
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
+/* ****************************************************
+*
+*  Samstyle PHP Framework
+*  Include-only validation class
+*  Created by: Sam Yong | Date/Time: 11:08am 19th July 2009 GMT+8
+*
+**************************************************** */
+
 class validate{
 
 public static $email_regex = "`^[a-z0-9!#$%&'*+\/=?^_\`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_\`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$`i";
