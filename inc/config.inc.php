@@ -19,7 +19,7 @@ $_SITE = array(
 'name' => 'Samstyle Framework Test Application',
 /* Application name */
 
-'ver' => '1.0.0',
+'ver' => '1.2.0',
 /* Application version */
 
 'copyright' => 'Copyright (c) Sam Yong 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
@@ -69,6 +69,8 @@ blocks => array('memberbar'=>'blocks/memberbar.php','menubar'=>'blocks/menubar.p
 ************************************************* */
 $includes = array(
 'inc/library.inc.php',
+'class/validate.class.php',
+'class/http.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php' // cache
