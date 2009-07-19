@@ -15,7 +15,6 @@ p('<p>Version <$version$></p>');
 
 p('<p>The project homepage on Google Code is at <a href="http://code.google.com/p/samstyle-php-framework/">http://code.google.com/p/samstyle-php-framework/</a></p>');
 
-
 include('inc/template.inc.php'); // process the buffer
 echo $_PAGE['buffer']; // output buffer
 ?>
