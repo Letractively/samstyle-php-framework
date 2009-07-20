@@ -11,19 +11,19 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
 class php{
 
-public static function include_only(){
+public static function inc_only(){
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 }
 
-public static function no_include(){
+public static function no_inc(){
 if(basename(__FILE__) != basename($_SERVER['PHP_SELF'])){exit();}
 }
 
-public static function is_include(){
+public static function is_inc(){
 if(basename(__FILE__) != basename($_SERVER['PHP_SELF'])){return true;} return false;
 }
 
-public static function remote_ip() {
+public static function ip() {
 $IP = '';
 if (getenv('HTTP_CLIENT_IP')) {$IP =getenv('HTTP_CLIENT_IP');}
 elseif (getenv('HTTP_X_FORWARDED_FOR')) {$IP =getenv('HTTP_X_FORWARDED_FOR');}
