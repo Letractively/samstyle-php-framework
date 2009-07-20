@@ -70,8 +70,8 @@ blocks => array('memberbar'=>'blocks/memberbar.php','menubar'=>'blocks/menubar.p
 $includes = array(
 'inc/library.inc.php',
 'class/validate.class.php',
-'class/http.class.php',,
-'class/php.class.php',,
+'class/http.class.php',
+'class/php.class.php',
 'class/html.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management

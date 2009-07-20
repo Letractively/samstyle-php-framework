@@ -42,7 +42,7 @@ public static function var_name(&$var, $scope=0)
     if (($key = array_search($var = 'unique'.rand().'value', !$scope ? $GLOBALS : $scope)) && $var = $old) return $key; 
 }
 
-public static idx($a,$k){
+public static function idx($a,$k){
 if(is_array($a)){return $a[$k];}
 return $a;
 }
