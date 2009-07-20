@@ -58,7 +58,7 @@ $_PAGE = array(
 'buffer' =>'',
 'footer' => $_SITE['copyright'],
 'robots' => 'index,follow',
-blocks => array('memberbar'=>'blocks/memberbar.php','menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php')
+blocks => array('menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php')
 );
 
 /* *************************************************

@@ -12,17 +12,23 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 class html{
 
 /* returns a HTML js string with script tag: pre-formatted for XHTML, HTML OK */
-public static function js($s){return '<script type="text/javascript">/*<![CDATA[*/ '.$s.' /*]]>*/</script>';}
+public static function js($s){return self::create('script','/*<![CDATA[*/ '.$s.' /*]]>*/',array('type'=>'text/javascript'));}
 
 /* returns a HTML css string with style tag: pre-formatted for XHTML, HTML OK */
-public static function css($s){return '<style type="text/css"><!-- '.$s.' --></style>';}
+public static function css($s){return self::create('style',self::c($s),array('type'=>'text/css'));}
 
 /* returns a HTML comment string */
 public static function c($s){return '<!-- '.$s.' -->';}
 
+public static function link($h, $t = ''){return self::create('a',(!$t?$h:$t),array('href'=>$h));}
+
 public static function create($tag, $content = '', $attr = array()){
 $a = '';foreach($attr as $k=>$v){$a.=" $k=\"$v\"";}
 return "<$tag$a>$content</$tag>";}
+
+public static function encode($s){return htmlentities($s,ENT_NOQUOTES);}
+
+public static function decode($s){return html_entity_decode($s,ENT_NOQUOTES);}
 
 }
 
