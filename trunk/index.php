@@ -10,10 +10,11 @@ include('inc/head.inc.php'); // include the core and engine
 **************************************************** */
 
 $_PAGE['title'] = 'Samstyle PHP Framework';
-p('<h1>Welcome to Samstyle PHP Framework</h1>');
-p('<p>Version <$version$></p>');
+p(html::create('h1','Welcome to Samstyle PHP Framework'));
+p(html::create('p','Version <$version$>'));
 
-p('<p>The project homepage on Google Code is at <a href="http://code.google.com/p/samstyle-php-framework/">http://code.google.com/p/samstyle-php-framework/</a></p>');
+p(html::create('p','The project homepage on Google Code is at '.html::create('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/'))));
+/* // old code: p('<p>The project homepage on Google Code is at <a href="http://code.google.com/p/samstyle-php-framework/">http://code.google.com/p/samstyle-php-framework/</a></p>'); */
 
 include('inc/template.inc.php'); // process the buffer
 echo $_PAGE['buffer']; // output buffer
