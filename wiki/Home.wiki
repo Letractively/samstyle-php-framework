@@ -9,3 +9,10 @@ Samstyle PHP Framework is a faster, lighter, and ever greater PHP framework that
 It has the set of tools, functions and methods ready for web development. Be it email validation, template handling, error management, flexibility, content management, or speed, it is far superior.
 
 The project aims to develop a fast, greatly optimized, scalable and easy-to-understand framework for PHP.
+
+==Getting started==
+You can download the latest stable and other releases of Samstyle PHP Framework from the Downloads page.
+
+The documentation of Samstyle PHP Framework can be found on the [TableOfContents Table of Contents] to the right.
+
+Other articles and read-ups regarding Samstyle PHP Framework will also be shown there.
