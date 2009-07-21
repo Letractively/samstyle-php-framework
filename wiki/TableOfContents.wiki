@@ -1,5 +1,5 @@
-[Home Home]<br/>
-Articles<br/>
-  * [MVC Samstyle uses MVC model]<br/>
-Documentation<br/>
-  * [TemplatesDocumentation Templates Documentation]<br/>
+  * *[Home Home]*
+  * *Articles*
+   * [MVC MVC model]
+  * *Documentation*
+   * [TemplatesDocumentation Templates]
