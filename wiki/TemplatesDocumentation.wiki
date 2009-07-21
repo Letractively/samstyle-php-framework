@@ -1,10 +1,6 @@
 #summary Templates and Buffer - Samstyle PHP Framework Documentation
 #labels Phase-Implementation
 
-===Documentation Details===
-For Samstyle PHP Framework
-Revision 1
-
 = Introduction =
 
 On this page, you're going to learn more about Templates in Samstyle PHP Framework. Basically Samstyle PHP Framework uses a template system that is easy to implement and understand.
