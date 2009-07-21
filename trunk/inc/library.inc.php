@@ -24,6 +24,15 @@ $_PAGE['content'] .= $s;
 //function cblock($b,$c){if($b == '' || !is_string($b)){return false;}global $_PAGE;$_PAGE['blocks'][$b] = $c;
 //if(@file_exists($c)){$content = '';@include($c);p($content);}else{p($c);}}
 
+/*
+*  function g($k)
+*    allows you to get a variable which is currently defined in the global scope of the script using $GLOBALS
+*    $k - the name of the variable
+* HINT: you can use (php::var_name($var) == 'var') to get the variable name of a variable
+*/
+function g($k){
+return $GLOBALS[$k];
+}
 
 /*
 * Email validation
