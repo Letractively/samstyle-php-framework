@@ -58,6 +58,54 @@ if(is_array($a)){return $a[$k];}
 return $a;
 }
 
+/*
+* function paging($urlpat,$current, $max, [$min = 1 [, $show = 3]]) - creates an array with appropriate paging
+*   $urlpat - a string of the URL. use %d for replacement of the page number.
+*   $current - the current page number. not index.
+*   $max - the maximum page. required.
+*   $min - Optional. minimum page, default 1.
+*   $show - number of pages to show left and right of current page. default 3.
+*/
+public static function paging($urlpat,$current, $max, $min = 1,$show = 3){
+if($current < $min || $current > $max){$current = $min;}
+if($max <= $min){return false;}
+if(!strpos($urlpat,'%d')){return false;}
+$current = (int)$current;$max = (int)$max;$min = (int)$min;$show = (int)$show;
+
+$ret = array();
+
+if($current > $min){$ret[] = array(sprintf($urlpat,$current-1),'Previous');}
+
+// show minimum
+if($current - $show > $min){$ret[] = array(sprintf($urlpat,$min),$min);
+if($current - ($show+1) > $min){$ret[]='...';}}
+
+for($x=($current-$show > 0 ? $current-$show: $min); $x>=$min && $x <= $max && ($x < $current);$x++){$ret[] = array(sprintf($urlpat,$x),$x);}
+
+$ret[] = array(sprintf($urlpat,$current),$current);
+
+for($x=($current+1); $x>=$min && $x <= $max && ($x <= $current + $show);$x++){$ret[] = array(sprintf($urlpat,$x),$x);}
+
+if($current + $show < $max){if($current+($show+1)<$max){$ret[]='...';}
+
+$ret[] = array(sprintf($urlpat,$max),$max);
+
+}
+if($current < $max){$ret[] = array(sprintf($urlpat,$current+1),'Next');}
+
+return $ret;
+}
+
+/*
+* function redirect($u) - sends a redirect header and exit script
+*  $u - the new URL. cannot be empty.
+*/
+public static function redirect($u){
+if(!$u){return false;}
+header('Location: '.$u);exit();
+}
+
+
 }
 
 ?>
