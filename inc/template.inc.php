@@ -8,8 +8,7 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 
-$t = dechex(crc32(mt_rand().time()));
-$$t = $_PAGE['content'];
+$t=php::tmp_var($_PAGE['content']);
 /* *********************************************
 * new code for rendering blocks
 ********************************************** */
@@ -29,6 +28,7 @@ $$t = str_ireplace($m[0],$block,$$t);
 * new code for rendering blocks
 ********************************************** */
 $_PAGE['content'] = $$t;
+unset($$t);unset($t);
 
 $template = @file_get_contents($_PAGE['template']);
 if($template !== false){
