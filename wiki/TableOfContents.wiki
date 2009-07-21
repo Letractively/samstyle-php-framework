@@ -2,4 +2,5 @@
   * *Articles*
    * [MVC MVC model]
   * *Documentation*
+   * [DatabaseDocumentation Database]
    * [TemplatesDocumentation Templates]
