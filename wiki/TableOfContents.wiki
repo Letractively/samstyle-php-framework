@@ -1,5 +1,5 @@
   * [Home Home]
   * Articles
-   * [MVC Samstyle uses MVC model]
+  * [MVC Samstyle uses MVC model]
   * Documentation
-   * [TemplatesDocumentation Templates Documentation]
+  * [TemplatesDocumentation Templates Documentation]
