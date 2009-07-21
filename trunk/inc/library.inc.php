@@ -25,12 +25,14 @@ $_PAGE['content'] .= $s;
 //if(@file_exists($c)){$content = '';@include($c);p($content);}else{p($c);}}
 
 /*
-*  function g($k)
+*  function g($k, [$v])
 *    allows you to get a variable which is currently defined in the global scope of the script using $GLOBALS
 *    $k - the name of the variable
+*    $v - Optional. set the value of the 
 * HINT: you can use (php::var_name($var) == 'var') to get the variable name of a variable
 */
-function g($k){
+function g($k,$v=''){
+if(func_num_args()>=2){$GLOBALS[$k]=$v;}
 return $GLOBALS[$k];
 }
 
@@ -89,6 +91,7 @@ if(strtolower($needle) == strtolower($haystack)){$count++;}
     return $count/count($arr2) * 100 ;
 }
 
+/* making str_ireplace available for old versions */
 function make_pattern(&$pat, $key) {$pat = '/'.preg_quote($pat, '/').'/i';}
 if(!function_exists('str_ireplace')){
     function str_ireplace($search, $replace, $subject){
@@ -162,6 +165,7 @@ $result[$k] = no_magic_quotes($v);
   return $result;
 }
 
+/* sending email wtih a html body */
 function html_mail($to, $subject, $html_message, $from_address, $from_display_name=''){
 $email_from_addr = $from_address;$email_from_name = $from_display_name;
 $email_subject =  $subject;$email_txt = $html_message;$email_to = $to;
@@ -173,9 +177,11 @@ $email_txt . "\n\n\n";
 $ok = @mail($email_to, $email_subject, $email_message, $headers,'-odb'); 
 return $ok;}
 
+/* enable htmlspecialchars_decode() for older versions */
 if (!function_exists("htmlspecialchars_decode")) {function htmlspecialchars_decode($string, $quote_style = ENT_COMPAT) {
 return strtr($string, array_flip(get_html_translation_table(HTML_SPECIALCHARS, $quote_style)));}} 
 
+/* extended get_headers() function */
 function get_headers_x($url,$format=0, $user='', $pass='', $referer='') {
         if (!empty($user)) {
             $authentification = base64_encode($user.':'.$pass);
@@ -233,6 +239,7 @@ function get_headers_x($url,$format=0, $user='', $pass='', $referer='') {
     }
 
 
+/* getallheaders() for old version */
 if(!function_exists('getallheaders')){
 function getallheaders() {
     foreach($_SERVER as $h=>$v){if(ereg('HTTP_(.+)',$h,$hp)){  $headers[$hp[1]]=$v;}}
@@ -240,6 +247,7 @@ function getallheaders() {
 }
 }
 
+/* grabbing all URL on a web page that is found in the <a> tag. */
 function arr_grablinks($url){
   $matches = array();
   if(strtolower(substr($url,0,7)) == 'http://'){
@@ -249,26 +257,16 @@ function arr_grablinks($url){
   return $matches;}else{return array();}
 }
 
+/* creates an array of numbers between $r1 and $r2, increasing order. */
 function arr_range($r1,$r2){
-
-if($r2 < $r1){
-$t = $r1;
-$r1 = $r2;
-$r2 = $t;
-unset($t);
+$r1 = (int)$r1;$r2 = (int)$r2;
+if($r2 < $r1){$t = $r1;$r1 = $r2;$r2 = $t;unset($t);}
+$r = array();$i = 0;
+for($i = $r1;$i<=$r2;$i++){$r[] = $i;}
+return $r;
 }
 
-$return_val = array();
-$i = 0;
-
-for($i = $r1;$i<=$r2;$i++){
-$return_val[] = $i;
-}
-
-return $return_val;
-}
-
-
+/* http_build_query() for old versions */
 if(!function_exists('http_build_query')) {
 function http_build_query($data,$prefix=null,$sep='',$key=''){
 $ret = array();
@@ -283,6 +281,7 @@ return implode($sep, $ret);
 }
 }
 
+/* function to get secondary IP */
 function getIP() {
 $IP = '';
     if (getenv('HTTP_CLIENT_IP')) {$IP =getenv('HTTP_CLIENT_IP');}
@@ -296,6 +295,7 @@ $IP = '';
 return $IP;
 }
 
+/* unicode version of chr() */
 function unichr($c) {
     if ($c <= 0x7F) {
         return chr($c);
@@ -314,7 +314,8 @@ function unichr($c) {
 }
 
 
-
+/* up one level of the url */
+/* i.e. http://example.com/test/folder/ becomes http://example.com/test/ */
 function URL_UpLevel($url){
 $t_url = $url;
 
@@ -333,7 +334,7 @@ unset($parts);
 return rtrim($c_url.'/?'.$get_datas,'?&');
 }
 
-
+/* see if it is bot or not. */
 function isbot($agent="")
     {
     //Handfull of Robots

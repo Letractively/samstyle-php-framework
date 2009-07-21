@@ -42,6 +42,17 @@ public static function var_name(&$var, $scope=0)
     if (($key = array_search($var = 'unique'.rand().'value', !$scope ? $GLOBALS : $scope)) && $var = $old) return $key; 
 }
 
+/*
+* function tmp_var($v) - creates a safe temporary variable.
+*  $v - the value of the variable.
+* returns the name of the temporary variable in the global scope.
+*/
+public static function tmp_var($v){
+$t = 'tv_'.dechex(crc32(mt_rand().time())); // creates the variable name.
+g($t,$v);
+return $t;
+}
+
 public static function idx($a,$k){
 if(is_array($a)){return $a[$k];}
 return $a;
