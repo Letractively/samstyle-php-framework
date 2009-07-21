@@ -19,7 +19,7 @@ $_SITE = array(
 'name' => 'Samstyle Framework Test Application',
 /* Application name */
 
-'ver' => '1.2.1',
+'ver' => '1.2.2 BETA',
 /* Application version */
 
 'copyright' => 'Copyright (c) Sam Yong 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
