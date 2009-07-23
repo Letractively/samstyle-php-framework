@@ -105,6 +105,30 @@ if(!$u){return false;}
 header('Location: '.$u);exit();
 }
 
+/*
+* function mtime() - gets the current microtime in float
+* returns a float of microtime.
+*/
+public static function mtime(){
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
+
+/*
+* function dump($v [, $t = true]) - returns or outputs a nicely formatted var_dump/var_export
+*   $v - the variable to dump
+*   $t - if true, the function returns the string, else dump to output buffer.
+* returns a HTML string of intormation about variable $v with html tag if $t is not specified or true.
+*/
+public static function dump($v,$t = true){
+if($t){
+$ret = '';
+$ret .= '<pre>';$ret .= var_export($v,$true);$ret .= '</pre>';
+return $ret;
+}else{
+echo '<pre>';var_dump($v);echo '</pre>';
+}
+}
 
 }
 
