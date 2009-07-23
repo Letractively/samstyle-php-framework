@@ -48,13 +48,23 @@ function mysql_cvConstruct($a){if(!$a || !is_array($a)){return false;}$cols = ar
 foreach($a as $k => $v){$c='`'.$k.'`';if(is_string($v)){$c.='=%s';}elseif(is_scalar($v)){$c.='=%d';}else{continue;}$vals[]=$v;$cols[]=$c;}
 array_unshift($vals,implode(',',$cols));$s = call_user_func_array('mysql_squeryf', $vals);return $s;}
 
+
+/* *************************************************
+*
+*  function mysql_logerror($r)
+*  logs an error if there is an MySQL error.
+*
+************************************************* */
+
+function mysql_logerror(){$err = mysql_error();if($err != ''){error_log("Application MySQL Error [t=".time()."]: ".$err);}}
+
 /* *************************************************
 *
 *  function mysql_retExec($r)
 *  returns true on successful query, false on failure
 *
 ************************************************* */
-function mysql_retExec($r){if(!$r){return false;}return true;}
+function mysql_retExec($r){mysql_logerror();if(!$r){return false;}return true;}
 
 /* *************************************************
 *
@@ -62,7 +72,7 @@ function mysql_retExec($r){if(!$r){return false;}return true;}
 *  returns a single Row on successful query, false on failure
 *
 ************************************************* */
-function mysql_retSRow($r){return @mysql_fetch_assoc($r);}
+function mysql_retSRow($r){mysql_logerror();return @mysql_fetch_assoc($r);}
 
 /* *************************************************
 *
@@ -70,7 +80,7 @@ function mysql_retSRow($r){return @mysql_fetch_assoc($r);}
 *  returns an array of Rows on successful query, false on failure
 *
 ************************************************* */
-function mysql_retAllRows($r){$a=array();while($v=mysql_retSRow($r)){if($v){$a[]=$v;}}return $a;}
+function mysql_retAllRows($r){mysql_logerror();$a=array();while($v=mysql_retSRow($r)){if($v){$a[]=$v;}}return $a;}
 
 /* *************************************************
 *
@@ -78,7 +88,7 @@ function mysql_retAllRows($r){$a=array();while($v=mysql_retSRow($r)){if($v){$a[]
 *  returns a value of a specific column in single Row on successful query, false on failure
 *
 ************************************************* */
-function mysql_retValue($r,$col){$v=@mysql_fetch_assoc($r);if(!$v){return false;}return isset($v['`'.$col.'`'])?$v['`'.$col.'`']:$v[$col];}
+function mysql_retValue($r,$col){mysql_logerror();$v=mysql_retSRow($r);if(!$v){return false;}return isset($v['`'.$col.'`'])?$v['`'.$col.'`']:$v[$col];}
 
 /* *************************************************
 *
