@@ -139,7 +139,7 @@ echo '<pre>';var_dump($v);echo '</pre>';
 */
 public static function str_slice($str,$len,$append = '...'){
 $str = trim($str);
-return strlen($str) > $len ? substr($str,0,$len-3).$append ? $str;
+return (strlen($str) > $len ? substr($str,0,$len-3).$append : $str);
 }
 
 }

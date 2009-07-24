@@ -31,8 +31,8 @@ $$t = str_replace($m[0],$block,$$t);
 $_PAGE['content'] = $$t;
 unset($$t);unset($t);
 
-$template = @file_get_contents($_PAGE['template']);
-if($template !== false){
+$template = @file_get_contents("templates/".basename($_PAGE['template']));
+
 $_TEMPLATE = array(
 '<$content$>'=>$_PAGE['content'],
 '<$title$>'=>$_PAGE['title'],
@@ -79,7 +79,7 @@ $_PAGE['buffer'] = str_replace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
 *  disable all html between the tags
 *
 ***************************** */
-preg_match_all('`(\<nohtml)([^\>]*)(\>)(.+?)(\<\/nohtml\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+preg_match_all('`(\<nohtml)([^\>]*)(\>)(.+?)(\<\/nohtml\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER);
 foreach($arr as $m){
 $_PAGE['buffer'] = str_replace($m[0],html::encode($m[4]),$_PAGE['buffer']);
 }
@@ -90,7 +90,7 @@ $_PAGE['buffer'] = str_replace($m[0],html::encode($m[4]),$_PAGE['buffer']);
 *  highlights php codes in colour
 *
 ***************************** */
-preg_match_all('`(\<php)([^\>]*)(\>)(.+?)(\<\/php\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+preg_match_all('`(\<php)([^\>]*)(\>)(.+?)(\<\/php\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER);
 foreach($arr as $m){
 $_PAGE['buffer'] = str_replace($m[0],highlight_string($m[4],true),$_PAGE['buffer']);
 }
@@ -101,7 +101,7 @@ $_PAGE['buffer'] = str_replace($m[0],highlight_string($m[4],true),$_PAGE['buffer
 *  converts all new line characters \n to <br/>
 *
 ***************************** */
-preg_match_all('`(\<nlbr([^\>]*)(\>)(.+?)(\<\/nlbr\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+preg_match_all('`(\<nlbr)([^\>]*)(\>)(.+?)(\<\/nlbr\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER);
 foreach($arr as $m){
 $_PAGE['buffer'] = str_replace($m[0],nl2br($m[4]),$_PAGE['buffer']);
 }
@@ -109,10 +109,5 @@ $_PAGE['buffer'] = str_replace($m[0],nl2br($m[4]),$_PAGE['buffer']);
 /* *********************************************
 * code for rendering custom html tags
 ********************************************** */
-
-}else{
-echo 'Sorry, website currently unavailable. Please try again later.<br/>'."\r\n".'8<br/>'."\r\n".'Site: '.$_SITE['approot'];
-exit;
-}
 
 ?>

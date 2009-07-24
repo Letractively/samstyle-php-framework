@@ -19,10 +19,10 @@ $_SITE = array(
 'name' => 'Samstyle Framework Test Application',
 /* Application name */
 
-'ver' => '1.2.4 BETA',
+'ver' => '1.2.5 BETA',
 /* Application version */
 
-'copyright' => 'Copyright (c) Sam Yong 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
+'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
 /* Copyright Information */
 
 'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'dbapp','connection'=>null),
@@ -73,6 +73,7 @@ $includes = array(
 'class/http.class.php',
 'class/php.class.php',
 'class/html.class.php',
+'class/form.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php' // cache
