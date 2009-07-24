@@ -1,0 +1,19 @@
+#summary List of predefined variables in Samstyle PHP Framework
+#labels Phase-Implementation
+
+= Introduction =
+
+Samstyle PHP Framework creates some variables which are loaded at `head.inc.php` and can be used throughout the whole script. However, these variables are not superglobal and thus using `global` or `g()` to call these variables is still required.
+
+
+= Predefined Variables =
+
+  * `config.inc.php`
+    * `$_SITE` - contains information about the website
+    * `$_PAGE` - contains information about the page
+    * `$includes` - all files that are included (dao, classes, includes)
+  * `head.inc.php`
+    * `$session_hash` - a CRC32 hash of the session ID, can be used for form security validation
+    * `$post` - all post headers. if `$_SITE['autoparsehttpargs']` is set to true, all post headers will be parsed with `parse_http_args()`
+    * `$get` - all get headers.  if `$_SITE['autoparsehttpargs']` is set to true, all post headers will be parsed with `parse_http_args()`
+    
