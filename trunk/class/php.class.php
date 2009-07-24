@@ -130,6 +130,18 @@ echo '<pre>';var_dump($v);echo '</pre>';
 }
 }
 
+/*
+* function str_slice($str, $len [, $append = '...']) - returns a string sliced if too long
+*   $str - the string to check
+*   $len - maximum length
+*   $append - the string to append behind if too long
+* returns a string.
+*/
+public static function str_slice($str,$len,$append = '...'){
+$str = trim($str);
+return strlen($str) > $len ? substr($str,0,$len-3).$append ? $str;
+}
+
 }
 
 ?>
