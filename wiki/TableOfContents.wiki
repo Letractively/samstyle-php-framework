@@ -1,3 +1,5 @@
+#summary Table of Contents
+
   * *[Home Home]*
   * *Articles*
    * [MVC MVC model]
@@ -5,3 +7,4 @@
    * [DatabaseDocumentation Database]
    * [TemplatesDocumentation Templates]
    * [PredefinedVariables Predefined Variables]
+   * [CustomHTMLTags Custom HTML tags]
