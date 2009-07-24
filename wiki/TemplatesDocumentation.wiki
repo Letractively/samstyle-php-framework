@@ -7,43 +7,58 @@ On this page, you're going to learn more about Templates in Samstyle PHP Framewo
 
 On top of the usual HTML and XHTML, Samstyle PHP Framework uses the <$tagname$> tags to insert content, variables and blocks into the template and then echo out the buffer.
 
-= Template Flow =
+= Work flow =
 
-  # Output is buffered into `$_PAGE['content']` variable through the use of p($string) function.
-  # Before the end of the PHP script, the `$_PAGE['content']` buffer is parsed by the framework.
-  # Then the final buffer that contains the actual contents will be output to the browser.
-
-= Reasons behind this flow =
-
-  * By reducing the number of echo output and instead use a variable buffering, the load time is reduced. This has been tested. (Test was to output `"testing 123<br/>"` 10000 times by buffering then echo, and directly echo. Time taken for buffering is 0.0580809116364 seconds and for direct echo is 0.183017015457 seconds)
-  * Allows `header()` calls within code and output instead of only before output.
-  * Allows a more consistent output.
+  # The view controllers includes the `template.inc.php` file using `include('inc/template.inc.php');`
+  # the Template manager aka `template.inc.php` parses and renders all blocks.
+  # Template manager retrieves the template file from `$_PAGE['template']`.
+  # Template manager creates an array `$_TEMPLATE` with relationship of `$tag => $value`. 
+  # Template manager then replaces all the instances of `$tag` with `$value`.
+  # lastly the manager parses all the [CustomHTMLTags customized html tags].
 
 = Tags in the templates =
 
 These are the following standard tags that will be parsed from the templates and the contents of the corresponding tags will replace the tags.
 {{{
-
 $_TEMPLATE = array(
-   '<$content$>'=>$_PAGE['content'],
-   '<$title$>'=>$_PAGE['title'],
-   '<$copyright$>' => $_SITEINFO['copyright'],
-   '<$cssurl$>' => $_PAGE['css'],
-   '<$baseurl$>' => $s_http[0],
-   '<$robots$>' => $_PAGE['robots'],
-   '<$header$>' => $_PAGE['header'],
-   '<$metarevisit$>' => '1',
-   '<$pagekeywords$>' => $_SITEINFO['keywords'],
-   '<$pagedescription$>' => $_SITEINFO['description'],
-   '<$logourl$>'=>$_PAGE['logourl'],
-   '<$content$>'=>$_PAGE['content'],
-   '<$version$>' => $_SITEINFO['ver'],
-   '<$footer$>' => $_PAGE['footer'],
-   '<$sitename$>' => $_SITEINFO['name'],
-   '<$approot$>'=>$_SITEINFO['approot'],
-   '<$sitelang$>'=>'en-gb',
-   '<$sessid$>' => session_id(),
-   '<$self$>' => $_SERVER['PHP_SELF']
+     '<$content$>'=>$_PAGE['content'],
+     '<$title$>'=>$_PAGE['title'],
+     '<$copyright$>' => $_SITE['copyright'],
+     '<$cssurl$>' => $_PAGE['css'],
+     '<$baseurl$>' => $_SITE['approot'],
+     '<$robots$>' => $_PAGE['robots'],
+     '<$header$>' => $_PAGE['header'],
+     '<$metarevisit$>' => '1',
+     '<$pagekeywords$>' => $_PAGE['keywords'],
+     '<$pagedescription$>' => $_PAGE['description'],
+     '<$logourl$>'=>$_PAGE['logourl'],
+     '<$content$>'=>$_PAGE['content'],
+     '<$version$>' => $_SITE['ver'],
+     '<$footer$>' => $_PAGE['footer'],
+     '<$sitename$>' => $_SITE['name'],
+     '<$approot$>'=>$_SITE['approot'],
+     '<$sitelang$>'=>'en-gb',
+     '<$sessid$>' => session_id(),
+     '<$self$>' => $_SERVER['PHP_SELF']
 );
+}}}
+Note: `$_PAGE` and `$_SITE` are [PredefinedVariables predefined variables] created by the framework. 
+
+= Blocks =
+Block is a new feature introduced in v0.9 of Samstyle PHP Framework. It is to allow programmer/developers to break down the code into smaller files and reduce repetition. 
+
+Block is actually an included file which is take place of the `<$block:name$>` tag, where `name` is the key registered in `$_PAGE['blocks']`.
+
+`$_PAGE['blocks']` is an array with the relation $key => $value, where $key is the identifier used with the tag name, e.g. `<$block:key$>`. $value is the content or file content to replace the tag. If $value is a PHP file in the blocks folder, the output of the file via `p()` will replace the tag instead.
+
+Example:
+{{{
+
+$_PAGE['blocks'] = array(
+'test' => 'foobar is awesome'
+);
+
+p('<$block:test$>');
+// outputs "foobar is awesome"
 
 }}}
