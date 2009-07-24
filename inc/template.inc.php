@@ -19,9 +19,9 @@ if($block==""){continue;} // continue if empty
 if(strpos($block,'.php')>0 && @file_exists($block)){ // check if block is a file
 $_PAGE['content'] = '';
 @include($block);
-$$t = str_ireplace($m[0],$_PAGE['content'],$$t);
+$$t = str_replace($m[0],$_PAGE['content'],$$t);
 }else{
-$$t = str_ireplace($m[0],$block,$$t);
+$$t = str_replace($m[0],$block,$$t);
 }
 }
 
@@ -54,7 +54,7 @@ $_TEMPLATE = array(
 '<$sessid$>' => session_id(),
 '<$self$>' => $_SERVER['PHP_SELF']
 );
-$_PAGE['buffer'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
+$_PAGE['buffer'] = str_replace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
 
 /* /////// OLD BLOCK RENDERING CODE ///////// 
 //foreach($_PAGE['blocks'] as $name => $block){
@@ -81,7 +81,7 @@ $_PAGE['buffer'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
 ***************************** */
 preg_match_all('`(\<nohtml)([^\>]*)(\>)(.+?)(\<\/nohtml\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
 foreach($arr as $m){
-$_PAGE['buffer'] = str_ireplace($m[0],html::encode($m[4]),$_PAGE['buffer']);
+$_PAGE['buffer'] = str_replace($m[0],html::encode($m[4]),$_PAGE['buffer']);
 }
 
 /* *****************************
@@ -92,9 +92,19 @@ $_PAGE['buffer'] = str_ireplace($m[0],html::encode($m[4]),$_PAGE['buffer']);
 ***************************** */
 preg_match_all('`(\<php)([^\>]*)(\>)(.+?)(\<\/php\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
 foreach($arr as $m){
-$_PAGE['buffer'] = str_ireplace($m[0],highlight_string($m[4],true),$_PAGE['buffer']);
+$_PAGE['buffer'] = str_replace($m[0],highlight_string($m[4],true),$_PAGE['buffer']);
 }
 
+/* *****************************
+*
+* <nlbr> string </nlbr>
+*  converts all new line characters \n to <br/>
+*
+***************************** */
+preg_match_all('`(\<nlbr([^\>]*)(\>)(.+?)(\<\/nlbr\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+foreach($arr as $m){
+$_PAGE['buffer'] = str_replace($m[0],nl2br($m[4]),$_PAGE['buffer']);
+}
 
 /* *********************************************
 * code for rendering custom html tags
