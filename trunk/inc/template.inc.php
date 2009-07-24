@@ -12,7 +12,7 @@ $t=php::tmp_var($_PAGE['content']);
 /* *********************************************
 * new code for rendering blocks
 ********************************************** */
-preg_match_all('`(<\$block\:)([a-zA-Z0-9]+)(\$>)`', $$t, $arr, PREG_SET_ORDER); // find all block occurance in the file
+preg_match_all('`(<\$block\:)([a-zA-Z0-9]+)(\$>)`is', $$t, $arr, PREG_SET_ORDER); // find all block occurance in the file
 foreach($arr as $m){
 $block = $_PAGE['blocks'][$m[2]]; // get the block content from $_PAGE['block']
 if($block==""){continue;} // continue if empty
@@ -24,6 +24,7 @@ $$t = str_ireplace($m[0],$_PAGE['content'],$$t);
 $$t = str_ireplace($m[0],$block,$$t);
 }
 }
+
 /* *********************************************
 * new code for rendering blocks
 ********************************************** */
@@ -66,6 +67,38 @@ $_PAGE['buffer'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
 //}
 //}
 /////// OLD BLOCK RENDERING CODE ///////// */
+
+
+/* *********************************************
+* code for rendering custom html tags
+********************************************** */
+
+/* *****************************
+*
+* <nohtml> html codes </nohtml>
+*  disable all html between the tags
+*
+***************************** */
+preg_match_all('`(\<nohtml\>)(.+?)(\<\/nohtml\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+foreach($arr as $m){
+$_PAGE['buffer'] = str_ireplace($m[0],html::encode($m[2]),$_PAGE['buffer']);
+}
+
+/* *****************************
+*
+* <php> php codes </php>
+*  highlights php codes in colour
+*
+***************************** */
+preg_match_all('`(\<php\>)(.+?)(\<\/php\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+foreach($arr as $m){
+$_PAGE['buffer'] = str_ireplace($m[0],highlight_string($m[2],true),$_PAGE['buffer']);
+}
+
+
+/* *********************************************
+* code for rendering custom html tags
+********************************************** */
 
 }else{
 echo 'Sorry, website currently unavailable. Please try again later.<br/>'."\r\n".'8<br/>'."\r\n".'Site: '.$_SITE['approot'];
