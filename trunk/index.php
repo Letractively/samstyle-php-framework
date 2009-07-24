@@ -18,8 +18,7 @@ p(html::create('p','Version <$version$>'));
 
 p('<$block:menubar$>');
 
-p(html::create('div','The project homepage on Google Code is at<br/>'.html::create('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin:120px 0;font-size:140%;')));
-/* // old code: p('<p>The project homepage on Google Code is at <a href="http://code.google.com/p/samstyle-php-framework/">http://code.google.com/p/samstyle-php-framework/</a></p>'); */
+p('<nlbr>'.html::create('div','The project homepage on Google Code is at'."\n".html::create('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin:120px 0;font-size:140%;')).'</nlbr>');
 
 p('<$block:footer$>');
 
