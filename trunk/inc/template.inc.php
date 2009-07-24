@@ -79,9 +79,9 @@ $_PAGE['buffer'] = str_ireplace(array_keys($_TEMPLATE),$_TEMPLATE,$template);
 *  disable all html between the tags
 *
 ***************************** */
-preg_match_all('`(\<nohtml\>)(.+?)(\<\/nohtml\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+preg_match_all('`(\<nohtml)([^\>]*)(\>)(.+?)(\<\/nohtml\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
 foreach($arr as $m){
-$_PAGE['buffer'] = str_ireplace($m[0],html::encode($m[2]),$_PAGE['buffer']);
+$_PAGE['buffer'] = str_ireplace($m[0],html::encode($m[4]),$_PAGE['buffer']);
 }
 
 /* *****************************
@@ -90,9 +90,9 @@ $_PAGE['buffer'] = str_ireplace($m[0],html::encode($m[2]),$_PAGE['buffer']);
 *  highlights php codes in colour
 *
 ***************************** */
-preg_match_all('`(\<php\>)(.+?)(\<\/php\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
+preg_match_all('`(\<php)([^\>]*)(\>)(.+?)(\<\/php\>)`is', $_PAGE['buffer'], $arr, PREG_SET_ORDER); // find all block occurance in the file
 foreach($arr as $m){
-$_PAGE['buffer'] = str_ireplace($m[0],highlight_string($m[2],true),$_PAGE['buffer']);
+$_PAGE['buffer'] = str_ireplace($m[0],highlight_string($m[4],true),$_PAGE['buffer']);
 }
 
 
