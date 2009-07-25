@@ -79,7 +79,7 @@ $includes = array(
 'class/form.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
-'inc/cache.inc.php' // cache
+'inc/cache.inc.php', // cache
 'dao/settings.dao.php' // settings dao
 );
 
