@@ -16,7 +16,7 @@ p(html::create('p','Version <$version$> | Paging Example'));
 
 p('<$block:menubar$>');
 
-$cur = (int)$_GET['p'];$total = 20;
+$cur = (int)$_GET['p'];$total = 20;if(!$cur){$cur = 1;}
 $arr = php::paging('page.php?p=%d',$cur, $total); // do paging calcs
 
 p(html::create('div','The project homepage on Google Code is at<br/>'.html::create('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin-top:120px;font-size:140%;')));
