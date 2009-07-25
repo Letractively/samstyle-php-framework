@@ -34,9 +34,12 @@ $_SITE = array(
 'approot'=>'http://localhost/ssphpfw/',
  /* Application root URL - for use at base tag and referencing */
 
-'autoparsehttpargs'=>true 
+'autoparsehttpargs'=>true,
 /* specify whether will auto parse HTTP arguments ($_GET or $_POST)
 into $get and $post to prevent injection/XSS or other threats */
+
+'session_length' => 36000
+/* the length of the session in seconds */
 );
 
 /* *************************************************
@@ -77,6 +80,7 @@ $includes = array(
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php' // cache
+'dao/settings.dao.php' // settings dao
 );
 
 ?>

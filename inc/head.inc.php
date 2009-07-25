@@ -27,7 +27,7 @@ foreach($includes as $inc){@include_once($inc);}
 *   setting session
 *
 ************************************************ */
-session_set_cookie_params((time()+36000), '/',get_domain($_SITE['approot']),false,true);
+session_set_cookie_params((time()+$_SITE['session_length']), '/',get_domain($_SITE['approot']),false,true);
 session_start();
 
 
