@@ -12,13 +12,13 @@ This tag will not work if you use the `echo` statement. You will need to use the
 = `<nohtml>` tag =
 
 || *Tag* || *Description* || *Example* ||
-|| nohtml || html entity encode all html codes within it. || `<nohtml><b>html code</b></nohtml>` ||
+|| nohtml || html entity encode all html codes within it. || `p('<nohtml><b>html code</b></nohtml>');` ||
 
 The `nohtml` tag encodes all active characters within it into HTML entities. This can be used in place of `html::encode()`, since `nohtml` also uses `html::encode()`.
 
 || *Example* ||
-|| `<nohtml><div class="d5">html <b>code</b></div></nohtml>` ||
-|| output at browser: ||
-|| `<div class="d5">html <b>code</b></div>` ||
+|| `p('<nohtml><div class="d5">html <b>code</b></div></nohtml>');` ||
+|| output at browser source: ||
+|| `&lt;div class="d5"&gt;html &lt;b&gt;code&lt;/b&gt;&lt;/div&gt;` ||
 
 This can be useful to remove XSS bugs where you need to display user-generated variables.
