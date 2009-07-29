@@ -11,15 +11,15 @@ include('inc/head.inc.php'); // include the core and engine
 
 p(html::c('Samstyle PHP Framework - Paging Example'));
 
-p(html::create('h1','Welcome to Samstyle PHP Framework'));
-p(html::create('p','Version <$version$> | Paging Example'));
+p(html::tag('h1','Welcome to Samstyle PHP Framework'));
+p(html::tag('p','Version <$version$> | Paging Example'));
 
 p('<$block:menubar$>');
 
 $cur = (int)$_GET['p'];$total = 20;if(!$cur){$cur = 1;}
 $arr = php::paging('page.php?p=%d',$cur, $total); // do paging calcs
 
-p(html::create('div','The project homepage on Google Code is at<br/>'.html::create('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin-top:120px;font-size:140%;')));
+p(html::tag('div','The project homepage on Google Code is at<br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin-top:120px;font-size:140%;')));
 
 p('<div style="margin-bottom:100px;margin-top:10px;">');
 p('You are on page '.$cur.' of '.$total.' pages.<br/>');

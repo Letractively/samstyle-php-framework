@@ -16,30 +16,36 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 $_SITE = array(
-'name' => 'Samstyle Framework Test Application',
 /* Application name */
+'name' => 'Samstyle Framework Test Application',
 
-'ver' => '1.2.5 BETA',
 /* Application version */
+'ver' => '1.2.6 BETA',
 
-'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
 /* Copyright Information */
+'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
 
+/* MySQL login information: s - server; u - username; p - password; udb - default database/schema */
 'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'dbapp','connection'=>null),
-/* MySQL login information */
 
+/* Enable GZIP or not - boolean */
 'enablegzip'=>true,
-/* Enable GZIP or not */
 
-'approot'=>'http://localhost/ssphpfw/',
  /* Application root URL - for use at base tag and referencing */
+'approot'=>'http://localhost/ssphpfw/',
 
-'autoparsehttpargs'=>true,
 /* specify whether will auto parse HTTP arguments ($_GET or $_POST)
 into $get and $post to prevent injection/XSS or other threats */
+'autoparsehttpargs'=>true,
 
-'session_length' => 36000
 /* the length of the session in seconds */
+'session_length' => 36000,
+
+/* maintenance mode - false or message string */
+'maintenance' => false
+/* hint: you can use 'maintenance' from a static HTML file
+    i.e. 'maintenance'=>file_get_contents('path/to/my.html')
+*/
 );
 
 /* *************************************************
@@ -66,11 +72,11 @@ blocks => array('menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php')
 
 /* *************************************************
 *
-*  $includes
-*  files that will be included
+*  $_includes
+*  files that will be included at head.inc.php
 *
 ************************************************* */
-$includes = array(
+$_includes = array(
 'inc/library.inc.php',
 'class/validate.class.php',
 'class/http.class.php',
@@ -82,5 +88,53 @@ $includes = array(
 'inc/cache.inc.php', // cache
 'dao/settings.dao.php' // settings dao
 );
+// $_includes = false; /* Set $_includes = false; to disable all includes for debugging */
+
+
+/* *************************************************
+*
+*  $_ajax
+*  information about the ajax deck
+*
+************************************************* */
+$_ajax = array(
+
+/*
+*   $_ajax['callback'] is a string of the Javascript callback function to call
+*/
+'callback'=>'',
+
+/*
+*   $_ajax['func'] is an array of string which all are name of functions
+*   which are allowed to call from Javascript. Functions not listed on this
+*   list will be disabled.
+*/
+'func'=>array( 
+'AJAXCall'
+),
+
+/*
+*   $_ajax['err'] is an array of error messages to display
+*/
+'err'=>array(
+'funcNotFound'=>'{\'err\':\'Function not found or disabled.\'}',
+'sessionFail'=>'{\'err\':\'Session is invalid.\'}',
+'invalidRef'=>'{\'err\':\'Call was from a non-local domain.\'}'
+),
+
+/*
+*   whether to check $get['sh'] against $session_hash to see
+*   if calling from same session.
+*/
+'sessCheck'=>true,
+
+/*
+*   whether to check HTTP_REFERER against $_SITE['app_root'] to
+*   see if call was from own domain or not.
+*/
+'refCheck'=>false
+
+);
+// $_ajax = false; /* Set $_ajax to false to disable AJAX to call PHP functions */
 
 ?>

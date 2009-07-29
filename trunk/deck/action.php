@@ -1,5 +1,14 @@
 <?php
-include('inc/head.inc.php');
+chdir('../');
+include('inc/head.inc.php'); // include the core and engine
+
+/* ****************************************************
+*
+*  Samstyle PHP Framework
+*  Deck Data Controller - for handling all form post and get request and handling DB access
+*  Created by: Sam Yong | Date/Time: 10:44am 30 June 2009 GMT+8
+*
+**************************************************** */
 
 // for ajax returns
 $result = array();
