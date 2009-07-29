@@ -26,6 +26,11 @@ public static function create($tag, $content = '', $attr = array()){
 $a = '';foreach($attr as $k=>$v){$a.=" $k=\"$v\"";}
 return "<$tag$a>$content</$tag>";}
 
+/* alias of create() function */
+public static function tag($tag, $content = '', $attr = array()){
+return self::create($tag,$content,$attr);
+}
+
 public static function encode($s){return htmlentities($s,ENT_NOQUOTES);}
 
 public static function decode($s){return html_entity_decode($s,ENT_NOQUOTES);}

@@ -13,12 +13,14 @@ $_PAGE['title'] = 'Samstyle PHP Framework';
 
 p(html::c('Samstyle PHP Framework'));
 
-p(html::create('h1','Welcome to Samstyle PHP Framework'));
-p(html::create('p','Version <$version$>'));
+p(html::tag('h1','Welcome to Samstyle PHP Framework'));
+p(html::tag('p','Version <$version$>'));
 
 p('<$block:menubar$>');
 
-p('<nlbr>'.html::create('div','The project homepage on Google Code is at'."\n".html::create('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin:120px 0;font-size:140%;')).'</nlbr>');
+p('<nlbr>'.html::tag('div','The project homepage on Google Code is at'."\n".html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin:120px 0;font-size:140%;')).'</nlbr>');
+
+p('<nlbr>'.html::tag('div','AJAX PHP function call<br/>'.html::tag('small','<a href="deck/ajax.php?f=AJAXCall&p[]='.time().'&amp;p[]=0&amp;sh='.$session_hash.'">Actual Valid Call</a> | <a href="deck/ajax.php?f=AJAXCall&p[]='.time().'&amp;p[]=0">Without Session</a>'),array('style'=>'margin:120px 0;font-size:140%;')).'</nlbr>');
 
 p('<$block:footer$>');
 
