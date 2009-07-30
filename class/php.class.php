@@ -58,6 +58,10 @@ if(is_array($a)){return $a[$k];}
 return $a;
 }
 
+public static function ver($s = ''){
+return phpversion($s);
+}
+
 /*
 * function paging($urlpat,$current, $max, [$min = 1 [, $show = 3]]) - creates an array with appropriate paging
 *   $urlpat - a string of the URL. use %d for replacement of the page number.

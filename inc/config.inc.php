@@ -20,7 +20,10 @@ $_SITE = array(
 'name' => 'Samstyle Framework Test Application',
 
 /* Application version */
-'ver' => '1.2.6 BETA',
+'ver' => '1.0.0',
+
+/* Framework version */
+'fwver' => '1.2.6 BETA',
 
 /* Copyright Information */
 'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',

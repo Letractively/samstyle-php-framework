@@ -19,14 +19,15 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 ************************************************* */
 
 function mysql_squeryf($sq /*, args ... */) {
-$argv = func_get_args();$argc = count($argv);$p = array();
+$argv = func_get_args();$argc = func_num_args();$p = array();
 
 if ($argc > 1) {
-for($x=1;$x<$argc;$x++) { 
-if(is_string($argv[$x])){
-$p[]='\''.mysql_real_escape_string($argv[$x]).'\'';
-}elseif(is_scalar($argv[$x])){
-$p[]=$argv[$x];
+$argv = func_get_args();
+foreach($argv as $v){
+if(is_string($v)){
+$p[]='\''.mysql_real_escape_string($v).'\'';
+}elseif(is_scalar($v)){
+$p[]=$v;
 }else{return false;}
 }
 $ok=vsprintf($sq, $p);
