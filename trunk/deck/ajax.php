@@ -12,6 +12,22 @@ include('inc/head.inc.php'); // include the core and engine
  
 if(!$_ajax){exit;} // end if AJAX is false;
 
+if(isset($_GET['genjs'])){
+
+header('Content-Type: text/javascript; charset=utf-8');
+
+p('/* Generated with Samstyle PHP Framework */');
+p('var __d=document; var __h = __d.getElementsByTagName("head").item(0); function sc(a,b){var s = __d.createElement("script");s.setAttribute("src", a);s.id=b||"";__h.appendChild(s);}');
+p('function ats(a){var s="";var v = new Array();for(b in a){v[v.length]="p[]="+escape(b);}s=v.join("&");}');
+foreach($_ajax['func'] as $func){
+p('function '.$func.'(a,c){if(a==null||c==""){return;}var s=ats(a);sc("'.$_SITE['approot'].'deck/ajax.php?f='.$func.'&"+s+"'.($_ajax['sessCheck']?'&sh='.$session_hash:'').'&callback="+escape(c),"'.$func.'");}');
+}
+
+echo $_PAGE['content']; // output buffer from $_PAGE['content'] only
+/* reason being that we do not want to render template into it */
+
+}else{
+
 /* ****************************
 *
 * file GET params
@@ -55,8 +71,11 @@ if(!in_array($func,$_ajax['func'])){
 }
 }
 
-if($_ajax['callback']){echo $_ajax['callback'].'(';}
+
+if(isset($get['callback'])){echo html::encode($get['callback']).'(';}elseif($_ajax['callback']){echo $_ajax['callback'].'(';}
 echo $_PAGE['content']; // output buffer from $_PAGE['content'] only
-if($_ajax['callback']){echo ');';}
+if(isset($get['callback'])){echo ');';}elseif($_ajax['callback']){echo ');';}
 /* reason being that we do not want to render template into it */
+}
+
 ?>
