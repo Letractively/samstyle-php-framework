@@ -11,8 +11,11 @@ include('inc/head.inc.php'); // include the core and engine
 
 p(html::c('Samstyle PHP Framework - Paging Example'));
 
+p('<div id="updates" style="float:right;text-align:right"></div>');
+p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: "+a.stable+"<br/>Latest Development: "+a.dev;}getVersions(new Array(),\'newUpdate\');'));
+
 p(html::tag('h1','Welcome to Samstyle PHP Framework'));
-p(html::tag('p','Version <$version$> | Paging Example'));
+p(html::tag('p','Framework Version <$fwversion$> | Paging Example'));
 
 p('<$block:menubar$>');
 
