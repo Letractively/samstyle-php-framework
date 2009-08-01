@@ -12,6 +12,7 @@ include('inc/head.inc.php'); // include the core and engine
  
 if(!$_ajax){exit;} // end if AJAX is false;
 
+$_PAGE['content']='';
 if(isset($_GET['genjs'])){
 
 header('Content-Type: text/javascript; charset=utf-8');

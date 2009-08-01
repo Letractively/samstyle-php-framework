@@ -95,5 +95,11 @@ $get = &$_GET;
 }
 
 
+/* ************************************************
+* whether auto register php-js enabled functions or not
+************************************************ */
+if($_ajax && $_SITE['autoregisterjsfunction']){
+p(html::jsf('deck/ajax.php?genjs'));
+}
 
 ?>

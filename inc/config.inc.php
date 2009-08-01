@@ -23,7 +23,7 @@ $_SITE = array(
 'ver' => '1.0.0',
 
 /* Framework version */
-'fwver' => '1.2.6 BETA',
+'fwver' => '1.2.7 RC',
 
 /* Copyright Information */
 'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
@@ -45,10 +45,14 @@ into $get and $post to prevent injection/XSS or other threats */
 'session_length' => 36000,
 
 /* maintenance mode - false or message string */
-'maintenance' => false
+'maintenance' => false,
 /* hint: you can use 'maintenance' from a static HTML file
     i.e. 'maintenance'=>file_get_contents('path/to/my.html')
 */
+
+/* whether or not to automatically register all PHP-JS enabled functions. boolean*/
+'autoregisterjsfunction' => true
+/* NOTE: only works when $_ajax is not set to false */
 );
 
 /* *************************************************
