@@ -113,7 +113,8 @@ $_ajax = array(
 *   list will be disabled.
 */
 'func'=>array( 
-'AJAXCall'
+'AJAXCall',
+'getVersions'
 ),
 
 /*
