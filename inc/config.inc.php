@@ -86,6 +86,7 @@ $_includes = array(
 'class/php.class.php',
 'class/html.class.php',
 'class/form.class.php',
+'class/bit.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php', // cache

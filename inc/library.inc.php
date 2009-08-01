@@ -343,29 +343,16 @@ return rtrim($c_url.'/?'.$get_datas,'?&');
 }
 
 /* see if it is bot or not. */
-function isbot($agent="")
-    {
-    //Handfull of Robots
-    $bot_array      =array("jeevesteoma",
-                                   "msnbot",
-                                   "slurp",
-                                   "jeevestemoa",
-                                   "gulper",
-                                   "googlebot",
-                                   "linkwalker",
-                                   "validator",
-                                   "webaltbot",
-                                   "wget");
-    //no agent given => read from globals
-    if ($agent=="")
-        {
-        @$agent=$_SERVER["HTTP_USER_AGENT"];
-        }
-    //replace all but alphabets
-    $agent=strtolower(preg_replace("/[^a-zA-Z _]*/","",$agent));
-    //check für intersections
-    return((BOOL)count(array_intersect(explode(" ",$agent),$bot_array)));
-    }
+function isbot($agent=''){
+//Handfull of Robots
+$bot_array =array('jeevesteoma','msnbot','slurp','jeevestemoa', 'gulper', 'googlebot', 'linkwalker', 'validator', 'webaltbot', 'wget','bot');
+//no agent given => read from globals
+if ($agent==''){@$agent=$_SERVER['HTTP_USER_AGENT'];}
+//replace all but alphabets
+$agent=strtolower(preg_replace('/[^a-zA-Z _]*/','',$agent));
+//check for intersections
+return((bool)count(array_intersect(explode(' ',$agent),$bot_array)));
+}
 
 function rewrite_clean($url){
 $a_url = explode('-',strtolower(preg_replace('`[^a-zA-Z_]`','-',htmlspecialchars_decode($url))));
