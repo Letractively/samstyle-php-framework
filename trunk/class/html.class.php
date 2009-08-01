@@ -14,6 +14,9 @@ class html{
 /* returns a HTML js string with script tag: pre-formatted for XHTML, HTML OK */
 public static function js($s){return self::create('script','/*<![CDATA[*/ '.$s.' /*]]>*/',array('type'=>'text/javascript'));}
 
+/* returns a HTML script tag with src link to file: pre-formatted for XHTML, HTML OK */
+public static function jsf($f){return self::create('script','',array('type'=>'text/javascript','src'=>$f));}
+
 /* returns a HTML css string with style tag: pre-formatted for XHTML, HTML OK */
 public static function css($s){return self::create('style',self::c($s),array('type'=>'text/css'));}
 

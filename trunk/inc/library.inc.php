@@ -423,6 +423,7 @@ $mime = $m[count($m)-1];
 switch($mime){
 case 'jpg': return 'jpg'; break;
 case 'jpeg': return 'jpg'; break;
+case 'pjpeg': return 'jpg'; break;
 case 'png': return 'png'; break;
 case 'gif': return 'gif'; break;
 }
