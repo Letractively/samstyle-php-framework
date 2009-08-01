@@ -47,6 +47,7 @@ $_TEMPLATE = array(
 '<$logourl$>'=>$_PAGE['logourl'],
 '<$content$>'=>$_PAGE['content'],
 '<$version$>' => $_SITE['ver'],
+'<$fwversion$>' => $_SITE['fwver'],
 '<$footer$>' => $_PAGE['footer'],
 '<$sitename$>' => $_SITE['name'],
 '<$approot$>'=>$_SITE['approot'],

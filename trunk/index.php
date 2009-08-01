@@ -14,7 +14,7 @@ $_PAGE['title'] = 'Samstyle PHP Framework';
 p(html::c('Samstyle PHP Framework'));
 
 p(html::tag('h1','Welcome to Samstyle PHP Framework'));
-p(html::tag('p','Version <$version$>'));
+p(html::tag('p','Framework Version <$fwversion$>'));
 
 p('<$block:menubar$>');
 

@@ -146,6 +146,18 @@ $str = trim($str);
 return (strlen($str) > $len ? substr($str,0,$len-3).$append : $str);
 }
 
+
+/*
+* function parse_backtrace($r) - returns a string formatted properly like debug_print_backtrace()
+*   $r - the array returned by debug_backtrace()
+* returns a string.
+*/
+public static function parse_backtrace($r){
+$o='';       
+foreach($r as $e){$o .= "\n".$e['function'].'('.(count($e['args'])>0?implode(', ',$e['args']):'').') was called at ['.$e['file'].':'.$e['line'].']';}
+return $o;
+} 
+
 }
 
 ?>
