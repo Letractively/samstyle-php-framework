@@ -18,19 +18,19 @@ class bit{
  *   So, best is to use this simple init every time you
  *   create a new bitfield variable. */
 
-function init(&$bf){$bf = ($bf| 0);}
+function init(&$bf){$bf = ($bf|0);}
 
 /* Return true or false, depending on if the bit is set */
-function query_bit($bf,$bit){return ($bitfield&$bit);}
+function query_bit($bf,$n){return ($bf&$n);}
 
 /* Force a specific bit(pattern) to ON */
-function set_bit(&$bitfield,$bit){$bitfield |= $bit;}
+function on(&$bf,$n){$bf|=$n;}
 
 /* Force a specific bit(pattern) to be OFF */
-function remove_bit(&$bitfield,$bit){$bitfield &= ~$bit;}
+function off(&$bf,$n){$bitfield&=~$n;}
 
 /* Toggle a bit(pattern), so bits that are on are turned off, and bits that are off are turned on. */
-function toggle_bit(&$bitfield,$bit){$bitfield ^= $bit;}
+function toggle(&$bf,$n){$bf^=$n;}
 
 }
 
