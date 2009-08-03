@@ -19,10 +19,11 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 ************************************************* */
 
 function mysql_squeryf($sq /*, args ... */) {
-$argv = func_get_args();$argc = func_num_args();$p = array();
+$argc = func_num_args();$p = array();
 
 if ($argc > 1) {
 $argv = func_get_args();
+array_shift($argv);
 foreach($argv as $v){
 if(is_string($v)){
 $p[]='\''.mysql_real_escape_string($v).'\'';
