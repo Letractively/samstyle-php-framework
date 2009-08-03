@@ -160,20 +160,16 @@ return $val;
 }
 
 function parse_http_args($http_params, $keys=array()) {
-  $result = array();
+$result = array();
 if(count($keys)>0){
-  foreach ($keys as $key) {
-    $result[$key] = no_magic_quotes(idx($http_params, $key));
-  }
+foreach($keys as $key) {$result[$key] = no_magic_quotes(idx($http_params, $key));}
 }else{
-foreach($http_params as $k => $v){
-$result[$k] = no_magic_quotes($v);
+foreach($http_params as $k => $v){$result[$k] = no_magic_quotes($v);}
 }
-}
-  return $result;
+return $result;
 }
 
-/* sending email wtih a html body */
+/* sending email wtih a html body and no-html support */
 function html_mail($to, $subject, $html_message, $from_address, $from_display_name=''){
 $email_from_addr = $from_address;$email_from_name = $from_display_name;
 $email_subject =  $subject;$email_txt = $html_message;$email_to = $to;
@@ -181,7 +177,7 @@ $headers = $email_from_name == '' ? "From: ".$email_from_addr : "From: ".$email_
 $semi_rand = md5(time()); $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
 $email_message .= "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type:text/html; charset=\"utf-8\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . 
-$email_txt . "\n\n\n";
+$email_txt . "\n\n\n". "--{$mime_boundary}\n" . "Content-Type:text/plan; charset=\"utf-8\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . strip_tags($email_txt)."\n\n\n";
 $ok = @mail($email_to, $email_subject, $email_message, $headers,'-odb'); 
 return $ok;}
 

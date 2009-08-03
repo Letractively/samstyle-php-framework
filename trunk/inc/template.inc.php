@@ -8,10 +8,14 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 
-$t=php::tmp_var($_PAGE['content']);
+$template = @file_get_contents("templates/".basename($_PAGE['template']));
+
+$template = str_replace('<$content$>',$_PAGE['content'],$template); // replace content first
+
 /* *********************************************
 * new code for rendering blocks
 ********************************************** */
+$t=php::tmp_var($template);
 preg_match_all('`(<\$block\:)([a-zA-Z0-9]+)(\$>)`is', $$t, $arr, PREG_SET_ORDER); // find all block occurance in the file
 foreach($arr as $m){
 $block = $_PAGE['blocks'][$m[2]]; // get the block content from $_PAGE['block']
@@ -24,17 +28,13 @@ $$t = str_replace($m[0],$_PAGE['content'],$$t);
 $$t = str_replace($m[0],$block,$$t);
 }
 }
-
+$template = $$t;
+unset($$t);unset($t);
 /* *********************************************
 * new code for rendering blocks
 ********************************************** */
-$_PAGE['content'] = $$t;
-unset($$t);unset($t);
-
-$template = @file_get_contents("templates/".basename($_PAGE['template']));
 
 $_TEMPLATE = array(
-'<$content$>'=>$_PAGE['content'],
 '<$title$>'=>$_PAGE['title'],
 '<$copyright$>' => $_SITE['copyright'],
 '<$cssurl$>' => $_PAGE['css'],
