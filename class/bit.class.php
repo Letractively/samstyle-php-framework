@@ -21,16 +21,16 @@ class bit{
 function init(&$bf){$bf = ($bf|0);}
 
 /* Return true or false, depending on if the bit is set */
-function query_bit($bf,$n){return ($bf&$n);}
+function query($bf,$n){$n = pow(2,$n);return ($bf&$n);}
 
-/* Force a specific bit(pattern) to ON */
-function on(&$bf,$n){$bf|=$n;}
+/* Force a specific bit to ON */
+function on(&$bf,$n){$n = pow(2,$n);$bf|=$n;}
 
-/* Force a specific bit(pattern) to be OFF */
-function off(&$bf,$n){$bitfield&=~$n;}
+/* Force a specific bit to be OFF */
+function off(&$bf,$n){$n = pow(2,$n);$bf&=~$n;}
 
-/* Toggle a bit(pattern), so bits that are on are turned off, and bits that are off are turned on. */
-function toggle(&$bf,$n){$bf^=$n;}
+/* Toggle a bit, so bits that are on are turned off, and bits that are off are turned on. */
+function toggle(&$bf,$n){$n = pow(2,$n);$bf^=$n;}
 
 }
 
