@@ -14,19 +14,22 @@ $_PAGE['title'] = 'Samstyle PHP Framework';
 p(html::c('Samstyle PHP Framework'));
 
 p('<div id="updates" style="float:right;text-align:right"></div>');
-p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: "+a.stable+"<br/>Latest Development: "+a.dev;}getVersions(new Array(),\'newUpdate\');'));
+p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"</a><br/>Current Development: "+a.dev;}getVersions(new Array(),\'newUpdate\');'));
 
 p(html::tag('h1','Welcome to Samstyle PHP Framework'));
 p(html::tag('p','Framework Version <$fwversion$>'));
 
 p('<$block:menubar$>');
 
-p('<nlbr>'.html::tag('div','The project homepage on Google Code is at'."\n".html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin:120px 0;font-size:140%;')).'</nlbr>');
+p('<div id="box">');
+p('<nlbr>'.html::tag('div','Congratulations you have successfully run'."\n".'an application on Samstyle PHP Framework <$fwversion$>','style="padding:50px 0;font-size:220%;"').'</nlbr>');
 
 p(html::tag('div','',array('id'=>'rbox')));
 p(html::js('function showReply(a){document.getElementById("rbox").innerHTML = "Server reply: "+a.date+" "+a.time;}'));
 
-p('<nlbr>'.html::tag('div','AJAX PHP function call<br/>'.html::tag('small','<a href="deck/ajax.php?f=AJAXCall&p[]='.time().'&amp;p[]=0&amp;sh='.$session_hash.'">Actual Valid Call</a> | <a href="deck/ajax.php?f=AJAXCall&p[]='.time().'&amp;p[]=0">Without Session</a> | <a href="#" onclick="AJAXCall(new Array(),\'showReply\');return false;">Javascript</a>'),array('style'=>'margin-bottom:120px;font-size:140%;')).'</nlbr>');
+p('<nlbr>'.html::tag('div','AJAX PHP function call<br/>'.html::tag('small','<a href="deck/ajax.php?f=AJAXCall&p[]='.time().'&amp;p[]=0&amp;sh='.$session_hash.'">Actual Valid Call</a> | <a href="deck/ajax.php?f=AJAXCall&p[]='.time().'&amp;p[]=0">Without Session</a> | <a href="#" onclick="AJAXCall(new Array(),\'showReply\');return false;">Javascript</a>'),array('style'=>'padding-bottom:120px;font-size:140%;')).'</nlbr>');
+
+p('</div>');
 
 p('<$block:footer$>');
 

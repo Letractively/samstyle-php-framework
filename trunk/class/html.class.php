@@ -23,10 +23,17 @@ public static function css($s){return self::create('style',self::c($s),array('ty
 /* returns a HTML comment string */
 public static function c($s){return '<!-- '.$s.' -->';}
 
+/* returns a HTML string with img tag: pre-formatted for XHTML, HTML OK */
+public static function img($s,$a = ''){return str_replace('></img>','/>',self::create('img','',array('alt'=>$a,'src'=>$s)));}
+
 public static function link($h, $t = ''){return self::create('a',(!$t?$h:$t),array('href'=>$h));}
 
 public static function create($tag, $content = '', $attr = array()){
+if(is_array($attr)){
 $a = '';foreach($attr as $k=>$v){$a.=" $k=\"$v\"";}
+}else{
+$a = ' '.$attr;
+}
 return "<$tag$a>$content</$tag>";}
 
 /* alias of create() function */

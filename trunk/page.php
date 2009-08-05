@@ -12,19 +12,20 @@ include('inc/head.inc.php'); // include the core and engine
 p(html::c('Samstyle PHP Framework - Paging Example'));
 
 p('<div id="updates" style="float:right;text-align:right"></div>');
-p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: "+a.stable+"<br/>Latest Development: "+a.dev;}getVersions(new Array(),\'newUpdate\');'));
+p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"</a><br/>Current Development: "+a.dev;}getVersions(new Array(),\'newUpdate\');'));
 
 p(html::tag('h1','Welcome to Samstyle PHP Framework'));
 p(html::tag('p','Framework Version <$fwversion$> | Paging Example'));
 
 p('<$block:menubar$>');
 
+p('<div id="box">');
 $cur = (int)$_GET['p'];$total = 20;if(!$cur){$cur = 1;}
 $arr = php::paging('page.php?p=%d',$cur, $total); // do paging calcs
 
-p(html::tag('div','The project homepage on Google Code is at<br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'margin-top:120px;font-size:140%;')));
+p(html::tag('div','The project homepage on Google Code is at<br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'padding-top:120px;font-size:140%;')));
 
-p('<div style="margin-bottom:100px;margin-top:10px;">');
+p('<div style="padding-bottom:100px;padding-top:10px;">');
 p('You are on page '.$cur.' of '.$total.' pages.<br/>');
 /* do paging display */
 foreach($arr as $a){
@@ -38,6 +39,8 @@ p($a); // is a "..."
 p('&nbsp;');
 }
 /* do paging display */
+p('</div>');
+
 p('</div>');
 
 p('<$block:footer$>');
