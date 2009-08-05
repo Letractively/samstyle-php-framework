@@ -7,3 +7,5 @@
 **************************************************** */
 
 body{font-family:"trebuchet ms", "tahoma", "san serif";font-size:14px;}
+#ctns{margin:0 auto; width:800px;}
+#box{background: #FFF url(img/ssphpfw.png) no-repeat; background-position:bottom right;}
