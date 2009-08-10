@@ -23,7 +23,7 @@ $_SITE = array(
 'ver' => '1.0.0',
 
 /* Framework version */
-'fwver' => '1.2.8',
+'fwver' => '1.2.9 Alpha',
 
 /* Copyright Information */
 'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
