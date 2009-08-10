@@ -20,7 +20,7 @@ p(html::tag('p','Framework Version <$fwversion$> | Paging Example'));
 p('<$block:menubar$>');
 
 p('<div id="box">');
-$cur = (int)$_GET['p'];$total = 20;if(!$cur){$cur = 1;}
+$cur = isset($_GET['p'])?(int)$_GET['p']:1;$total = 20;if(!$cur){$cur = 1;}
 $arr = php::paging('page.php?p=%d',$cur, $total); // do paging calcs
 
 p(html::tag('div','The project homepage on Google Code is at<br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'padding-top:120px;font-size:140%;')));

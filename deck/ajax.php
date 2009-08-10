@@ -19,9 +19,9 @@ header('Content-Type: text/javascript; charset=utf-8');
 
 p('/* Generated with Samstyle PHP Framework */');
 p('var __d=document; var __h = __d.getElementsByTagName("head").item(0); function sc(a,b){var s = __d.createElement("script");s.setAttribute("src", a);s.id=b||"";__h.appendChild(s);}');
-p('function ats(a){var s="";var v = new Array();for(b in a){v[v.length]="p[]="+escape(b);}s=v.join("&");}');
+p('function ats(a){var s="";var v = new Array();for(b in a){v[v.length]="p[]="+escape(b);}s=v.join("&");if(typeof s == "undefined"){s = ""}return s;}');
 foreach($_ajax['func'] as $func){
-p('function '.$func.'(a,c){if(a==null||c==""){return;}var s=ats(a);sc("'.$_SITE['approot'].'deck/ajax.php?f='.$func.'&"+s+"'.($_ajax['sessCheck']?'&sh='.$session_hash:'').'&callback="+escape(c),"'.$func.'");}');
+p('function '.$func.'(a,c){if(a==null||c==""){return;}var s=ats(a);sc("'.$_SITE['approot'].'deck/ajax.php?f='.$func.'"+(s!=""?'&'+s:'')+"'.($_ajax['sessCheck']?'&sh='.$session_hash:'').'&callback="+escape(c),"'.$func.'");}');
 }
 
 echo $_PAGE['content']; // output buffer from $_PAGE['content'] only
@@ -58,6 +58,7 @@ $func = $get['f'];
 if(!in_array($func,$_ajax['func'])){
    p($_ajax['err']['funcNotFound']);
 }else{
+if(isset($get['p'])){
    $p = $get['p'];
    if(!isset($get['p'])){
       $p = array();
@@ -65,9 +66,11 @@ if(!in_array($func,$_ajax['func'])){
    if(!is_array($p)){
       $p = array($p);
    }
+}else{
+   $p = array();
+}
    $ret = call_user_func_array($func, $p);
    p($ret);
-
 }
 }
 }
