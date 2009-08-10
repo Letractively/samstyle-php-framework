@@ -11,18 +11,32 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
 class php{
 
+/*
+* function inc_only() - exits script if the file was not called by incude
+*/
 public static function inc_only(){
-if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
+if(!self::is_inc()){exit();}
 }
 
+/*
+* function no_inc() - exits script if the file has been included
+*/
 public static function no_inc(){
-if(basename(__FILE__) != basename($_SERVER['PHP_SELF'])){exit();}
+if(self::is_inc()){exit();}
 }
 
+/*
+* function is_inc() - returns true or false whether the file has been included
+* returns a boolean telling whether the current script is included or not.
+*/
 public static function is_inc(){
-if(basename(__FILE__) != basename($_SERVER['PHP_SELF'])){return true;} return false;
+return (basename(__FILE__) != basename($_SERVER['PHP_SELF'])); return false;
 }
 
+/*
+* function ip() - returns a string
+* returns the secondary IP address of the client
+*/
 public static function ip() {
 $IP = '';
 if (getenv('HTTP_CLIENT_IP')) {$IP =getenv('HTTP_CLIENT_IP');}
@@ -36,10 +50,16 @@ $IP = $_SERVER['REMOTE_ADDR'];
 return $IP;
 }
 
+/*
+* function var_name() - returns a string
+*  &$var - the variable to get the name
+*  $scope - the array to look for, default is $GLOBALS. can be $_POST, $_SESSION, $_GET or any other array.
+* returns the variable name of a variable.
+*/
 public static function var_name(&$var, $scope=0)
 {
     $old = $var;
-    if (($key = array_search($var = 'unique'.rand().'value', !$scope ? $GLOBALS : $scope)) && $var = $old) return $key; 
+    if(($key = array_search($var = 'unique'.rand().'value', !$scope ? $GLOBALS : $scope)) && $var = $old) return $key; 
 }
 
 /*
@@ -58,6 +78,11 @@ if(is_array($a)){return $a[$k];}
 return $a;
 }
 
+/*
+* function ver($s) - gets the PHP or extension version
+*  $s - an extension to get the version
+* returns a string
+*/
 public static function ver($s = ''){
 return phpversion($s);
 }
@@ -157,6 +182,45 @@ $o='';
 foreach($r as $e){$o .= "\n".$e['function'].'('.(count($e['args'])>0?implode(', ',$e['args']):'').') was called at ['.$e['file'].':'.$e['line'].']';}
 return $o;
 } 
+
+/*
+* function xml($a) - returns either a XML string or Array (created from XML)
+*   $a - an XML string or array to be converted
+* if $a is an array, it will be parsed and converted into an XML string
+* if $a is a string, it will be parsed and converted back into a PHP array
+*/
+public static function xml($a) {
+if(is_array($a)){
+$x = '';
+foreach ($a as $k=>$v){
+$k=strtolower($k);
+if(is_array($v)){
+$x .='<'.$k.'>'."\n";$x .=xml($v);$x .='</'.$k.'>'."\n";
+}else{
+if(trim($v)!=''){
+if(htmlspecialchars($v)!=$v){
+$x .= '<'.$k.'><![CDATA['.$v.']]></'.$k.'>'."\n";
+}else{
+$x .= '<'.$k.'>'.$v.'</'.$k.'>'."\n";
+}
+}else{
+$x .='<'.$k.' />';
+}
+}
+}
+}else{
+$x = array();
+@preg_match_all('`<([A-Z][A-Z0-9]*)\b[^>]*>(.*?)</\1>`is',$a,$m,PREG_SET_ORDER);
+if(count($m)){
+foreach($m as $i){
+$x[$i[1]]=xml($i[2]);
+}
+}else{
+$x=str_replace(array('<![CDATA[',']]>'),'',$a);
+}
+}
+return $x;
+}
 
 }
 
