@@ -43,6 +43,9 @@ Do not include this file from other PHP files: it will not work and
 will only leave security vulnerabilities to your application.
 */
 
+$acceptencoding = explode(',' ,$_SERVER['HTTP_ACCEPT_ENCODING']);
+foreach($acceptencoding as $id=>$encode){$acceptencoding[$id] = trim($encode);}
+ if(in_array('gzip',$acceptencoding)){ob_start('ob_gzhandler');header('Content-Encoding: gzip');} 
 
 // possible type of files that can be processed
 $types = array('text/css; charset=utf-8',
