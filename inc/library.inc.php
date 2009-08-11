@@ -114,9 +114,10 @@ if(!function_exists('str_ireplace')){
 
 /* do a proper redirect */
 function redirect($url){
-header('Location: '.$url);
-exit;
-}
+if(trim($url) == ''){return;}
+header($_SERVER["SERVER_PROTOCOL"]." 302 Found");
+if(substr($url,0,1)=='/'){$url = http::domain($_SITE['app_root']).($url != '/'?substr($url,1):'');}
+header('Location: '.$url);exit;}
 
 /**
  *  Returns $arr[$idx], because php doesn't let you index into
