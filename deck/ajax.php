@@ -16,6 +16,9 @@ $_PAGE['content']='';
 if(isset($_GET['genjs'])){
 
 header('Content-Type: text/javascript; charset=utf-8');
+header('Expires: '.gmdate('r',time()+(3600*24*30)));
+header('Cache-Control: max-age=7800, must-revalidate');
+header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
 
 p('/* Generated with Samstyle PHP Framework */');
 p('var __d=document; var __h = __d.getElementsByTagName("head").item(0); function sc(a,b){var s = __d.createElement("script");s.setAttribute("src", a);s.id=b||"";__h.appendChild(s);}');
