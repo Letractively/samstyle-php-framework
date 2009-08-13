@@ -73,6 +73,15 @@ g($t,$v);
 return $t;
 }
 
+
+/*
+* function idx($array, $key) - gets the value of $array[$key]
+*       useful for something like $v = idx(funcArray(),'key');
+*       since PHP does not allow funcArray()['key']
+*  $array - the array
+*  $key - the key to get the value
+* returns $array[$key]
+*/
 public static function idx($a,$k){
 if(is_array($a)){return $a[$k];}
 return $a;
@@ -85,6 +94,20 @@ return $a;
 */
 public static function ver($s = ''){
 return phpversion($s);
+}
+
+/*
+* function func_name() - gets the current function name
+*        to be called in a function
+* returns a string
+*/
+public static function func_name(){
+$bt = debug_backtrace();
+$ret = '';
+if(isset($bt[1]) && isset($bt[1]['function'])){
+$ret = $bt[1]['function'];
+}
+return $ret;
 }
 
 /*
@@ -152,7 +175,7 @@ public static function mtime(){
 public static function dump($v,$t = true){
 if($t){
 $ret = '';
-$ret .= '<pre>';$ret .= var_export($v,$true);$ret .= '</pre>';
+$ret .= '<pre>';$ret .= var_export($v,true);$ret .= '</pre>';
 return $ret;
 }else{
 echo '<pre>';var_dump($v);echo '</pre>';
