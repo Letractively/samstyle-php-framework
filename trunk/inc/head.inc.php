@@ -14,6 +14,11 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 $c = @include_once('inc/config.inc.php');
 
 /* ************************************************
+* make sure that approot is added with a slash at the back
+************************************************ */
+if(substr($_SITE['approot'],-1) != '/'){$_SITE['approot'].='/'}
+
+/* ************************************************
 * check if maintenance mode. check first to reduce load
 ************************************************ */
 if($_SITE['maintenance']){
