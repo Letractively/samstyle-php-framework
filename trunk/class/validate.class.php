@@ -15,13 +15,11 @@ public static $email_regex = "`^[a-z0-9!#$%&'*+\/=?^_\`{|}~-]+(?:\.[a-z0-9!#$%&'
 public static $url_regex = "`^(https?|ftp)\:\/\/([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?\&=\$_.-]+)?@)?[a-z0-9+\$_-]+(\.[a-z0-9+\$_-]+)*(\:[0-9]{2,5})?(\/([a-z0-9+\$_-]\.?)+)*\/?(\?[a-z+&\$_.-][a-z0-9;:@/\&%=+\$_.-]*)?(#[a-z_.-][a-z0-9+\$_.-]*)?\$`i"; 
 
 public static function email($e){
-$ret = preg_match(self::$email_regex, trim($e));
-return (bool)$ret;
+return (bool)preg_match(self::$email_regex, trim($e));
 }
 
 public static function url($u){
-$ret = preg_match(self::$url_regex, trim($u));
-return (bool)$ret;
+return (bool)preg_match(self::$url_regex, trim($u));
 }
 
 public static function num($v){
@@ -32,6 +30,10 @@ return ctype_digit($v);
 public static function alnum($v){
 if($v==""){return false;}
 return ctype_alnum($v);
+}
+
+public static function hex($v){
+return (bool)preg_match('`^([a-fA-F0-9]+)$`is',$v);
 }
 
 public static function len($t,$h,$l=0){
@@ -52,9 +54,8 @@ $r = array(
 '*' => '(*{1})',
 '`'=>'\`'
 );
-$pat = '`'.str_ireplace(array_keys($r),$r,$p).'`is';
-$ret = preg_match($pat, $v);
-return (bool)$ret;
+$pat = '`^'.str_ireplace(array_keys($r),$r,$p).'$`is';
+return (bool)preg_match($pat, $v);
 }
 
 }
