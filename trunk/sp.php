@@ -84,7 +84,7 @@ case 0:
 $folder = 'styles/';
 break;
 case 1:
-$folder = 'script/';
+$folder = 'scripts/';
 break;
 }
 
