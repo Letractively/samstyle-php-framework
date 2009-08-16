@@ -13,10 +13,31 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 ************************************************ */
 $c = @include_once('inc/config.inc.php');
 
+
 /* ************************************************
 * make sure that approot is added with a slash at the back
 ************************************************ */
 if(substr($_SITE['approot'],-1) != '/'){$_SITE['approot'].='/';}
+
+
+/* ************************************************
+* error setting
+************************************************ */
+if(isset($_SITE['error'])&&is_array($_SITE['error'])){
+$err = $_SITE['error'];
+error_reporting($err['level']);
+ini_set('display_errors',$err['display']?'on':'off');
+ini_set('log_errors',$err['log']?'on':'off');
+ini_set('error_log',$err['logfile']);
+if($err['handler_func']!=''){
+set_error_handler($err['handler_func']);
+}
+}else{
+error_reporting(0);
+ini_set('display_errors','off');
+ini_set('log_errors','off');
+}
+
 
 /* ************************************************
 * check if maintenance mode. check first to reduce load
@@ -48,13 +69,14 @@ unset($dn);
 /* ************************************************
 *   setting out headers
 ************************************************ */
-header('cache-control: no-cache');
-header('pragma:no-cache');
-header('Expires:'.gmdate('r',time()+(20)));
+header('Cache-Control: no-cache');
+header('Pragma: no-cache');
+header('Expires: '.gmdate('r',time()+(20)));
 header('X-Powered-By: '.$_SITE['name'].' v'.$_SITE['ver']);
 header('Copyright: '.$_SITE['copyright']);
 header('Vary: Accept');
 header('Content-Type: text/html; charset=utf-8');
+
 
 /* ************************************************
 *   Enabling GZIP or not?
@@ -67,6 +89,7 @@ foreach($acceptencoding as $id=>$encode){$acceptencoding[$id] = trim($encode);}
 while(ob_get_level()){ob_end_flush();}
 if(ob_get_length()===false){ob_start();}
 }
+
 
 /* ************************************************
 *   Connecting to MySQL Database with the login information
@@ -84,6 +107,7 @@ exit();
 }
 }
 }
+
 
 /* ************************************************
 * security stuff

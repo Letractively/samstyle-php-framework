@@ -15,45 +15,69 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *  	MySQL information, GZip, application root
 *
 ************************************************* */
-$_SITE = array(
+$_SITE = array();
+
 /* Application name */
-'name' => 'Samstyle Framework Test Application',
+$_SITE['name'] = 'Samstyle Framework Test Application';
 
 /* Application version */
-'ver' => '1.0.0',
+$_SITE['ver'] = '1.0.0';
 
 /* Framework version */
-'fwver' => '1.2.9 Alpha',
+$_SITE['fwver'] = '1.2.9 Alpha';
 
 /* Copyright Information */
-'copyright' => 'Copyright (c) Company 2008-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.',
+$_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
 
 /* MySQL login information: s - server; u - username; p - password; udb - default database/schema */
-'mysql_info' => array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'dbapp','connection'=>null),
+$_SITE['mysql_info'] = array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'dbapp','connection'=>null);
 
 /* Enable GZIP or not - boolean */
-'enablegzip'=>true,
+$_SITE['enablegzip'] = true;
 
  /* Application root URL - for use at base tag and referencing */
-'approot'=>'http://localhost/ssphpfw/',
+$_SITE['approot'] = 'http://localhost/ssphpfw/';
 
 /* specify whether will auto parse HTTP arguments ($_GET or $_POST)
 into $get and $post to prevent injection/XSS or other threats */
-'autoparsehttpargs'=>true,
+$_SITE['autoparsehttpargs'] = true;
 
 /* the length of the session in seconds */
-'session_length' => 36000,
+$_SITE['session_length'] = 36000;
 
 /* maintenance mode - false or message string */
-'maintenance' => false,
+$_SITE['maintenance'] = false;
 /* hint: you can use 'maintenance' from a static HTML file
-    i.e. 'maintenance'=>file_get_contents('path/to/my.html')
+    i.e. $_SITE['maintenance'] = file_get_contents('path/to/my.html');
 */
 
 /* whether or not to automatically register all PHP-JS enabled functions. boolean*/
-'autoregisterjsfunction' => true
+$_SITE['autoregisterjsfunction'] = true;
 /* NOTE: only works when $_ajax is not set to false */
+
+/* error handling settings */
+$_SITE['error'] = array(
+'level' => E_ALL  & ~E_NOTICE,
+'handler_func' => '',
+'display'=>false,
+'log'=>true,
+'logfile' => 'error.log'
 );
+/* To disable error handling, set $_SITE['error'] to false */
+/* error handling settings */
+
+
+/* *************************************************
+*
+*  $_CONF
+*  Configuration information, your configuration like API keys and so on
+*
+************************************************* */
+$_CONF = array();
+
+/* EXAMPLE
+$_CONF['fb_api'] = array('key'=>'39ab360839e0c5b858c69da01060e25','secret'=>'39ab360839e0c5b858c69da01060e25');
+*  EXAMPLE */
 
 /* *************************************************
 *
@@ -61,26 +85,27 @@ into $get and $post to prevent injection/XSS or other threats */
 *  Page information
 *
 ************************************************* */
-$_PAGE = array(
-'title' => $_SITE['name'],
-'keywords' => '',
-'description' => '',
-'header' => '',
-'logourl' => '',
-'filename' => basename($_SERVER['PHP_SELF']),
-'css' => '',
-'template' => 'templates/default.html',
-'content' => '',
-'buffer' =>'',
-'footer' => $_SITE['copyright'],
-'robots' => 'index,follow',
-blocks => array('menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php')
-);
+$_PAGE = array();
+$_PAGE['title'] = $_SITE['name'];
+$_PAGE['keywords'] = '';
+$_PAGE['description'] = '';
+$_PAGE['header'] = '';
+$_PAGE['logourl'] = '';
+$_PAGE['filename'] = basename($_SERVER['PHP_SELF']);
+$_PAGE['css'] = '';
+$_PAGE['template'] = 'templates/default.html';
+$_PAGE['content'] = '';
+$_PAGE['buffer'] ='';
+$_PAGE['footer'] = $_SITE['copyright'];
+$_PAGE['robots'] = 'index,follow';
+$_PAGE['blocks'] = array('menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php');
+
 
 /* *************************************************
 *
 *  $_includes
 *  files that will be included at head.inc.php
+*  pathnames must be relative from the application root folder.
 *
 ************************************************* */
 $_includes = array(

@@ -81,7 +81,7 @@ if($buffer == ''){
 $folder = '';
 switch($_GET['t']){
 case 0:
-$folder = 'style/';
+$folder = 'styles/';
 break;
 case 1:
 $folder = 'script/';
