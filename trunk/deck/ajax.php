@@ -15,11 +15,12 @@ if(!$_ajax){exit;} // end if AJAX is false;
 $_PAGE['content']='';
 if(isset($_GET['genjs'])){
 
-// cache
 header('Content-Type: text/javascript; charset=utf-8');
-header('Expires: '.gmdate('r',time()+(3600*24*30)));
-header('Cache-Control: max-age=7800, must-revalidate');
+header('Expires: '.gmdate('r',time()+15552000));
+header('Cache-Control: max-age=15552000');
 header('ETag: '.dechex(crc32('genjs')).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
+header('Last-Modified: '.gmdate('r',10));
+header('Pragma: public');
 
 p('/* Generated with Samstyle PHP Framework */');
 p('var __d=document; var __h = __d.getElementsByTagName("head").item(0); function sc(a,b){var s = __d.createElement("script");s.setAttribute("src", a);s.id=b||"";__h.appendChild(s);}');

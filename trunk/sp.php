@@ -7,6 +7,8 @@
 *
 **************************************************** */
 
+include('inc/head.inc.php');
+
 /*
 
 GET Parameters:
@@ -43,49 +45,48 @@ Do not include this file from other PHP files: it will not work and
 will only leave security vulnerabilities to your application.
 */
 
-$acceptencoding = explode(',' ,$_SERVER['HTTP_ACCEPT_ENCODING']);
-foreach($acceptencoding as $id=>$encode){$acceptencoding[$id] = trim($encode);}
- if(in_array('gzip',$acceptencoding)){ob_start('ob_gzhandler');header('Content-Encoding: gzip');} 
-
 // possible type of files that can be processed
 $types = array('text/css; charset=utf-8',
 'text/javascript; charset=utf-8');
 
-if(!$types[$_GET['t']]){exit;}
+if(!isset($_GET['t']) || !isset($types[$_GET['t']])){exit;}
 
 header('Content-Type: '.$types[$_GET['t']]);
 
 // checks whether to do client caching it or not
 if(isset($_GET['cache'])){
-header('Expires: '.gmdate('r',time()+(3600*24*30)));
-header('Cache-Control: max-age=7800, must-revalidate');
+header('Expires: '.gmdate('r',time()+15552000));
+header('Cache-Control: max-age=15552000');
 header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
+header('Last-Modified: '.gmdate('r',10));
+header('Pragma: public');
 }else{
-header('Expires: '.gmdate('r',time()-(3600*24*30)));
+header('Expires: '.gmdate('r',time()-15552000));
 header('Cache-Control: no-cache');
 header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
 header('Last-Modified: '.gmdate('r'));
-}
-
-$folder = '';
-switch($_GET['t']){
-case 0:
-$folder = 'styles/';
-break;
-case 1:
-$folder = 'scripts/';
-break;
-}
-
-// if wanna gzip
-if(isset($_GET['g'])){
-$acceptencoding = explode(',' ,$_SERVER['HTTP_ACCEPT_ENCODING']);
-foreach($acceptencoding as $id=>$encode){$acceptencoding[$id] = trim($encode);}
- if(in_array('gzip',$acceptencoding)){ob_start('ob_gzhandler');header('Content-Encoding: gzip');} 
+header('Pragma: no-cache');
 }
 
 // initialize buffer
 $buffer = '';
+$id = 'sp'.dechex(crc32($_SERVER['QUERY_STRING']));
+
+$tmpvar = '';
+if(isset($_GET['cache']) && $tmpvar = cache_retrieve($id,1296000)){
+$buffer = $tmpvar[0];
+}
+
+if($buffer == ''){
+$folder = '';
+switch($_GET['t']){
+case 0:
+$folder = 'style/';
+break;
+case 1:
+$folder = 'script/';
+break;
+}
 
 // outputs data. get all file names
 $files = explode(';',$_GET['s']);
@@ -94,17 +95,39 @@ foreach($files as $f){
 if(count(explode('/',$f)) > 1){$buffer.='// Err:Denied1'."\r\n";continue;}
 if(strpos('.php',strtolower($f)) >0){$buffer.='// Err:Denied2'."\r\n";continue;}
 $c = @file_get_contents($folder.basename($f));
-if(!$c){$buffer.='// Err:Missing'."\r\n";continue;}
-$buffer .= str_ireplace("\r\n","\n",$c);
-
+if(!$c){$buffer.='// Err:Missing'."\n";continue;}
+$buffer .= $c;
 }
 
-// strip off comments
 if(isset($_GET['c'])){
-$regex = array('`\/\*(.*?)\*\/`ism'=>'','`^(\s|)([\/]{2})(.*?)[\n]`ism'=>'',"/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/"=>"\n","`\Z\t`is"=>'');
+if($_GET['t']==1){
+$regex = array(
+"`^([\t\s]+)`ism"=>'',
+"`^\/\*(.+?)\*\/`ism"=>"",
+"`([\n\A;]+)\/\*(.+?)\*\/`ism"=>"$1",
+"`([\n\A;\s]+)//(.+?)[\n\r]`ism"=>"$1\n",
+"`(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+`ism"=>"\n"
+);
+$buffer = preg_replace(array_keys($regex),$regex,$buffer);
+}else{
+$regex = array(
+"`^([\t\s]+)`ism"=>'',
+"`([:;}{]{1})([\t\s]+)(\S)`ism"=>'$1$3',
+"`(\S)([\t\s]+)([:;}{]{1})`ism"=>'$1$3',
+"`\/\*(.+?)\*\/`ism"=>"",
+"`([\n|\A|;]+)\s//(.+?)[\n\r]`ism"=>"$1\n",
+"`(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+`ism"=>"\n"
+);
 $buffer = preg_replace(array_keys($regex),$regex,$buffer);
 }
 
-// output buffer
+$buffer = trim(str_ireplace("\r\n","\n",$buffer),"\r\n");
+}
+
+if(isset($_GET['cache'])){
+cache_save($id,array($buffer));
+}
+}
+
 echo $buffer;
 ?>
