@@ -4,6 +4,7 @@
   * *Articles*
    * [MVC MVC model]
   * *Documentation*
+   * [Caching Caching]
    * [DatabaseDocumentation Database]
    * [TemplatesDocumentation Templates]
    * [PredefinedVariables Predefined Variables]
