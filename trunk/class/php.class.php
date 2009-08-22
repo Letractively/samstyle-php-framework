@@ -102,10 +102,10 @@ return phpversion($s);
 * returns a string
 */
 public static function func_name(){
-$bt = debug_backtrace();
+$bt = next(debug_backtrace());
 $ret = '';
-if(isset($bt[1]) && isset($bt[1]['function'])){
-$ret = $bt[1]['function'];
+if(isset($bt) && isset($bt['function'])){
+$ret = $bt['function'];
 }
 return $ret;
 }
@@ -243,6 +243,64 @@ $x=str_replace(array('<![CDATA[',']]>'),'',$a);
 }
 }
 return $x;
+}
+
+/*
+* function str_parse($string, $funcs) - parses $string with all function of $funcs
+*   $string - a string to be parsed
+*   $funcs - an array of function names or a string of function names seperated by commas
+* returns a string
+*/
+public static function str_parse($s,$f=array()){
+self::arg_check(func_num_args(),2,1);
+if(!is_array($f)){
+$fs = explode(',',$f);
+}
+foreach($fs as $a){
+$a = trim($a);
+if(function_exists($a)){$s = $a($s);}
+}
+return $s;
+}
+
+/*
+* function str_shift($string, $shift) - shift all characters in $string by $shift
+*   $string - the string to be shifted
+*   $shift - the amount of shift in number
+* returns a string
+*/
+public static function str_shift($s, $n){
+php::arg_check(func_num_args(),2,2);
+$nw = '';$l = strlen($s);
+for ($i = 0; $i<$l; $i++){$nw .= chr(ord($s[$i])+$n);}
+return $nw;
+}
+
+/*
+* function arg_check($n, $max[, $min = 0]) - checks whether number of argument in function is valid or not
+*   $n - the number returned by func_num_args()
+*   $max - the maximum number of arguments
+*   $min - the minimum number of arguments, default is $max.
+* if $n is not between $max and $min, it will trigger an error and return false.
+* else returns true;
+*/
+public static function arg_check($n, $h, $l = -1){
+if($l < 0){$l=$h;}
+if($l > $h){
+$b = ($n > $l || $n < $h);
+}else{
+$b = ($n > $h || $n < $l);
+}
+if($b){
+$bt = next(debug_backtrace());
+$ei = '';
+if(isset($bt) && isset($bt['function'])){
+$ei = '<br/> at <b>'.$bt['function'].'()</b> in file <b>'.$bt['file'].'</b> in line '.$bt['line'].'';
+}
+
+trigger_error('Wrong parameter count. Expected '.($h==$l ? $h : 'between '.$h.' and '.$l).' parameters, given '.$n.$ei, E_USER_WARNING);
+}
+return !$b;
 }
 
 }

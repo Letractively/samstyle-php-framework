@@ -11,7 +11,7 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 /* ************************************************
 *   include configuration file
 ************************************************ */
-$c = @include_once('inc/config.inc.php');
+$c = include_once('inc/config.inc.php');
 
 
 /* ************************************************
@@ -52,7 +52,7 @@ if($_SITE['maintenance']){
 *   include all required components
 ************************************************ */
 if(count($_includes)>0){
-  foreach($_includes as $inc){@include_once($inc);}
+  foreach($_includes as $inc){include_once($inc);}
 }
 
 
