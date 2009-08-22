@@ -14,7 +14,7 @@ $_PAGE['title'] = 'Samstyle PHP Framework';
 p(html::c('Samstyle PHP Framework'));
 
 p('<div id="updates" style="float:right;text-align:right"></div>');
-p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"</a><br/>Current Development: "+a.dev;}getVersions(new Array(),\'newUpdate\');'));
+p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"</a><br/>Current Development: "+a.dev;}window.onload = function(){getVersions(new Array(),\'newUpdate\');};'));
 
 p(html::tag('h1','Welcome to Samstyle PHP Framework'));
 p(html::tag('p','Framework Version <$fwversion$>'));
