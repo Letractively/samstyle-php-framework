@@ -16,3 +16,10 @@ You can download the latest stable and other releases of Samstyle PHP Framework 
 The documentation of Samstyle PHP Framework can be found on the [TableOfContents Table of Contents] to the right.
 
 Other articles and read-ups regarding Samstyle PHP Framework will also be shown there.
+
+==Policies==
+This project aims for the following:
+  * DRY - Don't Repeat Yourself Concept
+  * Platform independent (be it Apache, IIS, Windows, Mac or Linux)
+  * Quick deploy - no need to reconfigure when moving servers
+  * Optimizing on the go - there's no need for you to do optimizing.
