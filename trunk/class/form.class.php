@@ -44,6 +44,27 @@ return false;
 }
 
 /*
+* function counter($domID [, $maxlength = 0 ] ) - creates a counter for input boxes with length
+*  $domID - the string ID of the input DOM object aka the ID used in document.getElementById("domID") or $("#domID")
+*  $maxlength - a number that defines the maximum length of the input box
+* returns a html string of the counter
+*
+*  NOTICE: this function requires jQuery
+*/
+public static function counter($domID,$maxlength=0){
+$maxlength = (int)$maxlength;
+$s = '';
+$s.='<span id="'.$domID.'c">0</span> characters';
+if($maxlength <= 0){
+$s .= html::js('function '.$domID.'f(e){$("#'.$domID.'c").html($("#'.$domID.'").val().length);}$("#'.$domID.'").keyup(function(e){return '.$domID.'f(e);});$(document).ready(function(){'.$domID.'f(null);});');
+}else{
+$s.=' remaining';
+$s .= html::js('var '.$domID.'m = '.$maxlength.';function '.$domID.'f(e){var l = '.$domID.'m-$("#'.$domID.'").val().length;var b = (e == null || (e?e.which:e.keyCode)!=8);if(l <= 0 && b){return false;}$("#'.$domID.'c").html(l);return true;}$("#'.$domID.'").keyup(function(e){return '.$domID.'f(e);});$(document).ready(function(){'.$domID.'f(null);});');
+}
+return $s;
+}
+
+/*
 * function security($kid) - creates 2 hidden boxes for checking security
 *  $kid - the Key Identifier used to identify your form. please use site-wide unique keys for your forms.
 * returns a html string of the 2 security hidden fields
