@@ -39,6 +39,39 @@ $ok=str_replace('%%','%',$sq);
 return $ok;
 }
 
+
+/* *************************************************
+*
+*  function mysql_begin()
+*  Starts a mysql transaction to work with
+*
+************************************************* */
+function mysql_begin(){
+return mysql_query('START TRANSACTION');
+}
+
+
+/* *************************************************
+*
+*  function mysql_commit()
+*  Commits the transaction and make changes permanent. requires mysql_begin()
+*
+************************************************* */
+function mysql_commit(){
+return mysql_query('COMMIT');
+}
+
+
+/* *************************************************
+*
+*  function mysql_rollback()
+*  Rollback the transaction and cancel all changes after mysql_begin(). requires mysql_begin()
+*
+************************************************* */
+function mysql_rollback(){
+return mysql_query('ROLLBACK');
+}
+
 /* *************************************************
 *
 *  function mysql_cvConstruct()
