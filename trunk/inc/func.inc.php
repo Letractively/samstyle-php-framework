@@ -38,7 +38,7 @@ return json_encode(array('stable'=>$stable,'dev'=>$dev));
 return_between() function
   custom function for getting version number
 ================================ */
-function return_between($string, $start, $stop){
+function return_between ($string, $start, $stop){
     $st = $string;
     $list = array();
     $sl = strlen($start);

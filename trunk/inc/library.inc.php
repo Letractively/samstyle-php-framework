@@ -55,7 +55,7 @@ return $return;
 
 function timeAgo($tzSince){
 $years = floor($tzSince/(60*60*24*365));
-if($years>=0){$tzSince = $tzSince - ($year*60*60*24*365);}
+if($years>=0){$tzSince = $tzSince - ($years*60*60*24*365);}
 $mths = floor($tzSince/(60*60*24*30));
 if($mths>=0){$tzSince = $tzSince - ($mths*60*60*24*30);}
 $days = floor($tzSince/(60*60*24));
@@ -196,6 +196,7 @@ $reply_to_name = $i['reply-to-name'];
 $disableplain = $i['disable-plain'];
 if(!$to || !validate::email($to)){return false;}
 
+$email_message = '';
 $email_subject =  $subject;$email_txt = $html_message;$email_to = ($to_name ? $to_name.'<'.$to.'>':$to);
 $headers = "From: ".($from_name!='' ? $from_name.'<'.$from.'>':$from);
 if($reply_to && validate::email($reply_to)){$headers .= "\nReply-to: ".($reply_to_name ? $reply_to_name.'<'.$reply_to.'>':$reply_to);}
@@ -226,7 +227,7 @@ function get_headers_x($url,$format=0, $user='', $pass='', $referer='') {
 
         $url_info=parse_url($url);
         $port = isset($url_info['port']) ? $url_info['port'] : 80;
-        $fp=fsockopen($url_info['host'], $port, $errno, $errstr, 30);
+        $fp=fsockopen($url_info['host'], $port, &$errno, &$errstr, 30);
         if($fp) {
             $head = "GET ".@$url_info['path']."?".@$url_info['query']." HTTP/1.0\r\n";
             if (!empty($url_info['port'])) {
@@ -421,7 +422,7 @@ function dirsize($dirname) {
         return false;
     }
 
-    $dirname_stack[] = $dirname;
+    $dirname_stack = array();
     $size = 0;
 
     do {
