@@ -59,7 +59,8 @@ header('Expires: '.gmdate('r',time()+15552000));
 header('Cache-Control: max-age=15552000');
 header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
 header('Last-Modified: '.gmdate('r',10));
-header('Pragma: public');
+header('Expires-Active: On');
+header('Pragma: ');
 }else{
 header('Expires: '.gmdate('r',time()-15552000));
 header('Cache-Control: no-cache');
@@ -81,10 +82,10 @@ if($buffer == ''){
 $folder = '';
 switch($_GET['t']){
 case 0:
-$folder = 'styles/';
+$folder = 'style/';
 break;
 case 1:
-$folder = 'scripts/';
+$folder = 'script/';
 break;
 }
 
