@@ -203,7 +203,7 @@ if($reply_to && validate::email($reply_to)){$headers .= "\nReply-to: ".($reply_t
 $semi_rand = md5(time()); $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
 $email_message .= "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type:text/html; charset=\"utf-8\"\n" . "Content-Transfer-Encoding: 7bit\n\n".$html_message;
-if($disableplain){
+if(!$disableplain){
 $email_message .= $email_txt . "\n\n\n". "--{$mime_boundary}\n" . "Content-Type:text/plan; charset=\"utf-8\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . strip_tags($email_txt)."\n\n\n";
 }
 $ok = @mail($email_to, $email_subject, $email_message, $headers,'-odb'); 
