@@ -26,6 +26,7 @@ $argv = func_get_args();
 array_shift($argv);
 foreach($argv as $v){
 if(is_string($v)){
+$v=str_replace('%','%%',$v);
 $p[]='\''.mysql_real_escape_string($v).'\'';
 }elseif(is_scalar($v)){
 $p[]=$v;
