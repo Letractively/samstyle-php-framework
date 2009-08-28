@@ -93,7 +93,11 @@ return $a;
 * returns a string
 */
 public static function ver($s = ''){
+if($s){
 return phpversion($s);
+}else{
+return phpversion();
+}
 }
 
 /*
