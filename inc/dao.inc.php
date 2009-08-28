@@ -40,6 +40,17 @@ $ok=str_replace('%%','%',$sq);
 return $ok;
 }
 
+/* *************************************************
+*
+*  function mysql_ver()
+*  Gets the MySQL version that is currently working.
+*
+************************************************* */
+
+function mysql_ver(){
+$r=mysql_query('SELECT VERSION() as v');
+return mysql_retValue($r,'v');
+}
 
 /* *************************************************
 *
