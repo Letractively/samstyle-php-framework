@@ -30,7 +30,8 @@ if(self::is_inc()){exit();}
 * returns a boolean telling whether the current script is included or not.
 */
 public static function is_inc(){
-return (basename(__FILE__) != basename($_SERVER['PHP_SELF'])); return false;
+$f = php::idx(reset(debug_backtrace()),'file)';
+return (realpath($f) != realpath($_SERVER['SCRIPT_FILENAME']));
 }
 
 /*
