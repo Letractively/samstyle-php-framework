@@ -20,7 +20,8 @@ header('Expires: '.gmdate('r',time()+15552000));
 header('Cache-Control: max-age=15552000');
 header('ETag: '.dechex(crc32('genjs')).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
 header('Last-Modified: '.gmdate('r',10));
-header('Pragma: public');
+header('Pragma: ');
+header('Vary: ');
 
 p('/* Generated with Samstyle PHP Framework */');
 p('var __d=document; var __h = __d.getElementsByTagName("head").item(0); function sc(a,b){var s = __d.createElement("script");s.setAttribute("src", a);s.id=b||"";__h.appendChild(s);}');

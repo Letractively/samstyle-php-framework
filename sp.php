@@ -61,6 +61,7 @@ header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQU
 header('Last-Modified: '.gmdate('r',10));
 header('Expires-Active: On');
 header('Pragma: ');
+header('Vary: ');
 }else{
 header('Expires: '.gmdate('r',time()-15552000));
 header('Cache-Control: no-cache');
