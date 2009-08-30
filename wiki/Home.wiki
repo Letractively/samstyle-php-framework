@@ -23,3 +23,4 @@ This project aims for the following:
   * Platform independent (be it Apache, IIS, Windows, Mac or Linux)
   * Quick deploy - no need to reconfigure when moving servers
   * Optimizing on the go - there's no need for you to do optimizing.
+  * front end testing to work on major browsers and mobile devices.
