@@ -172,13 +172,11 @@ return $result;
 
 
 /* sending email wtih template support*/
-function smail($i, $t = ''){
-if($t){
-$template = @file_get_contents($t);
+function smail($i,$t){
+$template = @file_get_contents('templates/'.$t.'.html');
 $a = $i;$b = array();
 foreach($a as $k => $v){$b['<$'.$k.'$>']=$v;} // prepare
 $i['message'] = str_replace(array_keys($b),$b,$template);
-}
 return html_mail($i);
 }
 
@@ -192,20 +190,35 @@ $from = $i['from'];
 $from_name = $i['from-name'];
 $reply_to = $i['reply-to'];
 $reply_to_name = $i['reply-to-name'];
-// $disableplain: boolean (default false)
-$disableplain = $i['disable-plain'];
+
 if(!$to || !validate::email($to)){return false;}
 
 $email_message = '';
-$email_subject =  $subject;$email_txt = $html_message;$email_to = ($to_name ? $to_name.'<'.$to.'>':$to);
-$headers = "From: ".($from_name!='' ? $from_name.'<'.$from.'>':$from);
-if($reply_to && validate::email($reply_to)){$headers .= "\nReply-to: ".($reply_to_name ? $reply_to_name.'<'.$reply_to.'>':$reply_to);}
-$semi_rand = md5(time()); $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
-$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
-$email_message .= "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type:text/html; charset=\"utf-8\"\n" . "Content-Transfer-Encoding: 7bit\n\n".$html_message;
-if(!$disableplain){
-$email_message .= $email_txt . "\n\n\n". "--{$mime_boundary}\n" . "Content-Type:text/plan; charset=\"utf-8\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . strip_tags($email_txt)."\n\n\n";
+$email_subject =  $subject;$email_txt = $html_message;
+$semi_rand = md5(time());
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+$email_to = ($to_name ? $to_name.'<'.$to.'>':$to);
+
+$headers = "From: ".($from_name!='' ? $from_name.'<'.$from.'>':$from)."\n";
+if($reply_to && validate::email($reply_to)){
+$headers .= "Reply-To: ".($reply_to_name ? $reply_to_name.'<'.$reply_to.'>':$reply_to)."\n";
 }
+$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;" . " boundary=\"{$mime_boundary}\""; 
+$email_message .= "This is a multi-part message in MIME format.\n\n";
+
+$email_message .= "--{$mime_boundary}\n";
+$email_message .= "Content-Type: text/html; charset=utf-8\n";
+$email_message .= "Content-Transfer-Encoding: 8bit\n\n";
+$email_message .= $email_txt;
+$email_message .= "\n\n";
+
+$email_message .= "--{$mime_boundary}\n";
+$email_message .= "Content-Type: text/plain; charset=utf-8\n";
+$email_message .= "Content-Transfer-Encoding: 8bit\n\n";
+$email_message .= trim(strip_tags(str_replace(array('<br/>','<br />','<br/>'),"\r\n",$email_txt)));
+$email_message .= "\n\n";
+
+$email_message .= "--{$mime_boundary}--";
 $ok = @mail($email_to, $email_subject, $email_message, $headers,'-odb'); 
 return $ok;}
 
