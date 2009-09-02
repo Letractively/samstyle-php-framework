@@ -34,11 +34,13 @@ $p[]=$v;
 }
 $ok=vsprintf($sq, $p);
 if(trim($ok)==''){return false;}
+$ok=str_replace('%%','%',$ok);
 }else{
 $ok=str_replace('%%','%',$sq);
 }
 return $ok;
 }
+
 
 /* *************************************************
 *
