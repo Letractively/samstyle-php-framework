@@ -1,14 +1,6 @@
 <?php
 if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
-/* *************************************************
-*
-*  cache.inc.php
-*  Samstyle PHP Framework
-*  Server-side caching support module
-*
-************************************************* */
-
 /* retrieve cache as array, false on error */
 function cache_retrieve($id,$time){
 $cf = 'cache/'.dechex(crc32($id)).'.cache';
@@ -36,6 +28,13 @@ function cache_clearout($time){
 $files = glob('cache/*.cache');
 foreach($files as $cf){if (file_exists($cf) && (time()-$time > filemtime($cf))){@unlink($cf);}}
 }
+
+/* Clearout specific cache */
+function cache_del($id){
+$cf = 'cache/'.dechex(crc32($id)).'.cache';
+@unlink($cf);
+}
+
 
 /* save data to cache, false on error*/
 function cache_save($id,$data){
