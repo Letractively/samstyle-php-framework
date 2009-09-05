@@ -61,10 +61,12 @@ if(count($_includes)>0){
 ************************************************ */
 $dn = get_domain($_SITE['approot']);
 if(strtolower($dn) == 'localhost'){$dn='';} // a fix around localhost for cookies.
-session_set_cookie_params((time()+$_SITE['session_length']), '/',$dn,false,true);
+session_name(dechex(crc32($_SITE['approot'])));
+session_set_cookie_params((time()+$_SITE['session_length']));
 session_start();
-unset($dn);
-
+$sess = session_name();
+setcookie($sess, session_id(), time() + $_SITE['session_length']);
+unset($dn);unset($sess);
 
 /* ************************************************
 *   setting out headers
