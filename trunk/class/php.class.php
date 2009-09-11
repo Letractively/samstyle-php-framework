@@ -30,7 +30,7 @@ if(self::is_inc()){exit();}
 * returns a boolean telling whether the current script is included or not.
 */
 public static function is_inc(){
-$f = php::idx(reset(debug_backtrace()),'file)';
+$f = php::idx(reset(debug_backtrace()),'file');
 return (realpath($f) != realpath($_SERVER['SCRIPT_FILENAME']));
 }
 
@@ -172,18 +172,23 @@ public static function mtime(){
 }
 
 /*
-* function dump($v [, $t = true]) - returns or outputs a nicely formatted var_dump/var_export
+* function dump($v [, $t = true [, $preformat = true]]) - returns or outputs a nicely formatted var_dump/var_export
 *   $v - the variable to dump
 *   $t - if true, the function returns the string, else dump to output buffer.
+*   $preformat - whether <pre> tags are wrapped around the variable dump
 * returns a HTML string of intormation about variable $v with html tag if $t is not specified or true.
 */
-public static function dump($v,$t = true){
+public static function dump($v,$t = true,$preformat = true){
 if($t){
 $ret = '';
-$ret .= '<pre>';$ret .= var_export($v,true);$ret .= '</pre>';
+if($preformat){$ret .= '<pre>';}
+$ret .= var_export($v,true);
+if($preformat){$ret .= '</pre>';}
 return $ret;
 }else{
-echo '<pre>';var_dump($v);echo '</pre>';
+if($preformat){echo '<pre>';}
+var_dump($v);
+if($preformat){echo '</pre>';}
 }
 }
 
