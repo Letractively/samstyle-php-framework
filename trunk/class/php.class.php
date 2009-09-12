@@ -256,6 +256,54 @@ return $x;
 }
 
 /*
+* function browser() - gets the current browser the client is using
+* returns a string
+*/
+public static function browser(){
+$useragent = $_SERVER['HTTP_USER_AGENT'];
+if(preg_match( '|Opera/([0-9].[0-9]{1,2})|',$useragent,$matched)){
+    $browser_version=$matched[1];
+    $browser = 'Opera ';
+}elseif(preg_match('|MSIE ([0-9].[0-9]{1,2})|',$useragent,$matched)){
+    $browser_version=$matched[1];
+    $browser = 'IE ';
+}elseif(preg_match('|Firefox/([0-9\.]+)|',$useragent,$matched)){
+        $browser_version=$matched[1];
+        $browser = 'Firefox ';
+}elseif(preg_match('|Safari/([0-9\.]+)|',$useragent,$matched)){
+        $browser_version=$matched[1];
+        $browser = 'Safari ';
+}else{
+        // browser not recognized!
+    $browser_version = '';
+    $browser= '';
+}
+$ret = $browser.$browser_version;
+return $ret;
+}
+
+/*
+* function platform() - gets the current platform the client is using
+* returns a string
+*/
+public static function platform(){
+$useragent = $_SERVER['HTTP_USER_AGENT'];
+if (strstr($useragent,'Win')) {
+    $os='Windows';
+} else if (strstr($useragent,'Mac')) {
+    $os='Mac';
+} else if (strstr($useragent,'Linux')) {
+    $os='Linux';
+} else if (strstr($useragent,'Unix')) {
+    $os='UNIX';
+} else {
+    $os='';
+}
+$ret = $os;
+return $ret;
+}
+
+/*
 * function str_parse($string, $funcs) - parses $string with all function of $funcs
 *   $string - a string to be parsed
 *   $funcs - an array of function names or a string of function names seperated by commas
@@ -284,6 +332,20 @@ php::arg_check(func_num_args(),2,2);
 $nw = '';$l = strlen($s);
 for ($i = 0; $i<$l; $i++){$nw .= chr(ord($s[$i])+$n);}
 return $nw;
+}
+
+/*
+* function str_loop($string, $func) - loop through the string with a function
+*   $string - the string to be looped
+*   $func - the function to handle the character
+*             $func must take in only 1 parameter, which is the character.
+*/
+public static function str_loop($s,$fn){
+$l = strlen($s);
+$i = -1;
+while($i++ < $l){
+$fn(substr($s,$i,1));
+}
 }
 
 /*
