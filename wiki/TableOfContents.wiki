@@ -5,6 +5,7 @@
    * [WebsitesUsingSamstyleFramework Live websites]
    * [MVC MVC model]
   * *Documentation*
+   * [OutputControl Output]
    * [Caching Caching]
    * [DatabaseDocumentation Database]
    * [TemplatesDocumentation Templates]
