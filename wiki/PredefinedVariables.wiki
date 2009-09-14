@@ -9,9 +9,11 @@ Samstyle PHP Framework creates some variables which are loaded at `head.inc.php`
 = Predefined Variables =
 
   * `config.inc.php`
-    * `$_SITE` - contains information about the website
-    * `$_PAGE` - contains information about the page
-    * `$includes` - all files that are included (dao, classes, includes)
+    * [PredefinedVariables_SITE `$_SITE`] - contains information about the website
+    * [PredefinedVariables_PAGE `$_PAGE`] - contains information about the page
+    * [PredefinedVariables_CONF `$_CONF`] - contains configuration information for add ons and so on.
+    * [PredefinedVariables_includes `$includes`] - all files that are included (dao, classes, includes)
+
   * `head.inc.php`
     * `$session_hash` - a CRC32 hash of the session ID, can be used for form security validation
     * `$post` - all post headers. if `$_SITE['autoparsehttpargs']` is set to true, all post headers will be parsed with `parse_http_args()`
