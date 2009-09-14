@@ -1,0 +1,21 @@
+#summary Classes provided in Samstyle PHP Framework
+
+= Introduction =
+
+Samstyle PHP Framework contains several classes that are readily available in the framework itself. We've built them for your convenience.
+
+Class files are all found in the folder `class`.
+
+= List of Classes =
+
+Here is a list of classes available in Samstyle PHP Framework and their purpose.
+
+|| *Class* || *Filename* || *Functionality and Support* ||
+|| bit || bit.class.php || To support the manipulation of bits ||
+|| firebug || firebug.class.php || Support server-side debugging with Firebug ||
+|| form || form.class.php || Provides support for form generation ||
+|| html || html.class.php || Support for HTML code generation ||
+|| http || http.class.php || Provides support for HTTP ||
+|| php || php.class.php || Provides added support and functionality to current PHP's pool of functions ||
+|| pwd || pwd.class.php || Password hashing with secured salting and verification ||
+|| validate || validate.class.php || validates variables against certain patterns and so on ||
