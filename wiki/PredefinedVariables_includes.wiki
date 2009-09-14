@@ -1,5 +1,7 @@
 #summary $includes in config.inc.php
 
+Back to [PredefinedVariables].
+
 = Introduction =
 
 This article documents the `$includes` predefined variable of the Samstyle PHP Framework.
