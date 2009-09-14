@@ -9,7 +9,7 @@ All the customized tags are parsed at `template.inc.php` before displaying to cl
 
 || *Tag* || *Description* || *Example* ||
 || [CTnohtml nohtml] || html entity encode all html codes within it. || `p('<nohtml><b>html code</b></nohtml>');` ||
-|| php || parse content within it with `highlight_string()` || `p('<php><?php echo 'testing'; ?></php>');` ||
+|| [CTphp php] || parse content within it with `highlight_string()` || `p('<php><?php echo 'testing'; ?></php>');` ||
 || [CTnlbr nlbr] || changes all new line characters to breakline `<br/>` html tag || `p('<nlbr>'."\r\n\r\n".'</nlbr>');` ||
 
 Availability: *After Samstyle PHP Framework v1.2.4*
