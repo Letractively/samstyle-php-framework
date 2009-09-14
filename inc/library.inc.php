@@ -194,31 +194,37 @@ $reply_to_name = $i['reply-to-name'];
 if(!$to || !validate::email($to)){return false;}
 
 $email_message = '';
-$email_subject =  $subject;$email_txt = $html_message;
+$email_subject =  $subject;
+$email_txt = $html_message;
 $semi_rand = md5(time());
 $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
-$email_to = ($to_name ? $to_name.'<'.$to.'>':$to);
+$email_to = $to;
 
-$headers = "From: ".($from_name!='' ? $from_name.'<'.$from.'>':$from)."\n";
+$headers = '';
+$headers .= "From: ".($from_name ? '"'.$from_name.'" <'.$from.'>':''.$from.'')."\r\n";
 if($reply_to && validate::email($reply_to)){
-$headers .= "Reply-To: ".($reply_to_name ? $reply_to_name.'<'.$reply_to.'>':$reply_to)."\n";
+$headers .= "Reply-To: ".($reply_to_name ? '"'.$reply_to_name.'" <'.$reply_to.'>':''.$reply_to.'')."\r\n";
 }
-$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;" . " boundary=\"{$mime_boundary}\""; 
-$email_message .= "This is a multi-part message in MIME format.\n\n";
+if(!$i['text_only']){
+$headers .= "MIME-Version: 1.0\r\n" . "Content-Type: multipart/mixed;" . " boundary=\"{$mime_boundary}\""; 
+$email_message .= "This is a multi-part message in MIME format.\r\n\r\n";
 
-$email_message .= "--{$mime_boundary}\n";
-$email_message .= "Content-Type: text/html; charset=utf-8\n";
-$email_message .= "Content-Transfer-Encoding: 8bit\n\n";
+$email_message .= "--{$mime_boundary}\r\n";
+$email_message .= "Content-Type: text/html; charset=utf-8\r\n";
+$email_message .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
 $email_message .= $email_txt;
 $email_message .= "\n\n";
 
-$email_message .= "--{$mime_boundary}\n";
-$email_message .= "Content-Type: text/plain; charset=utf-8\n";
-$email_message .= "Content-Transfer-Encoding: 8bit\n\n";
+$email_message .= "--{$mime_boundary}\r\n";
+$email_message .= "Content-Type: text/plain; charset=utf-8\r\n";
+$email_message .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
 $email_message .= trim(strip_tags(str_replace(array('<br/>','<br />','<br/>'),"\r\n",$email_txt)));
-$email_message .= "\n\n";
+$email_message .= "\r\n\r\n";
 
 $email_message .= "--{$mime_boundary}--";
+}else{
+$email_message = $email_txt;
+}
 $ok = @mail($email_to, $email_subject, $email_message, $headers,'-odb'); 
 return $ok;}
 
