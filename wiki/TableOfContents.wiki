@@ -6,8 +6,9 @@
    * [MVC MVC model]
   * *Documentation*
    * [OutputControl Output]
-   * [Caching Caching]
-   * [DatabaseDocumentation Database]
-   * [TemplatesDocumentation Templates]
    * [PredefinedVariables Predefined Variables]
+   * [TemplatesDocumentation Templates]
+   * [Classes Classes]
+   * [DatabaseDocumentation Database]
+   * [Caching Caching]
    * [CustomHTMLTags Custom HTML tags]
