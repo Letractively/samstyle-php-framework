@@ -1,5 +1,7 @@
 #summary $_CONF in config.inc.php
 
+Back to [PredefinedVariables].
+
 = Introduction =
 
 This article documents the `$_CONF` predefined variable of the Samstyle PHP Framework.
