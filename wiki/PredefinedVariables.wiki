@@ -12,7 +12,8 @@ Samstyle PHP Framework creates some variables which are loaded at `head.inc.php`
     * [PredefinedVariables_SITE `$_SITE`] - contains information about the website
     * [PredefinedVariables_PAGE `$_PAGE`] - contains information about the page
     * [PredefinedVariables_CONF `$_CONF`] - contains configuration information for add ons and so on.
-    * [PredefinedVariables_includes `$includes`] - all files that are included (dao, classes, includes)
+    * [PredefinedVariables_includes `$includes`] - all files that are included (TDG/DAO, classes, includes)
+    * [PredefinedVariables_ajax `$_ajax`] - PHP-JS function related information.
 
   * `head.inc.php`
     * `$session_hash` - a CRC32 hash of the session ID, can be used for form security validation
