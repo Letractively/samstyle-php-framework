@@ -1,6 +1,8 @@
 #summary nohtml customized tag in Samstyle PHP Framework
 #labels Phase-Implementation
 
+Back to [CustomHTMLTags].
+
 = Introduction =
 
 In Samstyle PHP Framework, we support several non-standard HTML tags which are rendered server-side before passing to the client.
