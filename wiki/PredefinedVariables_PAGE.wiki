@@ -1,5 +1,7 @@
 #summary $_PAGE in config.inc.php
 
+Back to [PredefinedVariables].
+
 = Introduction =
 
 This article documents the `$_PAGE` predefined variable of the Samstyle PHP Framework.
