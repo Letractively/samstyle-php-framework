@@ -1,5 +1,7 @@
 #summary $_SITE in config.inc.php
 
+Back to [PredefinedVariables].
+
 = Introduction =
 
 This article documents the `$_SITE` predefined variable of the Samstyle PHP Framework.
