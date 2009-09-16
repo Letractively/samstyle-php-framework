@@ -180,8 +180,150 @@ $i['message'] = str_replace(array_keys($b),$b,$template);
 return html_mail($i);
 }
 
+function headerLine($name, $value) {
+    return $name . ': ' . $value . "\n";
+}
+
+/**
+   * Returns a formatted mail line.
+   * @access public
+   * @return string
+     */
+function textLine($value) {
+    return $value . "\n";
+}
+
+function RFCDate() {
+    $tz = date('Z');
+    $tzs = ($tz < 0) ? '-' : '+';
+    $tz = abs($tz);
+    $tz = (int)($tz/3600)*100 + ($tz%3600)/60;
+    $result = sprintf("%s %s%04d", date('D, j M Y H:i:s'), $tzs, $tz);
+
+    return $result;
+}
+
+function addrAppend($type, $addr) {
+    $addr_str = $type . ': ';
+    $addresses = array();
+    foreach ($addr as $a) {
+      $addresses[] = addrFormat($a);
+    }
+    $addr_str .= implode(', ', $addresses);
+    $addr_str .= "\n";
+
+    return $addr_str;
+}
+
+function addrFormat($addr) {
+    if (empty($addr[1])) {
+      return secureHeader($addr[0]);
+    } else {
+      return encodeHeader(secureHeader($addr[1])) . " <" . secureHeader($addr[0]) . ">";
+    }
+  }
+
+/**
+* Strips newlines to prevent header injection.
+* @access public
+* @param string $str String
+* @return string
+*/
+function secureHeader($str) {
+  $str = str_replace("\r", '', $str);
+  $str = str_replace("\n", '', $str);
+  return trim($str);
+}
+  
+/**
+ * Encode a header string to best (shortest) of Q, B, quoted or none.
+ * @access public
+ * @return string
+ */
+function encodeHeader($str) {
+$x = 0;
+
+
+if (!preg_match('/[\200-\377]/', $str)) {
+  // Can't use addslashes as we don't know what value has magic_quotes_sybase
+  $encoded = addcslashes($str, "\0..\37\177\\\"");
+  if (($str == $encoded) && !preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)) {
+    return ($encoded);
+  } else {
+    return ("\"$encoded\"");
+  }
+}
+$x = preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
+       
+return ($str);
+    
+}
+
+/**
+* Returns the start of a message boundary.
+*/
+function getBoundary($boundary, $charSet, $contentType, $encoding) {
+if($charSet == ''){
+  $charSet = 'utf-8';
+}
+
+if($contentType == ''){
+  $contentType = 'text/plain';
+}
+
+if($encoding == ''){
+  $encoding = '8bit';
+}
+
+$result = '';
+
+$result .= textLine('--' . $boundary);
+$result .= sprintf("Content-Type: %s; charset = \"%s\"", $contentType, $charSet);
+$result .= "\n";
+$result .= headerLine('Content-Transfer-Encoding', $encoding);
+$result .= "\n";
+
+return $result;
+}
+
+/**
+ * Returns the end of a message boundary.
+ * @access private
+ */
+ 
+function endBoundary($boundary) {
+return "\n" . '--' . $boundary . '--' . "\n";
+}
+
+/**
+* Changes every end of line from CR or LF to CRLF.
+* @access private
+* @return string
+*/
+
+function fixEOL($str) {
+$str = str_replace("\r\n", "\n", $str);
+$str = str_replace("\r", "\n", $str);
+
+return $str;
+}
+
+function encodeString($str){
+$encoded = fixEOL($str);
+//Make sure it ends with a line break
+if (substr($encoded, -(strlen("\n"))) != "\n")
+  $encoded .= "\n";
+  
+return $encoded;
+}
+
+
 /* sending email wtih a html body and no-html support */
 function html_mail($i){
+
+$from_name = '';
+$reply_to_name = '';
+
 $to = $i['to'];
 $to_name = $i['to-name'];
 $subject = $i['subject'];
@@ -190,6 +332,32 @@ $from = $i['from'];
 $from_name = $i['from-name'];
 $reply_to = $i['reply-to'];
 $reply_to_name = $i['reply-to-name'];
+
+
+$headers = '';
+
+// Set the boundaries
+$uniq_id = md5(uniqid(time()));
+$boundary1 = 'b1_' . $uniq_id;
+
+
+$headers .= headerLine('Date', RFCDate());
+
+$headers .= headerLine('Return-Path', trim($from));
+
+$fromAddr = array();
+$fromAddr[0][0] = trim($from);
+$fromAddr[0][1] = $from_name;
+$headers .= addrAppend('From', $fromAddr);
+if($reply_to && validate::email($reply_to)){
+  $reply_toAddr = array();
+  $reply_toAddr[0][0] = trim($reply_to);
+  $reply_toAddr[0][1] = $reply_to_name;  
+  $headers .= addrAppend('Reply-to', $reply_toAddr);
+}
+$headers .= headerLine('MIME-Version', '1.0');
+$headers .= headerLine('Content-Type', 'multipart/alternative;');
+$headers .= textLine("\tboundary=\"" . $boundary1 . '"');
 
 if(!$to || !validate::email($to)){return false;}
 
@@ -200,33 +368,26 @@ $semi_rand = md5(time());
 $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
 $email_to = $to;
 
-$headers = '';
-$headers .= "From: ".($from_name ? '"'.$from_name.'" <'.$from.'>':''.$from.'')."\r\n";
-if($reply_to && validate::email($reply_to)){
-$headers .= "Reply-To: ".($reply_to_name ? '"'.$reply_to_name.'" <'.$reply_to.'>':''.$reply_to.'')."\r\n";
-}
-if(!$i['text_only']){
-$headers .= "MIME-Version: 1.0\r\n" . "Content-Type: multipart/mixed;" . " boundary=\"{$mime_boundary}\""; 
-$email_message .= "This is a multi-part message in MIME format.\r\n\r\n";
 
-$email_message .= "--{$mime_boundary}\r\n";
-$email_message .= "Content-Type: text/html; charset=utf-8\r\n";
-$email_message .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-$email_message .= $email_txt;
+if($i['text_only']){
+  $email_message .= encodeString(trim(strip_tags(str_replace(array('<br/>','<br />','<br/>'),"\r\n",$email_txt))), '8bit');
+}
+else {
+$email_message .= getBoundary($boundary1, '', 'text/plain', '');
+$email_message .= encodeString(trim(strip_tags(str_replace(array('<br/>','<br />','<br/>'),"\r\n",$email_txt))), '8bit');
+
 $email_message .= "\n\n";
-
-$email_message .= "--{$mime_boundary}\r\n";
-$email_message .= "Content-Type: text/plain; charset=utf-8\r\n";
-$email_message .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-$email_message .= trim(strip_tags(str_replace(array('<br/>','<br />','<br/>'),"\r\n",$email_txt)));
-$email_message .= "\r\n\r\n";
-
-$email_message .= "--{$mime_boundary}--";
-}else{
-$email_message = $email_txt;
+$email_message .= getBoundary($boundary1, '', 'text/html', '');
+$email_message .= encodeString($email_txt, '8bit');
+$email_message .= "\n\n";
+$email_message .= endBoundary($boundary1);
 }
-$ok = @mail($email_to, $email_subject, $email_message, $headers,'-odb'); 
-return $ok;}
+
+
+$ok = @mail($email_to, encodeHeader(secureHeader($email_subject)), $email_message, $headers);
+return $ok;
+
+}
 
 
 /* enable htmlspecialchars_decode() for older versions */
