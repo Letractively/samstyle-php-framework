@@ -1,6 +1,6 @@
 #summary bit.class.php documentation
 
-Back to Classes.
+Back to [Classes].
 
 = Introduction =
 
