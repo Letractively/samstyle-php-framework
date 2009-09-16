@@ -12,7 +12,7 @@ Here is a list of classes available in Samstyle PHP Framework and their purpose.
 
 || *Class* || *Filename* || *Functionality and Support* ||
 || [Classes_bit bit] || bit.class.php || To support the manipulation of bits ||
-|| [Classes_fierbug firebug] || firebug.class.php || Support server-side debugging with Firebug ||
+|| [Classes_firebug firebug] || firebug.class.php || Support server-side debugging with Firebug ||
 || [Classes_form form] || form.class.php || Provides support for form generation ||
 || [Classes_html html] || html.class.php || Support for HTML code generation ||
 || http || http.class.php || Provides support for HTTP ||
