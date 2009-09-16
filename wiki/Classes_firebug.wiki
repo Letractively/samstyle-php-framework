@@ -25,6 +25,6 @@ This class requires the following components:
 || `debug` || variable number of args || outputs variables for debugging on the console. || `$fbug->debug($msg);` ||
 || `error` || variable number of args || outputs variables as error on the console. || `$fbug->error($var);` ||
 || `warn` || variable number of args || outputs variable as warning on the console. || `$fbug->warn($msg);` ||
-|| `timer_start` || (string)$timer_id || starts a new timer using the identifier. || `$fbug->timer_start('speedtest')` ||
-|| `timer_stop` || (string)$timer_id || stops timer with identifier $timer_id and return the timing between start and stop in seconds (float) || `$t = $fbug->timer_stop()` ||
-|| `commit` || void || commits the javascript code into the output and resets the buffer || `$fbug->commit()` ||
+|| `timer_start` || (string)$timer_id || starts a new timer using the identifier. || `$fbug->timer_start('speedtest');` ||
+|| `timer_stop` || (string)$timer_id || stops timer with identifier $timer_id and return the timing between start and stop in seconds (float) || `$t = $fbug->timer_stop();` ||
+|| `commit` || void || commits the javascript code into the output and resets the buffer || `$fbug->commit();` ||
