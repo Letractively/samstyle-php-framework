@@ -86,12 +86,17 @@ $this->timer[$timer_id] = php::mtime();
 }
 
 public function timer_stop($timer_id){
+if(!isset($this->timer[$timer_id])){return;}
 $tnow = php::mtime();
-$this->buffer .= 'console.log("Timer '.$timer_id.'\n'.((float)$tnow-(float)$this->timer[$timer_id]).' seconds");';
+$diff = ((float)$tnow-(float)$this->timer[$timer_id]);
+$this->buffer .= 'console.log("Timer '.$timer_id.'\n'.$diff.' seconds");';
+unset($this->timer[$timer_id]);
+return $diff;
 }
 
 public function commit(){
 p(html::js('if(window.console && window.console.firebug){'.$this->buffer.($this->grouped?'console.groupEnd();':'').'}else{alert("Firebug is not installed. Thus you are unable to use Samstyle PHP Framework Firebug extension features.");}'));
+$this->buffer = '';
 }
 
 }
