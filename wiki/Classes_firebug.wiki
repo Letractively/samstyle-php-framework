@@ -8,8 +8,8 @@ The `firebug` class is a class which you can use to do server-side debugging on 
 
 = Requirements =
 This class requires the following classes to be included:
-  * php.class.php
-  * html.class.php
+  * [Classes_php php.class.php]
+  * [Classes_html html.class.php]
 
 This class requires the following components:
   * Firebug on the client side
