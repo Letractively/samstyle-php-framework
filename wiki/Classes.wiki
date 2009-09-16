@@ -15,7 +15,8 @@ Here is a list of classes available in Samstyle PHP Framework and their purpose.
 || [Classes_firebug firebug] || firebug.class.php || Support server-side debugging with Firebug ||
 || [Classes_form form] || form.class.php || Provides support for form generation ||
 || [Classes_html html] || html.class.php || Support for HTML code generation ||
-|| http || http.class.php || Provides support for HTTP ||
-|| php || php.class.php || Provides added support and functionality to current PHP's pool of functions ||
-|| pwd || pwd.class.php || Password hashing with secured salting and verification ||
-|| validate || validate.class.php || validates variables against certain patterns and so on ||
+|| [Classes_http http] || http.class.php || Provides support for HTTP ||
+|| [Classes_http limit] || limit.class.php || Allows you to check on limit to a certain feature, functionality or page. [http://www.codinghorror.com/blog/archives/001228.html Understand more]. ||
+|| [Classes_php php] || php.class.php || Provides added support and functionality to current PHP's pool of functions ||
+|| [Classes_pwd pwd] || pwd.class.php || Password hashing with secured salting and verification ||
+|| [Classes_validate validate] || validate.class.php || validates variables against certain patterns and so on ||
