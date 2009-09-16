@@ -42,7 +42,6 @@ private static function checkreset($f){
   if(isset($_SESSION[self::$sesskey][$k]) && $_SESSION[self::$sesskey][$k]['clearinterval'] > 0 && ($_SESSION[self::$sesskey][$k]['clearinterval']+$_SESSION[self::$sesskey][$k]['lastclear'] < time())){
     $_SESSION[self::$sesskey][$k]['counts']=0;
     $_SESSION[self::$sesskey][$k]['lastclear']=time();
-    p(php::dump($_SESSION[self::$sesskey][$k]['clearinterval']+$_SESSION[self::$sesskey][$k]['lastclear'].' '.time()));
   }
 }
 
