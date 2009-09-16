@@ -10,8 +10,8 @@ Note that all the static methods return the HTML code. You will need to use `p()
 
 = Requirements =
 This class requires the following classes to be included:
-  * html.class.php
-  * bit.class.php
+  * [Classes_html html.class.php]
+  * [Classes_bit bit.class.php]
 
 = Methods =
 
