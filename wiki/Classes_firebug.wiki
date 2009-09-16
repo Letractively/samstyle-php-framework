@@ -11,6 +11,10 @@ This class requires the following classes to be included:
   * php.class.php
   * html.class.php
 
+This class requires the following components:
+  * Firebug on the client side
+  * Output to Javascript
+
 = Methods =
 
 || *Method name* || *Args* || *Purpose* || *Example* ||
