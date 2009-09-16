@@ -18,6 +18,6 @@ This class requires the following classes to be included:
 || *Method name* || *Args* || *Purpose* || *Example* ||
 || `input` || `$name`,`[$type = 'text']`,`[$default_value = '']` || Creates an input component based on the name, type and default value || `p(form::input('username'));` ||
 || `select` || `$arr`, `$name`, `[$selected = '']` || Creates a select field based on the array $arr and $name || `p(form::select($values,'gender','M'))` ||
-|| `counter` || `$domID`, `[$maxlength = 0]` || creates a counter for any input or textarea boxes. e.g. 342 characters remaining...<br/>NOTE: this function requires jQuery. || p(form::counter('description',500)); ||
+|| `counter` || `$domID`, `[$maxlength = 0]` || creates a counter for any input or textarea boxes. e.g. 342 characters remaining...<br/>NOTE: this function requires jQuery. || `p(form::counter('description',500));` ||
 || `security` || `$key_id` || creates 2 hidden input field for preventing cross site forgeries. Only for POST methods. Use `form::chksecurity` to check and validate. || `p(form::security('userlogin'));` ||
 || `chksecurity` || `$key_id` || Checks the postback for security fields and validate them. Only for POST methods. With use with `form::security`. Returns true on valid, false on failure. || `if(form::chksecurity('userlogin')){}else{}` ||
