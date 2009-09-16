@@ -12,6 +12,8 @@ The `p()` function was inspired by the use of `$(id)` instead of document.getEle
 
 Secondly, `p()` saves the output content into a buffer variable called `$_PAGE['content']` (see [PredefinedVariables_PAGE]), where later parsed with template tags into `$_PAGE['buffer']`. Then lastly using 1 real echo to write to client. Buffering output content into a variable has [http://thephpcode.blogspot.com/2009/06/echo-vs-output-buffer.html proven to speed up applications].
 
+With the output buffering in a variable, we eliminate or reduce the problem of "headers already sent". Thus allowing to put header redirects within logical code and without affecting the output.
+
 = Usage of `p()` = 
 
 `p()`, like echo or print, accepts multiple parameters.<br/>The usual way is to call it like:
