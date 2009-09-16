@@ -77,7 +77,7 @@ header('Expires: '.gmdate('r',time()+(20)));
 header('X-Powered-By: '.$_SITE['name'].' v'.$_SITE['ver']);
 header('Copyright: '.$_SITE['copyright']);
 header('Vary: Accept');
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset='.$_SITE['charset']);
 
 
 /* ************************************************

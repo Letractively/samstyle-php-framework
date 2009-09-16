@@ -35,14 +35,14 @@ $this->grouped = true;
 }
 }
 
-public function dump(/*, $args */){
+public function dump(/* $args */){
 $c = array();
 $argv = func_get_args();
 $c = $this->prepare($argv);
 $this->buffer.='console.log('.implode(',',$c).');';
 }
 
-public function group(/*, $args */){
+public function group(/* $args */){
 $c = array();
 $argv = func_get_args();
 $c = $this->prepare($argv);
@@ -55,26 +55,26 @@ $this->buffer.='console.groupEnd();';
 
 
 /* alias of dump() */
-public function log(/*, $args */){
+public function log(/* $args */){
 $this_args = func_get_args();
 call_user_func_array(array($this,'dump'),$this_args);
 }
 
-public function debug(/*, $args */){
+public function debug(/* $args */){
 $c = array();
 $argv = func_get_args();
 $c = $this->prepare($argv);
 $this->buffer.='console.debug('.implode(',',$c).');';
 }
 
-public function error(/*, $args */){
+public function error(/* $args */){
 $c = array();
 $argv = func_get_args();
 $c = $this->prepare($argv);
 $this->buffer.='console.error('.implode(',',$c).');';
 }
 
-public function warn(/*, $args */){
+public function warn(/* $args */){
 $c = array();
 $argv = func_get_args();
 $c = $this->prepare($argv);
@@ -86,7 +86,7 @@ $this->timer[$timer_id] = php::mtime();
 }
 
 public function timer_stop($timer_id){
-if(!isset($this->timer[$timer_id])){return;}
+if(!isset($this->timer[$timer_id])){return false;}
 $tnow = php::mtime();
 $diff = ((float)$tnow-(float)$this->timer[$timer_id]);
 $this->buffer .= 'console.log("Timer '.$timer_id.'\n'.$diff.' seconds");';
@@ -95,8 +95,10 @@ return $diff;
 }
 
 public function commit(){
+if(!$this->buffer){return false;}
 p(html::js('if(window.console && window.console.firebug){'.$this->buffer.($this->grouped?'console.groupEnd();':'').'}else{alert("Firebug is not installed. Thus you are unable to use Samstyle PHP Framework Firebug extension features.");}'));
 $this->buffer = '';
+return true;
 }
 
 }

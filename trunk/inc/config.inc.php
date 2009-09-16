@@ -24,7 +24,7 @@ $_SITE['name'] = 'Samstyle Framework Test Application';
 $_SITE['ver'] = '1.0.0';
 
 /* Framework version */
-$_SITE['fwver'] = '1.2.10';
+$_SITE['fwver'] = '1.2.11 Alpha';
 
 /* Copyright Information */
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
@@ -50,6 +50,9 @@ $_SITE['maintenance'] = false;
 /* hint: you can use 'maintenance' from a static HTML file
     i.e. $_SITE['maintenance'] = file_get_contents('path/to/my.html');
 */
+
+/* the website's default charset */
+$_SITE['charset'] = 'utf-8';
 
 /* whether or not to automatically register all PHP-JS enabled functions. boolean*/
 $_SITE['autoregisterjsfunction'] = true;
@@ -118,6 +121,7 @@ $_includes = array(
 'class/form.class.php',
 'class/bit.class.php',
 'class/pwd.class.php',
+'class/limit.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php', // cache
