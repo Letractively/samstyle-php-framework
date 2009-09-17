@@ -29,31 +29,11 @@ getVersions() function
 ================================ */
 function getVersions(){
 $text = file_get_contents('http://code.google.com/p/samstyle-php-framework/');
-$stable = php::idx(return_between($text, '<strong>Current Stable Version: Samstyle PHP Framework ', '</strong>'),0);
-$dev = php::idx(return_between($text, 'Current development version: <strong>', '</strong>'),0);
+$stable = php::idx(php::str_between($text, '<strong>Current Stable Version: Samstyle PHP Framework ', '</strong>'),0);
+$dev = php::idx(php::str_between($text, 'Current development version: <strong>', '</strong>'),0);
 return json_encode(array('stable'=>$stable,'dev'=>$dev));
 }
 
-/* ================================
-return_between() function
-  custom function for getting version number
-================================ */
-function return_between ($string, $start, $stop){
-    $st = $string;
-    $list = array();
-    $sl = strlen($start);
-    for($i=0;$i<strlen($string);$i++){
-        $temp = strpos($st, $start);
-        $str = substr($st, $temp+$sl);
-        $split_here = strpos($str, $stop);
-        $parsed_string = substr($str, 0, $split_here);
-        if($parsed_string == '')
-            break;
-        $st = substr($str, $split_here+1);
-        $list[] = $parsed_string;
-    }
-    return $list;
-}
 
 
 ?>

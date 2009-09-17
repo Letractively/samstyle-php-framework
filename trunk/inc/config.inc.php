@@ -54,6 +54,13 @@ $_SITE['maintenance'] = false;
 /* the website's default charset */
 $_SITE['charset'] = 'utf-8';
 
+/* the website's language */
+$_SITE['language'] = 'en';
+
+/* translate */
+$_SITE['lang_translate'] = 'cn';
+/* set $_SITE['lang_translate'] to false to disable automatic translation. */
+
 /* whether or not to automatically register all PHP-JS enabled functions. boolean*/
 $_SITE['autoregisterjsfunction'] = true;
 /* NOTE: only works when $_ajax is not set to false */
@@ -122,6 +129,7 @@ $_includes = array(
 'class/bit.class.php',
 'class/pwd.class.php',
 'class/limit.class.php',
+'class/lang.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php', // cache
