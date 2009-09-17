@@ -89,6 +89,30 @@ return $a;
 }
 
 /*
+* function str_between($string, $start,$stop) - gets the string between 2 strings
+*  $string - the string to parse
+*  $start - starting point
+*  $stop - ending point
+* returns an array of strings
+*/
+public static function str_between($string, $start, $stop){
+    $st = $string;
+    $list = array();
+    $sl = strlen($start);
+    for($i=0;$i<strlen($string);$i++){
+        $temp = strpos($st, $start);
+        $str = substr($st, $temp+$sl);
+        $split_here = strpos($str, $stop);
+        $parsed_string = substr($str, 0, $split_here);
+        if($parsed_string == ''){
+            break;}
+        $st = substr($str, $split_here+1);
+        $list[] = $parsed_string;
+    }
+    return $list;
+}
+
+/*
 * function ver($s) - gets the PHP or extension version
 *  $s - an extension to get the version
 * returns a string

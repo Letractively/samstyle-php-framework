@@ -11,14 +11,17 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
 /* output buffering */
 function p($s){
-global $_PAGE;
+global $_PAGE,$_SITE;
 $tr = '';
 $argc = func_num_args();
-if ($argc > 1) {
+if($argc > 1){
 $argv = func_get_args();
 foreach($argv as $p){$tr .= $p;}
 }else{
 $tr = $s;
+}
+if($_SITE['lang_translate']){
+ $tr = lang::translate($tr);
 }
 $_PAGE['content'] .= $tr;
 }
