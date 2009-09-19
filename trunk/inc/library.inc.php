@@ -333,8 +333,16 @@ $subject = $i['subject'];
 $html_message = $i['message'];
 $from = $i['from'];
 $from_name = $i['from-name'];
+$reply_to = null;
+$reply_to_name = null;    
+if(array_key_exists('reply-to', $i) && array_key_exists('reply-to-name', $i)){
 $reply_to = $i['reply-to'];
-$reply_to_name = $i['reply-to-name'];
+$reply_to_name = $i['reply-to-name'];    
+}
+if(!array_key_exists('text_only', $i) ){
+$i['text_only'] = false;
+}
+
 
 
 $headers = '';
@@ -387,7 +395,7 @@ $email_message .= endBoundary($boundary1);
 }
 
 
-$ok = @mail($email_to, encodeHeader(secureHeader($email_subject)), $email_message, $headers);
+$ok = @mail($email_to, secureHeader($email_subject), $email_message, $headers);
 return $ok;
 
 }
