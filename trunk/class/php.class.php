@@ -186,6 +186,65 @@ if(!$u){return false;}
 header('Location: '.$u);exit();
 }
 
+public static function file_upload($name,$dest){
+
+p(php::dump($_FILES));
+$ok = true;
+if(is_array($name) && is_array($dest) && count($name) == count($dest)){
+
+foreach($name as $i=>$n){
+  self::file_upload($n,$dest[$i]);
+}
+
+}elseif(is_string($name) && substr($name,-2)=='[]' && (is_string($dest)|| is_array($dest)) ){
+$name = substr($name,0,strlen($name)-2);
+if(is_array($dest)){
+foreach($dest as $i =>$d){
+$keys = array_keys($_FILES[$name]);
+p(php::dump($_FILES[$name]));
+$a = array();
+foreach($keys as $k){
+$a['%'.$k.'%'] = $_FILES[$name][$k][$i];
+}
+$d = str_replace(array_keys($a),$a,$d);
+$ok = $ok && move_uploaded_file($_FILES[$name]['tmp_name'][$i],$d);
+
+}
+}else{
+
+$c = count($_FILES[$name]['name']);
+$i = -1;
+while($i++ < $c){
+
+$keys = array_keys($_FILES[$name]);
+$a = array();
+foreach($keys as $k){
+$a['%'.$k.'%'] = $_FILES[$name][$k][$i];
+}
+$d = str_replace(array_keys($a),$a,$dest);
+$ok = $ok && move_uploaded_file($_FILES[$name]['tmp_name'][$i],$d);
+
+}
+
+}
+
+}elseif(is_string($name) && is_string($dest)){
+
+$keys = array_keys($_FILES[$name]);
+$a = array();
+foreach($keys as $k){
+$a['%'.$k.'%'] = $_FILES[$name][$k];
+}
+$dest = str_replace(array_keys($a),$a,$dest);
+$ok = move_uploaded_file($_FILES[$name]['tmp_name'],$dest);
+
+}else{
+return false;
+}
+
+return $ok;
+}
+
 /*
 * function mtime() - gets the current microtime in float
 * returns a float of microtime.
