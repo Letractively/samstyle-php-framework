@@ -62,15 +62,14 @@ if(count($_includes)>0){
 $dn = get_domain($_SITE['approot']);
 if(strtolower($dn) == 'localhost'){$dn='';} // a fix around localhost for cookies.
 session_name(dechex(crc32($_SITE['approot'])));
-session_set_cookie_params((time()+$_SITE['session_length']));
+session_set_cookie_params($_SITE['session_length'],'/');
+ini_set('session.gc_maxlifetime', $_SITE['session_length']);
 $_sessstart = @session_start();
 if(!$_sessstart){
   session_regenerate_id(true); // replace the Session ID
   session_start(); // restart the session (since previous start failed)
 }
-$sess = session_name();
-setcookie($sess, session_id(), time() + $_SITE['session_length']);
-unset($dn);unset($sess);unset($_sessstart); // remove vars
+unset($dn);unset($_sessstart); // remove vars
 
 /* ************************************************
 *   setting out headers
