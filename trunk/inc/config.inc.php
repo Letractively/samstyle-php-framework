@@ -67,9 +67,9 @@ $_SITE['autoregisterjsfunction'] = true;
 
 /* error handling settings */
 $_SITE['error'] = array(
-'level' => E_ALL  & ~E_NOTICE,
+'level' => E_ALL & ~E_NOTICE,
 'handler_func' => '',
-'display'=>false,
+'display'=>true,
 'log'=>true,
 'logfile' => 'error.log'
 );
@@ -130,6 +130,7 @@ $_includes = array(
 'class/pwd.class.php',
 'class/limit.class.php',
 'class/lang.class.php',
+'class/enum.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php', // cache
