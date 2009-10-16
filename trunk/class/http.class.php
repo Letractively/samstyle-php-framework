@@ -11,10 +11,6 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 
 class http{
 
-public static function redirect($u){
-header('Location: '.$u);exit;
-}
-
 public static function domain($u){
 $i=parse_url($u);if(isset($i['host'])){return $i['host'];}return $i['path'];
 }

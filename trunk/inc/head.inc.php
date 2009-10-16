@@ -86,13 +86,10 @@ header('Content-Type: text/html; charset='.$_SITE['charset']);
 /* ************************************************
 *   Enabling GZIP or not?
 ************************************************ */
-if($_SITE['enablegzip']==true && isset($_SERVER['HTTP_ACCEPT_ENCODING'])){
-$acceptencoding = explode(',' ,$_SERVER['HTTP_ACCEPT_ENCODING']);
-foreach($acceptencoding as $id=>$encode){$acceptencoding[$id] = trim($encode);}
- if(in_array('gzip',$acceptencoding)){ob_start('ob_gzhandler');header('Content-Encoding: gzip');} 
-}else{
-while(ob_get_level()){ob_end_flush();}
-if(ob_get_length()===false){ob_start();}
+if($_SITE['enablegzip']){
+  if(!ob_start("ob_gzhandler")){
+    ob_start();
+  }
 }
 
 
