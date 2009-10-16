@@ -177,18 +177,8 @@ if($current < $max){$ret[] = array(sprintf($urlpat,$current+1),'Next');}
 return $ret;
 }
 
-/*
-* function redirect($u) - sends a redirect header and exit script
-*  $u - the new URL. cannot be empty.
-*/
-public static function redirect($u){
-if(!$u){return false;}
-header('Location: '.$u);exit();
-}
-
 public static function file_upload($name,$dest){
 
-p(php::dump($_FILES));
 $ok = true;
 if(is_array($name) && is_array($dest) && count($name) == count($dest)){
 
@@ -284,7 +274,7 @@ if($preformat){echo '</pre>';}
 */
 public static function str_slice($str,$len,$append = '...'){
 $str = trim($str);
-return (strlen($str) > $len ? substr($str,0,$len-3).$append : $str);
+return (strlen($str) > $len ? substr($str,0,$len-strlen($append)).$append : $str);
 }
 
 
@@ -311,7 +301,7 @@ $x = '';
 foreach ($a as $k=>$v){
 $k=strtolower($k);
 if(is_array($v)){
-$x .='<'.$k.'>'."\n";$x .=xml($v);$x .='</'.$k.'>'."\n";
+$x .='<'.$k.'>'."\n";$x .=self::xml($v);$x .='</'.$k.'>'."\n";
 }else{
 if(trim($v)!=''){
 if(htmlspecialchars($v)!=$v){
@@ -329,7 +319,7 @@ $x = array();
 @preg_match_all('`<([A-Z][A-Z0-9]*)\b[^>]*>(.*?)</\1>`is',$a,$m,PREG_SET_ORDER);
 if(count($m)){
 foreach($m as $i){
-$x[$i[1]]=xml($i[2]);
+$x[$i[1]]=self::xml($i[2]);
 }
 }else{
 $x=str_replace(array('<![CDATA[',']]>'),'',$a);
@@ -396,6 +386,8 @@ public static function str_parse($s,$f=array()){
 self::arg_check(func_num_args(),2,1);
 if(!is_array($f)){
 $fs = explode(',',$f);
+}else{
+$fs = $f;
 }
 foreach($fs as $a){
 $a = trim($a);
@@ -413,7 +405,7 @@ return $s;
 public static function str_shift($s, $n){
 php::arg_check(func_num_args(),2,2);
 $nw = '';$l = strlen($s);
-for ($i = 0; $i<$l; $i++){$nw .= chr(ord($s[$i])+$n);}
+for ($i = 0; $i<$l; ++$i){$nw .= chr(ord($s[$i])+$n);}
 return $nw;
 }
 
@@ -426,7 +418,7 @@ return $nw;
 public static function str_loop($s,$fn){
 $l = strlen($s);
 $i = -1;
-while($i++ < $l){
+while(++$i <= $l){
 $fn(substr($s,$i,1));
 }
 }
