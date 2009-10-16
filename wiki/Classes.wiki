@@ -21,3 +21,4 @@ Here is a list of classes available in Samstyle PHP Framework and their purpose.
 || [Classes_php php] || php.class.php || Provides added support and functionality to current PHP's pool of functions ||
 || [Classes_pwd pwd] || pwd.class.php || Password hashing with secured salting and verification ||
 || [Classes_validate validate] || validate.class.php || validates variables against certain patterns and so on ||
+|| [Classes_enum enum] || enum.class.php || provides a enumerator class similar to other languages for those who feel comfortable working with enumerators. ||
