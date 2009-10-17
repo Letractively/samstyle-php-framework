@@ -22,9 +22,9 @@ $base = md5($pwd);
 $salt = md5(uniqid(mt_rand(), true).time());
 $ctrl = strlen($pwd)>0?substr($pwd,0,1):chr(0);
 if(bit::query($ctrl,1)){
-if(bit::query($ctrl,2)){$hash = md5($base.$salt).str_rot13(dechex(crc32(php::mtime()))).$salt;}else{$hash = md5($salt.$base).dechex(crc32(php::mtime())).$salt;}
+if(bit::query($ctrl,2)){$hash = md5($base.$salt).str_rot13(php::crc(php::mtime())).$salt;}else{$hash = md5($salt.$base).php::crc(php::mtime()).$salt;}
 }else{
-if(bit::query($ctrl,2)){$hash = $salt.dechex(crc32(php::mtime())).md5($base.$salt);}else{$hash = $salt.str_rot13(dechex(crc32(php::mtime()))).md5($salt.$base);}
+if(bit::query($ctrl,2)){$hash = $salt.php::crc(php::mtime()).md5($base.$salt);}else{$hash = $salt.str_rot13(php::crc(php::mtime())).md5($salt.$base);}
 }
 return $hash;
 }

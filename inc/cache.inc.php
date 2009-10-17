@@ -32,7 +32,7 @@ foreach($files as $cf){if (file_exists($cf) && (time()-$time > filemtime($cf))){
 /* Clearout specific cache */
 function cache_del($id){
 $cf = 'cache/'.dechex(crc32($id)).'.cache';
-@unlink($cf);
+return @unlink($cf);
 }
 
 

@@ -74,6 +74,16 @@ g($t,$v);
 return $t;
 }
 
+/*
+* function crc($o) - generates the crc32 string in hexadecimal
+*  $o - the data to generate crc32 string
+* returns a crc32 hash of the data
+*/
+public static function crc($o){
+  $value = crc32($o);
+  $value &= 0xffffffff;
+  return str_pad(dechex($value), 8, "0", STR_PAD_LEFT);
+}
 
 /*
 * function idx($array, $key) - gets the value of $array[$key]
