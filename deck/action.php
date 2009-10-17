@@ -36,6 +36,6 @@ switch(strtolower($get['a'])){
 
 
 if($get['callback']){echo $get['callback'].'(';}
-echo json_encode($return);
+echo json_encode($result);
 if($get['callback']){echo ');';}
 ?>
