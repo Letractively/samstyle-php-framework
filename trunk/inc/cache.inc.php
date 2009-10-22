@@ -7,7 +7,11 @@ $cf = 'cache/'.dechex(crc32($id)).'.cache';
 if (file_exists($cf) && (time()-$time <= filemtime($cf))){
 $c = @file_get_contents($cf);
 if(!$c){return false;}
-return json_decode($c,true);
+if(substr($c,0,5)=='json:'){
+return json_decode(substr($c,5),true);
+}else{
+return substr($c,5);
+}
 }else{
 return false;
 }
@@ -39,7 +43,11 @@ return @unlink($cf);
 /* save data to cache, false on error*/
 function cache_save($id,$data){
 $cf = 'cache/'.dechex(crc32($id)).'.cache';
-$c = json_encode($data);
+if(is_array($data)){
+$c = 'json:'.json_encode($data);
+}else{
+$c = 'strn:'.$data;
+}
 $r = @file_put_contents($cf,$c);
 if($r){return true;}
 return false;
