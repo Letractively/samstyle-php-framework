@@ -76,7 +76,7 @@ $id = 'sp'.dechex(crc32($_SERVER['QUERY_STRING']));
 
 $tmpvar = '';
 if(isset($_GET['cache']) && $tmpvar = cache_retrieve($id,1296000)){
-$buffer = $tmpvar[0];
+$buffer = $tmpvar;
 }
 
 if($buffer == ''){
@@ -127,7 +127,7 @@ $buffer = trim(str_ireplace("\r\n","\n",$buffer),"\r\n");
 }
 
 if(isset($_GET['cache'])){
-cache_save($id,array($buffer));
+cache_save($id,$buffer);
 }
 }
 
