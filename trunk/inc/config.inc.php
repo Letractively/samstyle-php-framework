@@ -24,7 +24,7 @@ $_SITE['name'] = 'Samstyle Framework Test Application';
 $_SITE['ver'] = '1.0.0';
 
 /* Framework version */
-$_SITE['fwver'] = '1.2.11 Alpha';
+$_SITE['fwver'] = '1.2.11 BETA';
 
 /* Copyright Information */
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
@@ -120,6 +120,8 @@ $_PAGE['blocks'] = array('menubar'=>'blocks/menubar.php','footer'=>'blocks/foote
 ************************************************* */
 $_includes = array(
 'inc/library.inc.php',
+'class/base.class.php',
+'class/string.class.php',
 'class/firebug.class.php',
 'class/validate.class.php',
 'class/http.class.php',

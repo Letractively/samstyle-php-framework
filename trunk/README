@@ -18,6 +18,8 @@ configure the connection information at "config.inc.php". Then, restore the "dba
 file. The "dbapp.sql" file will create a schema/database called "dbapp" with a table
 named "settings".
 
+This Framework is tested with Simple Test unit testing.
+
 This Framework is hosted on Google Code at http://code.google.com/p/samstyle-php-framework/
 you can download the source code, submit and track issues over at the project page.
 You may also refer to the guides and documentation written on Google Code.
