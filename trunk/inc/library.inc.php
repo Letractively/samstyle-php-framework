@@ -9,6 +9,10 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 
+define('NL_NIX', "\n"); // \n only
+define('NL_WIN', "\r\n"); // \r\n
+define('NL_MAC', "\r");  // \r only
+
 /* output buffering */
 function p($s){
 global $_PAGE,$_SITE;
@@ -39,7 +43,7 @@ $_PAGE['content'] .= $tr;
 *  function g($k, [$v])
 *    allows you to get a variable which is currently defined in the global scope of the script using $GLOBALS
 *    $k - the name of the variable
-*    $v - Optional. set the value of the 
+*    $v - Optional. set the value of the variable
 * HINT: you can use (php::var_name($var) == 'var') to get the variable name of a variable
 */
 function g($k,$v=''){
@@ -53,7 +57,7 @@ return $GLOBALS[$k];
 function emailvalidate($email){
 $email = trim($email);
 $return = preg_match("/^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i", $email);
-return $return;
+return (bool)$return;
 }
 
 function timeAgo($tzSince){
@@ -90,6 +94,8 @@ $arr2 = array_unique(explode(' ',strtolower(preg_replace('`[\.|\,|\!|\"\|\\|\/|\
         $arr2 = $tmp;
         unset($tmp);
     }
+
+$count = 0;
 
     foreach($arr1 as $needle){
       if(in_array($needle,$arr2)){
@@ -486,7 +492,7 @@ function arr_range($r1,$r2){
 $r1 = (int)$r1;$r2 = (int)$r2;
 if($r2 < $r1){$t = $r1;$r1 = $r2;$r2 = $t;unset($t);}
 $r = array();$i = 0;
-for($i = $r1;$i<=$r2;$i++){$r[] = $i;}
+for($i = $r1;$i<=$r2;++$i){$r[] = $i;}
 return $r;
 }
 
@@ -645,4 +651,22 @@ case 'gif': return 'gif'; break;
 }
 return '';
 }
+
+
+function newline_type($string){
+
+  if(strpos($string,NL_WIN)!==false){
+    return NL_WIN;
+  }elseif(strpos($string,NL_MAC)!==false){
+    return NL_MAC;
+  }elseif(strpos($string,NL_NIX)!==false){
+    return NL_NIX;
+  }
+
+}
+
+function newline_convert($string, $nl){
+  return str_replace(array(NL_WIN, NL_MAC, NL_NIX), $nl, $string);
+}
+
 ?>
