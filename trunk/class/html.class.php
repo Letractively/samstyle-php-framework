@@ -45,6 +45,37 @@ public static function encode($s){return htmlentities($s,ENT_NOQUOTES);}
 
 public static function decode($s){return html_entity_decode($s,ENT_NOQUOTES);}
 
+public static function flash($file,$width,$height){
+return '<!--[if !IE]> -->'.
+'<object type="application/x-shockwave-flash" data="'.$file.'" width="'.$width.'" height="'.$height.'"><param name="wmode" value="opaque" /></object>'.
+'<!-- <![endif]-->'.
+'<!--[if IE]>'.
+'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="'.$width.'" height="'.$height.'">'.
+'<param name="movie" value="'.$file.'" /><param name="wmode" value="opaque" />'.
+'</object>'.
+'<![endif]-->';
+}
+
+public static function control($field,$options){
+$s = '$(window).ready(function(){var obj=$("#'.$field.'");if(obj.length>0){';
+if(isset($options['maxlength']) && $options['maxlength'] > 0){
+$s .= 'obj.attr("maxlength",'.(int)$options['maxlength'].');';
+if(isset($options['remaining'])){
+$s2 = '$("#'.$options['remaining'].'").html('.(int)$options['maxlength'].'-$("#'.$field.'").val().length);';
+$s .= 'obj.keypress(function(e){'.$s2.'});'.$s2;
+}
+}
+if(isset($options['counter'])){
+$s2 = '$("#'.$options['counter'].'").html($("#'.$field.'").val().length);';
+$s .= 'obj.keypress(function(e){'.$s2.'});'.$s2;
+}
+if(isset($options['numeric'])){
+$s .= 'obj.keypress(function(e){var charCode = (e.which) ? e.which : event.keyCode;if (charCode > 31 && (charCode < 48 || charCode > 57)){return false;}return true;});';
+}
+$s .= '}});';
+return html::js($s);
+}
+
 }
 
 ?>
