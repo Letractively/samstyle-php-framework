@@ -24,7 +24,7 @@ public static function css($s){return self::create('style',self::c($s),array('ty
 public static function c($s){return '<!-- '.$s.' -->';}
 
 /* returns a HTML string with img tag: pre-formatted for XHTML, HTML OK */
-public static function img($s,$a = ''){return str_replace('></img>','/>',self::create('img','',array('alt'=>$a,'src'=>$s)));}
+public static function img($s,$a = '',$id=''){return str_replace('></img>',' />',self::create('img','',array('alt'=>$a,'src'=>$s,'id'=>$id)));}
 
 public static function link($h, $t = ''){return self::create('a',(!$t?$h:$t),array('href'=>$h));}
 
@@ -73,7 +73,12 @@ if(isset($options['numeric'])){
 $s .= 'obj.keypress(function(e){var charCode = (e.which) ? e.which : event.keyCode;if (charCode > 31 && (charCode < 48 || charCode > 57)){return false;}return true;});';
 }
 $s .= '}});';
-return html::js($s);
+return self::js($s);
+}
+
+public static function img_swap($id, $hover){
+$s = 'var imgobj = new Image();imgobj.src = "'.$hover.'";$(window).ready(function(){$("#'.$id.'").data("ori-img",$("#'.$id.'").attr("src")).hover(function(){this.src = "'.$hover.'";},function(){this.src = $(this).data("ori-img");});});';
+return self::js($s);
 }
 
 }
