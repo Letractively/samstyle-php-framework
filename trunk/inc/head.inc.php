@@ -133,4 +133,44 @@ if($_ajax && $_SITE['autoregisterjsfunction']){
 p(html::jsf('deck/ajax.php?genjs'));
 }
 
+
+/* ************************************************
+* URL routing
+************************************************ */
+
+if($_routingkey && isset($_GET[$_routingkey]) && $_routes){
+
+$ur = array(
+'`/$`' => '' // remove trailing slash
+);
+foreach($_routes as $route){
+$ur['`^'.str_replace(array_keys($route['params']),$route['params'],$route['rewrite']).'$`'] = $route['actual'];
+}
+
+$urlparts = explode('?', preg_replace(array_keys($ur),$ur,$_GET[$_routingkey]));
+unset($ur);
+$file = array_shift($urlparts);
+$query = implode('',$urlparts);
+unset($urlparts);
+unset($_GET[$_routingkey]);
+$tmp = array();
+parse_str($query,$tmp);
+$_GET = array_merge($_GET,$tmp);
+$ok = @include_once($file);
+if(!$ok){header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');}
+exit;
+
+}elseif($_routingkey && $_routes){
+
+foreach($_routes as $key => $route){
+$s = '`'.str_replace(array_keys($route['params']),$route['params'],str_replace(array('.','?','(',')','[',']'),array('\\.','\\?','\\(','\\)','\\[','\\]'),$route['actual'])).'$`is';
+
+if(preg_match($s,$_SERVER['REQUEST_URI'])){
+$url = call_user_func_array('url_route',array_merge(array($key),$_GET));
+redirect($url);
+}
+}
+
+}
+
 ?>

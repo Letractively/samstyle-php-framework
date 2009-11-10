@@ -51,6 +51,26 @@ if(func_num_args()>=2){$GLOBALS[$k]=$v;}
 return $GLOBALS[$k];
 }
 
+function url_route($key){
+global $_routingkey,$_routes;
+
+$args = func_get_args();
+array_shift($args);
+
+$route = $_routes[$key];
+$i = 1;
+$params = array();
+foreach($args as $a){
+$params['$'.$i] = $a;$i++;
+}
+
+if($_routingkey){
+return str_replace(array_keys($params),$params,$route['rewrite']);
+}else{
+return str_replace(array_keys($params),$params,$route['actual']);
+}
+}
+
 /*
 * Email validation
 */

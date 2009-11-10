@@ -201,7 +201,6 @@ $name = substr($name,0,strlen($name)-2);
 if(is_array($dest)){
 foreach($dest as $i =>$d){
 $keys = array_keys($_FILES[$name]);
-p(php::dump($_FILES[$name]));
 $a = array();
 foreach($keys as $k){
 $a['%'.$k.'%'] = $_FILES[$name][$k][$i];
