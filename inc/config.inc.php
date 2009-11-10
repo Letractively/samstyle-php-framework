@@ -133,6 +133,7 @@ $_includes = array(
 'class/limit.class.php',
 'class/lang.class.php',
 'class/enum.class.php',
+'class/rss.class.php',
 'inc/func.inc.php',
 'inc/dao.inc.php', // mysql DAO management
 'inc/cache.inc.php', // cache
@@ -187,5 +188,30 @@ $_ajax = array(
 
 );
 // $_ajax = false; /* Set $_ajax to false to disable AJAX to call PHP functions */
+
+/* *************************************************
+*
+*  $_routes
+*  information about URL routing
+*
+************************************************* */
+
+$_routingkey = '_urlrouting_';
+//$_routingkey = false; // set $_routingkey to false to disable routing
+
+$_routes = array();
+
+$_routes['pagingwithnumbers'] = array(
+'rewrite'=> 'page/$1',
+'actual'=>'page.php?p=$1',
+'params' => array('$1'=>'([0-9]+)')
+);
+
+$_routes['pagingwithoutnumbers'] = array(
+'rewrite'=> 'page',
+'actual'=>'page.php',
+'params' => array()
+);
+
 
 ?>

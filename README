@@ -10,6 +10,12 @@ To start off, you will need to do a little configuration. Proceed to "inc/config
 In the $_SITE array variable, you can change your application name, version, copyright,
 URL root, enable GZIP or not.  Configure them as much as you want.
 
+Remember to configure $_SITE['approot'] and set it to the url that that the root folder of
+the application is residing.
+
+For URL Routing and Rewriting to work, you will need to enable mod_rewrite or similar
+modules. If you are not able to enable it, set $_routingkey in config.inc.php to false.
+
 Note that modifying the $_PAGE array variable will affect all your pages that are viewed
 on the browser.
 

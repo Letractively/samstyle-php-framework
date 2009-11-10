@@ -1,5 +1,5 @@
 <?php
-include('inc/head.inc.php'); // include the core and engine
+include_once('inc/head.inc.php'); // include the core and engine
 
 /* ****************************************************
 *
