@@ -5,9 +5,11 @@ This page lists the To-Do and tasks that needs to be done for Samstyle PHP Frame
 
 = To-Do =
 
-  * Class/URL Routing
-   * ability to do URL rewriting without the knowledge of writing mod_rewrite and modifying the .htaccess file
+  ~~* Class/URL Routing~~
+   * ~~ability to do URL rewriting without the knowledge of writing mod_rewrite and modifying the .htaccess file~~
   * Class/Lipsum generator
    * generates lipsum text based on number of paragraph and number of words so on.
   * Class/Error stack logger
    * able to log full error stack and display gracefully.
+  * Class/CSS optimizer
+   * allows you to define your rules and let the optimizer sort out the rest!
