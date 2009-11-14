@@ -156,7 +156,7 @@ unset($_GET[$_routingkey]);
 $tmp = array();
 parse_str($query,$tmp);
 $_GET = array_merge($_GET,$tmp);
-$ok = @include_once($file);
+$ok = @include($file);
 if(!$ok){header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');}
 exit;
 
