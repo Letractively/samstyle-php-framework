@@ -9,6 +9,9 @@ include_once('inc/head.inc.php'); // include the core and engine
 *
 **************************************************** */
 
+$_PAGE['title'] = 'Samstyle PHP Framework - Paging Example';
+
+
 if(!isset($_SESSION['lang'])){
 $_SESSION['lang'] = 'en';
 }

@@ -7,7 +7,7 @@
 *
 **************************************************** */
 
-include('inc/head.inc.php');
+include_once('inc/head.inc.php');
 
 /*
 
