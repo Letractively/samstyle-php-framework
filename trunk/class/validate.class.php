@@ -18,6 +18,15 @@ public static function email($e){
 return (bool)preg_match(self::$email_regex, trim($e));
 }
 
+public static function numberRange($n,$l,$h,$l_inc=true,$h_inc=true){
+if($n < $h && $n > $l){
+	return true;
+}
+elseif($h_inc && $n == $h){ return true;}
+elseif($l_inc && $n == $l){ return true;}
+return false;
+}
+
 public static function url($u){
 return (bool)preg_match(self::$url_regex, trim($u));
 }
