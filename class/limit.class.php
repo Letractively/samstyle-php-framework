@@ -36,6 +36,16 @@ public static function add_count($f){
   }
 }
 
+public static function get_count($f){
+  self::init();
+  $k = dechex(crc32($f));
+  if(isset($_SESSION[self::$sesskey][$k])){
+    self::checkreset($f);
+    return (int)$_SESSION[self::$sesskey][$k]['counts'];
+  }
+  return 0;
+}
+
 private static function checkreset($f){
   self::init();
   $k = dechex(crc32($f));

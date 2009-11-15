@@ -156,21 +156,32 @@ unset($_GET[$_routingkey]);
 $tmp = array();
 parse_str($query,$tmp);
 $_GET = array_merge($_GET,$tmp);
+
+ // emulation
+$_SERVER['QUERY_STRING'] = http_build_query($_GET);
+$_SERVER['PHP_SELF'] = dirname($_SERVER['PHP_SELF']).'/'.$file;
+
 $ok = @include($file);
 if(!$ok){header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');}
 exit;
 
 }elseif($_routingkey && $_routes){
-
+// clean request URL
+$_u = 'http';
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'){
+$_u.='s';
+}
+$_u.='://'.$_SERVER['SERVER_NAME'].idx(parse_url($_SERVER['REQUEST_URI']),'path').(strpos($_SERVER['REQUEST_URI'],'?')!==false?'?'.idx(parse_url($_SERVER['REQUEST_URI']),'query'):'');
+$_u = str_replace($_SITE['approot'],'',$_u);
 foreach($_routes as $key => $route){
-$s = '`'.str_replace(array_keys($route['params']),$route['params'],str_replace(array('.','?','(',')','[',']'),array('\\.','\\?','\\(','\\)','\\[','\\]'),$route['actual'])).'$`is';
+$s = '`^'.str_replace(array_keys($route['params']),$route['params'],str_replace(array('.','?','(',')','[',']'),array('\\.','\\?','\\(','\\)','\\[','\\]'),$route['actual'])).'$`is';
 
-if(preg_match($s,$_SERVER['REQUEST_URI'])){
+if(preg_match($s,$_u)){
 $url = call_user_func_array('url_route',array_merge(array($key),$_GET));
 redirect($url);
 }
 }
-
+unset($_u);
 }
 
 ?>

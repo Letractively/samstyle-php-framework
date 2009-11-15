@@ -597,7 +597,7 @@ return((bool)count(array_intersect(explode(' ',$agent),$bot_array)));
 }
 
 function rewrite_clean($url){
-$a_url = explode('-',strtolower(preg_replace('`[^a-zA-Z_]`','-',htmlspecialchars_decode($url))));
+$a_url = explode('-',strtolower(preg_replace('`[^a-zA-Z0-9_]`','-',htmlspecialchars_decode($url))));
 $url = '';foreach($a_url as $p_url){if($p_url != ''){$url .= $p_url . '-';}}
 return trim($url,'-');
 }

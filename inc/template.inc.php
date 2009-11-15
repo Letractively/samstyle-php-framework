@@ -22,7 +22,7 @@ $block = $_PAGE['blocks'][$m[2]]; // get the block content from $_PAGE['block']
 if($block==""){continue;} // continue if empty
 if(strpos($block,'.php')>0 && @file_exists($block)){ // check if block is a file
 $_PAGE['content'] = '';
-@include($block);
+include($block);
 $$t = str_replace($m[0],$_PAGE['content'],$$t);
 }else{
 $$t = str_replace($m[0],$block,$$t);
