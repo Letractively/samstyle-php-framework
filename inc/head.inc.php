@@ -160,8 +160,10 @@ $_GET = array_merge($_GET,$tmp);
  // emulation
 $_SERVER['QUERY_STRING'] = http_build_query($_GET);
 $_SERVER['PHP_SELF'] = dirname($_SERVER['PHP_SELF']).'/'.$file;
-
-$ok = @include($file);
+$dir = dirname($file);
+if(substr($dir,-1)!=DIRECTORY_SEPARATOR){$dir .= DIRECTORY_SEPARATOR;}
+chdir($dir);
+$ok = @include(basename($file));
 if(!$ok){header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');}
 exit;
 
