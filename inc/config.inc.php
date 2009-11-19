@@ -120,6 +120,7 @@ $_PAGE['blocks'] = array('menubar'=>'blocks/menubar.php','footer'=>'blocks/foote
 ************************************************* */
 $_includes = array(
 'inc/library.inc.php',
+'inc/urlrouting.inc.php',
 'class/base.class.php',
 'class/string.class.php',
 'class/firebug.class.php',
@@ -189,28 +190,5 @@ $_ajax = array(
 );
 // $_ajax = false; /* Set $_ajax to false to disable AJAX to call PHP functions */
 
-/* *************************************************
-*
-*  $_routes
-*  information about URL routing
-*
-************************************************* */
-
-$_routingkey = '_urlrouting_';
-//$_routingkey = false; // set $_routingkey to false to disable routing
-
-$_routes = array();
-
-$_routes['pagingwithnumbers'] = array(
-'rewrite'=> 'page/$1',
-'actual'=>'page.php?p=$1',
-'params' => array('$1'=>'([0-9]+)')
-);
-
-$_routes['pagingwithoutnumbers'] = array(
-'rewrite'=> 'page',
-'actual'=>'page.php',
-'params' => array()
-);
 
 ?>
