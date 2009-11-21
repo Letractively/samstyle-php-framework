@@ -24,7 +24,7 @@ $_SITE['name'] = 'Samstyle Framework Test Application';
 $_SITE['ver'] = '1.0.0';
 
 /* Framework version */
-$_SITE['fwver'] = '1.2.12 Alpha';
+$_SITE['fwver'] = '1.3.0 Alpha';
 
 /* Copyright Information */
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
@@ -56,10 +56,6 @@ $_SITE['charset'] = 'utf-8';
 
 /* the website's language */
 $_SITE['language'] = 'en';
-
-/* translate */
-$_SITE['lang_translate'] = 'cn';
-/* set $_SITE['lang_translate'] to false to disable automatic translation. */
 
 /* whether or not to automatically register all PHP-JS enabled functions. boolean*/
 $_SITE['autoregisterjsfunction'] = true;
@@ -103,12 +99,12 @@ $_PAGE['header'] = '';
 $_PAGE['logourl'] = '';
 $_PAGE['filename'] = basename($_SERVER['PHP_SELF']);
 $_PAGE['css'] = '';
-$_PAGE['template'] = 'templates/default.html';
+$_PAGE['template'] = 'app/templates/default.html';
 $_PAGE['content'] = '';
 $_PAGE['buffer'] ='';
 $_PAGE['footer'] = $_SITE['copyright'];
 $_PAGE['robots'] = 'index,follow';
-$_PAGE['blocks'] = array('menubar'=>'blocks/menubar.php','footer'=>'blocks/footer.php');
+$_PAGE['blocks'] = array('menubar'=>'app/blocks/menubar.php','footer'=>'app/blocks/footer.php');
 
 
 /* *************************************************
@@ -119,26 +115,25 @@ $_PAGE['blocks'] = array('menubar'=>'blocks/menubar.php','footer'=>'blocks/foote
 *
 ************************************************* */
 $_includes = array(
-'inc/library.inc.php',
-'inc/urlrouting.inc.php',
-'class/base.class.php',
-'class/string.class.php',
-'class/firebug.class.php',
-'class/validate.class.php',
-'class/http.class.php',
-'class/php.class.php',
-'class/html.class.php',
-'class/form.class.php',
-'class/bit.class.php',
-'class/pwd.class.php',
-'class/limit.class.php',
-'class/lang.class.php',
-'class/enum.class.php',
-'class/rss.class.php',
-'inc/func.inc.php',
-'inc/dao.inc.php', // mysql DAO management
-'inc/cache.inc.php', // cache
-'dao/settings.dao.php' // settings dao
+'app/inc/library.inc.php',
+'app/inc/urlrouting.inc.php',
+'app/class/base.class.php',
+'app/class/string.class.php',
+'app/class/firebug.class.php',
+'app/class/validate.class.php',
+'app/class/http.class.php',
+'app/class/php.class.php',
+'app/class/html.class.php',
+'app/class/form.class.php',
+'app/class/bit.class.php',
+'app/class/pwd.class.php',
+'app/class/limit.class.php',
+'app/class/enum.class.php',
+'app/class/rss.class.php',
+'app/inc/func.inc.php',
+'app/inc/dao.inc.php', // mysql DAO management
+'app/inc/cache.inc.php', // cache
+'app/dao/settings.dao.php' // settings dao
 );
 // $_includes = false; /* Set $_includes = false; to disable all includes for debugging */
 

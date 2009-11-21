@@ -8,7 +8,7 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 
-$template = @file_get_contents("templates/".basename($_PAGE['template']));
+$template = @file_get_contents("app/templates/".basename($_PAGE['template']));
 
 $template = str_replace('<$content$>',$_PAGE['content'],$template); // replace content first
 
@@ -51,7 +51,7 @@ $_TEMPLATE = array(
 '<$footer$>' => $_PAGE['footer'],
 '<$sitename$>' => $_SITE['name'],
 '<$approot$>'=>$_SITE['approot'],
-'<$sitelang$>'=>'en-gb',
+'<$sitelang$>'=>$_SITE['language'],
 '<$sessid$>' => session_id(),
 '<$self$>' => $_SERVER['PHP_SELF']
 );

@@ -1,5 +1,5 @@
 <?php
-include_once('inc/head.inc.php'); // include the core and engine
+include_once('app/inc/head.inc.php'); // include the core and engine
 
 /* ****************************************************
 *
@@ -12,28 +12,20 @@ include_once('inc/head.inc.php'); // include the core and engine
 $_PAGE['title'] = 'Samstyle PHP Framework - Paging Example';
 
 
-if(!isset($_SESSION['lang'])){
-$_SESSION['lang'] = 'en';
-}
-if(isset($_GET['l'])){
-$_SESSION['lang'] = $_GET['l'];
-}
-$_SITE['lang_translate'] = $_SESSION['lang'];
-
 p(html::c('Samstyle PHP Framework - Paging Example'));
 
 p('<div id="updates" style="float:right;text-align:right"></div>');
-p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "<#Latest Stable#>: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"<"+"/a><br"+"/><#Current Development#>: "+a.dev;}window.onload = function(){getVersions(new Array(),\'newUpdate\');};'));
+p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"<"+"/a><br"+"/>Current Development: "+a.dev;}window.onload = function(){getVersions(new Array(),\'newUpdate\');};'));
 
-p(html::tag('h1','<#Welcome to#> Samstyle PHP Framework'));
-p(html::tag('p','<#Framework Version#> <$fwversion$> | <#Paging Example#>'));
+p(html::tag('h1','Welcome to Samstyle PHP Framework'));
+p(html::tag('p','Framework Version <$fwversion$> | Paging Example'));
 p('<$block:menubar$>');
 
 p('<div id="box">');
 $cur = isset($_GET['p'])?(int)$_GET['p']:1;$total = 20;if(!$cur){$cur = 1;}
 $arr = php::paging(url_route('pagingwithnumbers','%d'),$cur, $total); // do paging calcs
 
-p(html::tag('div','<#The project homepage on Google Code is at#><br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'padding-top:120px;font-size:140%;')));
+p(html::tag('div','The project homepage on Google Code is at<br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'padding-top:120px;font-size:140%;')));
 
 p('<div style="padding-bottom:100px;padding-top:10px;">');
 p('You are on page '.$cur.' of '.$total.' pages.<br/>');
@@ -41,7 +33,7 @@ p('You are on page '.$cur.' of '.$total.' pages.<br/>');
 foreach($arr as $a){
 if(is_array($a)){
 if($a[1]==$cur){p('<b>');}// bold number if is current page
-p(html::link($a[0],'<#'.$a[1].'#>')); // show link and number
+p(html::link($a[0],''.$a[1].'')); // show link and number
 if($a[1]==$cur){p('</b>');} // bold number if is current page
 }else{
 p($a); // is a "..."
@@ -56,6 +48,6 @@ p('</div>');
 p('<$block:footer$>');
 
 
-include('inc/template.inc.php'); // process the buffer
+include('app/inc/template.inc.php'); // process the buffer
 echo $_PAGE['buffer']; // output buffer
 ?>

@@ -1,6 +1,6 @@
 <?php
 chdir('../');
-include('inc/head.inc.php'); // include the core and engine
+include('app/inc/head.inc.php'); // include the core and engine
 
 /* ****************************************************
 *

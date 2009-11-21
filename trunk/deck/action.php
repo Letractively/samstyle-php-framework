@@ -1,6 +1,6 @@
 <?php
 chdir('../');
-include('inc/head.inc.php'); // include the core and engine
+include('app/inc/head.inc.php'); // include the core and engine
 
 /* ****************************************************
 *
@@ -9,33 +9,10 @@ include('inc/head.inc.php'); // include the core and engine
 *  Created by: Sam Yong | Date/Time: 10:44am 30 June 2009 GMT+8
 *
 **************************************************** */
+$c = $_GET['c'];
+if(!validate::alnum($c)){exit;}
+if(!file_exists($controller = 'app/controller/'.$c.'.ctrl.php')){exit;}
 
-// for ajax returns
-$result = array();
+include($controller);
 
-if(count($post) == 0 && count($get)== 0){redirect('index.php');}
-
-if(count($post) > 0  && count($get) > 0){
-// get and post
-
-}else if(count($_POST) > 0){
-// post only
-
-switch(strtolower($post['action'])){
-
-}
-
-
-}else{
-// get only
-
-switch(strtolower($get['a'])){
-}
-
-}
-
-
-if($get['callback']){echo $get['callback'].'(';}
-echo json_encode($result);
-if($get['callback']){echo ');';}
 ?>
