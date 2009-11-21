@@ -11,7 +11,7 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 /* ************************************************
 *   include configuration file
 ************************************************ */
-$c = include_once('inc/config.inc.php');
+$c = include_once('app/inc/config.inc.php');
 
 
 /* ************************************************
@@ -37,7 +37,6 @@ error_reporting(0);
 ini_set('display_errors','off');
 ini_set('log_errors','off');
 }
-
 
 /* ************************************************
 * check if maintenance mode. check first to reduce load
