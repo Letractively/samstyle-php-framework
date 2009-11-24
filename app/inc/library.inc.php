@@ -145,7 +145,7 @@ if(!function_exists('str_ireplace')){
 function redirect($url){
 if(trim($url) == ''){return;}
 header($_SERVER["SERVER_PROTOCOL"]." 302 Found");
-if(substr($url,0,1)=='/'){global $_SITE;$url = $_SITE['approot'].($url != '/'?substr($url,1):'');}
+if(!preg_match('`^http(s|)://`is',$url)){global $_SITE;$url = $_SITE['approot'].($url != '/'?substr($url,1):'');}
 header('Location: '.$url);exit;}
 
 /**
