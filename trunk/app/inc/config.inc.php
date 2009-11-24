@@ -38,6 +38,9 @@ $_SITE['enablegzip'] = true;
  /* Application root URL - for use at base tag and referencing */
 $_SITE['approot'] = 'http://localhost/ssphpfw/';
 
+/* whether in https or not */
+$_SITE['https'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');
+
 /* specify whether will auto parse HTTP arguments ($_GET or $_POST)
 into $get and $post to prevent injection/XSS or other threats */
 $_SITE['autoparsehttpargs'] = true;
