@@ -159,7 +159,7 @@ return $ret;
 */
 public static function paging($urlpat,$current, $max, $min = 1,$show = 3){
 if($current < $min || $current > $max){$current = $min;}
-if($max <= $min){return false;}
+if($max < $min){return false;}
 if(!strpos($urlpat,'%d')){return false;}
 $current = (int)$current;$max = (int)$max;$min = (int)$min;$show = (int)$show;
 

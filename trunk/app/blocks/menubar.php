@@ -9,6 +9,6 @@ if(basename(__FILE__) == basename($_SERVER['PHP_SELF'])){exit();}
 *
 ************************************************* */
 
-p(html::link('<$approot$>','AppRoot').' | '.html::link(url_route('pagingwithoutnumbers'),'Paging Example').' | '.html::link('http://code.google.com/p/samstyle-php-framework','Project Home').' | '.html::link('http://thephpcode.blogspot.com','thephpcode'));
+p(html::link('{approot}','AppRoot').' | '.html::link(url_route('pagingwithoutnumbers'),'Paging Example').' | '.html::link('http://code.google.com/p/samstyle-php-framework','Project Home').' | '.html::link('http://thephpcode.blogspot.com','thephpcode'));
 p('<hr/>');
 ?>

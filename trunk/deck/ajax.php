@@ -12,7 +12,8 @@ include('app/inc/head.inc.php'); // include the core and engine
  
 if(!$_ajax){exit;} // end if AJAX is false;
 
-$_PAGE['content']='';
+$page = Page::getInstance();
+
 if(isset($_GET['genjs'])){
 
 header('Content-Type: text/javascript; charset=utf-8');
@@ -30,7 +31,7 @@ foreach($_ajax['func'] as $func){
 p('function '.$func.'(a,c){if(a==null||c==""){return;}var s=ats(a);sc("'.$_SITE['approot'].'deck/ajax.php?f='.$func.'"+(s!=""?"&"+s:"")+"'.($_ajax['sessCheck']?'&sh='.$session_hash:'').'&callback="+escape(c),"'.$func.'");}');
 }
 
-echo $_PAGE['content']; // output buffer from $_PAGE['content'] only
+echo $page->render()->output();
 /* reason being that we do not want to render template into it */
 
 }else{
@@ -83,7 +84,7 @@ if(isset($get['p'])){
 
 
 if(isset($get['callback'])){echo html::encode($get['callback']).'(';}elseif($_ajax['callback']){echo $_ajax['callback'].'(';}
-echo $_PAGE['content']; // output buffer from $_PAGE['content'] only
+echo $page->render()->output();
 if(isset($get['callback'])){echo ');';}elseif($_ajax['callback']){echo ');';}
 /* reason being that we do not want to render template into it */
 }
