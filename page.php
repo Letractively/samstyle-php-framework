@@ -9,7 +9,16 @@ include_once('app/inc/head.inc.php'); // include the core and engine
 *
 **************************************************** */
 
-$_PAGE['title'] = 'Samstyle PHP Framework - Paging Example';
+$page = Page::getInstance();
+$page->setTemplate('default.html');
+$page->addRule('footer', 'app/blocks/footer.php');
+$page->addRule('menubar', 'app/blocks/menubar.php');
+$page->addRule('title', 'Samstyle PHP Framework - Paging Example');
+$page->addRule('fwversion', $_SITE['fwver']);
+$page->addRule('approot', $_SITE['approot']);
+$page->addRule('robots', 'index,follow');
+
+p(html::jsf('deck/ajax.php?genjs'));
 
 
 p(html::c('Samstyle PHP Framework - Paging Example'));
@@ -18,8 +27,8 @@ p('<div id="updates" style="float:right;text-align:right"></div>');
 p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"<"+"/a><br"+"/>Current Development: "+a.dev;}window.onload = function(){getVersions(new Array(),\'newUpdate\');};'));
 
 p(html::tag('h1','Welcome to Samstyle PHP Framework'));
-p(html::tag('p','Framework Version <$fwversion$> | Paging Example'));
-p('<$block:menubar$>');
+p(html::tag('p','Framework Version {fwversion} | Paging Example'));
+p('{menubar}');
 
 p('<div id="box">');
 $cur = isset($_GET['p'])?(int)$_GET['p']:1;$total = 20;if(!$cur){$cur = 1;}
@@ -45,9 +54,7 @@ p('</div>');
 
 p('</div>');
 
-p('<$block:footer$>');
+p('{footer}');
 
-
-include('app/inc/template.inc.php'); // process the buffer
-echo $_PAGE['buffer']; // output buffer
+echo $page->render()->output(); // output buffer
 ?>

@@ -15,7 +15,6 @@ define('NL_MAC', "\r");  // \r only
 
 /* output buffering */
 function p($s){
-global $_PAGE,$_SITE;
 $tr = '';
 $argc = func_num_args();
 if($argc > 1){
@@ -24,10 +23,8 @@ foreach($argv as $p){$tr .= $p;}
 }else{
 $tr = $s;
 }
-if($_SITE['lang_translate']){
- $tr = lang::translate($tr);
-}
-$_PAGE['content'] .= $tr;
+$page = Page::getInstance();
+$page->addRule('content',$page->getRule('content'). $tr);
 }
 
 /*
@@ -602,35 +599,15 @@ $url = '';foreach($a_url as $p_url){if($p_url != ''){$url .= $p_url . '-';}}
 return trim($url,'-');
 }
 
-function cTimezone($time = false, $tzHours = +8, $dst = false){
+function cTimezone($h, $time = false){
 
-if(!is_int($tzHours)){$tzHours = intval($tzHours);}
-$timearray = array();
-$h = $tzHours;
-
-if ($dst) {
-    $daylight_saving = date('I');
-    if ($daylight_saving){
-        if ($h < 0){ $h=$h+1;  } else { $h=$h-1; }
-    }
-}
-
+if(!is_int($h)){$h = intval($h);}
+if(!is_int($time)){$time = strtotime($time);}
 if(!$time){$time = time();}
 
-$ms = $h * 3600;
-$timestamp = ($time+($ms)); 
+$time = strtotime(h.' hours',$time);
 
-$timearray = array(
-'h' => gmdate("G",$timestamp),
-'m' => gmdate("m",$timestamp),
-'j' => gmdate("j",$timestamp),
-'n' => gmdate("n",$timestamp),
-'Y' => gmdate("Y",$timestamp),
-'s' => gmdate("s",$timestamp),
-'GMT' => $h,
-'0' => gmdate("U",$timestamp)
-);
-return $timearray;
+return $time;
 }
 
 

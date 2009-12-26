@@ -24,7 +24,7 @@ $_SITE['name'] = 'Samstyle Framework Test Application';
 $_SITE['ver'] = '1.0.0';
 
 /* Framework version */
-$_SITE['fwver'] = '1.3.0 Alpha';
+$_SITE['fwver'] = '1.3.1 Alpha';
 
 /* Copyright Information */
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
@@ -59,10 +59,6 @@ $_SITE['charset'] = 'utf-8';
 
 /* the website's language */
 $_SITE['language'] = 'en';
-
-/* whether or not to automatically register all PHP-JS enabled functions. boolean*/
-$_SITE['autoregisterjsfunction'] = true;
-/* NOTE: only works when $_ajax is not set to false */
 
 /* error handling settings */
 $_SITE['error'] = array(
@@ -118,12 +114,14 @@ $_PAGE['blocks'] = array('menubar'=>'app/blocks/menubar.php','footer'=>'app/bloc
 *
 ************************************************* */
 $_includes = array(
+'app/inc/page.inc.php',
 'app/inc/library.inc.php',
 'app/inc/urlrouting.inc.php',
 'app/class/base.class.php',
 'app/class/string.class.php',
 'app/class/firebug.class.php',
 'app/class/validate.class.php',
+'app/class/lastformhandler.class.php',
 'app/class/http.class.php',
 'app/class/php.class.php',
 'app/class/html.class.php',
