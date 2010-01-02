@@ -5,7 +5,7 @@
 [http://thephpdeveloper.blogspot.com/ Sam Yong] developed a prototype of this framework in 2008 for use with many applications. However it was only until 28 July 2009 that he decided to fully develop and open source this framework.
 
 ==Introduction==
-Samstyle PHP Framework is a faster, lighter, and ever greater PHP framework that is prepared for the Web 3.0.
+Samstyle PHP Framework is a faster, lighter, and ever greater PHP framework that is prepared for the modern web environment!
 
 It has the set of tools, functions and methods ready for web development. Be it email validation, template handling, error management, flexibility, content management, or speed, it is far superior.
 
