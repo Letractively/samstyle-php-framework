@@ -18,9 +18,9 @@ AJAXCall() function
 function AJAXCall($t = false,$timeonly = false){
 if(!$t){$t = time();}
 if($timeonly){
-return json_encode(array('time'=>gmdate('h:i a',$t)));
+return json_encode(array('time'=>date('h:i a',$t)));
 }
-return json_encode(array('date'=>gmdate('jS F Y',$t),'time'=>gmdate('h:i a',$t)));
+return json_encode(array('date'=>date('jS F Y',$t),'time'=>date('h:i a',$t)));
 }
 
 /* ================================
