@@ -57,6 +57,11 @@ $_SITE['maintenance'] = false;
 /* the website's default charset */
 $_SITE['charset'] = 'utf-8';
 
+/* the website's default timezone for Date time operations as well as database*/
+$_SITE['timezone'] = 'Singapore';
+// supported timezones:
+//    http://www.php.net/manual/en/timezones.php
+
 /* the website's language */
 $_SITE['language'] = 'en';
 
