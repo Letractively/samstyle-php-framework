@@ -30,7 +30,7 @@ $_SITE['fwver'] = '1.3.1 Alpha';
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
 
 /* MySQL login information: s - server; u - username; p - password; udb - default database/schema */
-$_SITE['mysql_info'] = array('s'=>'localhost','u'=>'root','p'=>'password','udb'=>'dbapp','connection'=>null);
+$_SITE['mysql_info'] = array('s'=>'localhost','u'=>'root','p'=>'password','d'=>'dbapp');
 
 /* Enable GZIP or not - boolean */
 $_SITE['enablegzip'] = true;
@@ -58,7 +58,7 @@ $_SITE['maintenance'] = false;
 $_SITE['charset'] = 'utf-8';
 
 /* the website's default timezone for Date time operations as well as database*/
-$_SITE['timezone'] = 'Singapore';
+$_SITE['timezone'] = 'GMT';
 // supported timezones:
 //    http://www.php.net/manual/en/timezones.php
 
@@ -122,6 +122,7 @@ $_includes = array(
 'app/inc/page.inc.php',
 'app/inc/library.inc.php',
 'app/inc/urlrouting.inc.php',
+'app/class/dba.class.php',
 'app/class/base.class.php',
 'app/class/string.class.php',
 'app/class/firebug.class.php',
@@ -137,7 +138,6 @@ $_includes = array(
 'app/class/enum.class.php',
 'app/class/rss.class.php',
 'app/inc/func.inc.php',
-'app/inc/dao.inc.php', // mysql DAO management
 'app/inc/cache.inc.php', // cache
 'app/dao/settings.dao.php' // settings dao
 );

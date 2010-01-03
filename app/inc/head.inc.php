@@ -97,16 +97,8 @@ if($_SITE['enablegzip']){
 ************************************************ */
 if($_SITE['mysql_info']){
 $link = @mysql_connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p']);
-if(!$link){
-echo '<div class="err"><p>Connection Error<br/>Techincal Info: '.mysql_error().'</p></div>';
-exit();
-}else{
-$_SITE['mysql_info']['connection'] = $link;
-if(!@mysql_select_db($_SITE['mysql_info']['udb'])){
-echo'<div class="err"><p>Technical Error<br/>Techincal Info: '.mysql_error().'</p></div>';
-exit();
-}
-}
+$dba = DBA::getInstance();
+$dba->connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p'],$_SITE['mysql_info']['d']);
 }
 
 
