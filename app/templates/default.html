@@ -7,6 +7,18 @@
 <title>{title}</title>
 <link rel="stylesheet" type="text/css" href="sp.php?t=0&amp;s=s.css&amp;cache&amp;c" />
 </head><body>
-<script type="text/javascript" src="sp.php?t=1&amp;s=jquery.js;jquery.plugin.js&amp;cache&amp;c"></script>
-<div id="ctns">{content}</div>
+<script type="text/javascript" src="sp.php?t=1&amp;s=jquery.js;jquery.plugin.js;fontreplace.js&amp;cache&amp;c"></script>
+<div class="fwidth mauto">
+<div id="updates"></div>
+<div class="replace" style="color:#67859B;"><span style="font-size:76px;">Samstyle</span> <span style="font-size:45px;">PHP Framework</span></div>
+<div id="banner"><div class="txt"><span style="font-size:18px;">Ease and zen of writing PHP in</span><br/><span style="font-size:22px;">Samstyle PHP Framework</span></div>{menubar}</div>
+<div id="ctns">
+<div class="bc-wrap"><div class="bc">{breadcrumb}</div></div>
+<div class="pad5">{content}</div>
+</div>
+{footer}
+</div>
+<script type="text/javascript">/* <![CDATA[ */
+$(".replace span").fontreplace('kalinga.ttf');
+/* ]]> */</script>
 </body></html>

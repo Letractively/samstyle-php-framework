@@ -24,7 +24,7 @@ $_SITE['name'] = 'Samstyle Framework Test Application';
 $_SITE['ver'] = '1.0.0';
 
 /* Framework version */
-$_SITE['fwver'] = '1.3.1 Alpha';
+$_SITE['fwver'] = '1.3.2 Beta';
 
 /* Copyright Information */
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
