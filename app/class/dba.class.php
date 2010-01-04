@@ -4,7 +4,7 @@
 *
 *  dba.class.php
 *  Samstyle PHP Framework
-*  Database Access (DBA) Layer for DB
+*  Database Access (DBA) Layer for MySQL, SQLite, and SQLite3
 *
 ************************************************* */
 
@@ -21,30 +21,62 @@ return self::$___instance;
 protected function __construct(){$this->init();}
 protected function __clone(){}
 
-private $conn;
+private $conn = false;
+private $servertype = 'mysql';
 private $server;
 private $username;
 private $password;
 private $database;
+private $options = array();
 
 private $query = '';
 private $actualQuery = '';
 private $binds = array();
 private $result;
+private $lastError = '';
 
 function init(){
 
 }
 
-public function connect($s, $u, $p, $d){
-    $this->server = $s;
+// $dsn = 'mysql:host=localhost;dbname=dbapp;port=3306';
+public function connect($dsn,$u='',$p=''){
+    $a = $this->parseConnStr($dsn);
+    $this->servertype = $a['servertype'];
+    $this->server = $a['server'];
+    $this->database = $a['database'];
+    $this->options = $a['options'];
     $this->username = $u;
     $this->password = $p;
-    $this->database = $d;
+}
+
+private function parseConnStr($s){
+    $a = array();
+    $dividerpos = strpos($s,':');
+    $a['servertype'] = strtolower(substr($s,0,$dividerpos));
+    if($a['servertype']!='uri'){
+    $t = array();
+    $e = explode(';',substr($s,$dividerpos+1));
+    foreach($e as $ele){
+        list($key,$value) = explode('=',$ele);
+        $t[strtolower(trim($key))] = trim($value);
+    }
+    if(isset($t['port'])){
+        $a['server'] = $t['host'].':'.$t['port'];
+    }else{
+        $a['server'] = $t['host'];
+    }
+    $a['database'] = $t['dbname'];
+    unset($t['host'],$t['port'],$t['dbname']);
+    $a['options'] = $t;
+    }else{
+         $a['server'] = substr($s,$dividerpos);
+    }
+    return $a;
 }
 
 public function prepare($q){
-    $this->query = $q;
+    return $this->query = $q;
 }
 
 private function countVariable(){
@@ -59,8 +91,28 @@ public function bind($type, $var){
 
 private function testConn(){
 if(!$this->conn){
-$this->conn = mysql_connect($this->server,$this->username,$this->password);
-mysql_select_db($this->database);
+switch($this->servertype){
+case 'mysql':
+  $this->conn = mysql_connect($this->server,$this->username,$this->password);
+  if(!$this->conn){$this->setLastError();return false;}
+  $ok = mysql_select_db($this->database);
+  if(!$ok){$this->setLastError();return false;}
+break;
+case 'sqlite':
+  $err = '';
+  $this->conn = sqlite_open($this->server,0666,&$err);
+  if($err != ''){$this->setLastError($err);return false;}
+break;
+case 'sqlite3':
+  $err = '';
+  if(isset($this->options['key'])){
+      $this->conn = new SQLite3($this->server, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->options['key']);
+  }else{
+      $this->conn = new SQLite3($this->server, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
+  }
+  if(!$this->conn){$this->setLastError();return false;}
+break;
+}
 }
 return $this->conn;
 }
@@ -69,7 +121,6 @@ public function execute(){
 if(!$this->query){return false;}
 if($this->countVariable()!=count($this->binds)){return false;}
 if(!$this->testConn()){return false;}
-if($this->result){mysql_free_result($this->result);}
 $q = $this->query;$t = '';
 $i = 0;$l=0;$a=0;
 while(($i = strpos($q,'?',$i)) !== false){
@@ -77,7 +128,7 @@ if($i>0 && (substr($q, $i-1,1)!='\\' || ($i>1 && substr($q,$i-2,2)=='\\\\'))){
 switch($this->binds[$a][0]){
 
 case 's': // string
-$value = '\''.mysql_real_escape_string($this->binds[$a][1]).'\'';
+$value = '\''.$this->escapeString($this->binds[$a][1]).'\'';
 break;
 
 case 'd': // digit - float or int
@@ -111,18 +162,92 @@ $i++;
 }
 } // WHILE LOOP
 $t.=substr($q,$l); // the rest of the query
-$this->result = mysql_query($t);
-$this->actualQuery = $t;
+$this->result = $this->query($t);
 return $this->result ? true : false;
 }
 
-public function fetch($into = '',$callback = false){
+private function query($q){
+$this->actualQuery = $q;
+switch($this->servertype){
+case 'mysql':
+  $r = mysql_query($q);
+break;
+case 'sqlite':
+  $r = sqlite_query($q);
+break;
+case 'sqlite3':
+  $r = $this->conn->query($q);
+break;
+}
+if(!$r){$this->setLastError();}
+return $r;
+}
+
+private function escape_string($s){
+switch($this->servertype){
+case 'mysql':
+  return mysql_real_escape_string($s);
+break;
+case 'sqlite':
+  return sqlite_escape_string($s);
+break;
+case 'sqlite3':
+  return $this->conn->escapeString($s);
+break;
+}
+}
+
+private function setLastError($err = ''){
+if($err != ''){
+  $this->lastError = $err;
+  return;
+}
+switch($this->servertype){
+case 'mysql':
+  if($err = mysql_error()){
+    $this->lastError = $err;
+  }
+break;
+case 'sqlite':
+  $this->lastError = sqlite_error_string(sqlite_last_error($this->conn));
+break;
+case 'sqlite3':
+  $this->lastError = $this->conn->lastErrorMsg();
+break;
+}
+}
+
+public function fetch($into = ''){
 if(!$this->result){return false;}
-$table = array();$usecb = ($callback !== false);
-if($into !== '' && class_exists($into)){
-while($row = mysql_fetch_object($this->result,$into)){$table[] = $row;if($usecb){call_user_func($callback,$row);}}
+$table = array();
+switch($this->servertype){
+case 'mysql':
+if($into === '' || !class_exists($into)){
+while($row = mysql_fetch_assoc($this->result)){$table[] = $row;}
 }else{
-while($row = mysql_fetch_assoc($this->result)){$table[] = $row;if($usecb){call_user_func($callback,$row);}}
+while($row = mysql_fetch_object($this->result,$into)){$table[] = $row;}
+}
+break;
+case 'sqlite':
+if($into === '' || !class_exists($into)){
+while($row = sqlite_fetch_assoc($this->result,SQLITE_ASSOC)){$table[] = $row;}
+}else{
+while($row = sqlite_fetch_object($this->result,$into)){$table[] = $row;}
+}
+break;
+case 'sqlite3':
+if($into === '' || !class_exists($into)){
+while($row = $this->result->fetchArray(SQLITE3_ASSOC)){$table[] = $row;}
+}else{
+while($row = $this->result->fetchArray(SQLITE3_ASSOC)){
+$o = new $into();
+foreach($row as $k => $v){
+$o->$k = $v;
+}
+$table[] = $o;
+}
+}
+break;
 }
 return $table;
 }
@@ -141,23 +266,33 @@ return $this->actualQuery;
 }
 
 public function getLastError(){
-return mysql_error();
+return $this->lastError;
 }
 
 public function lastInsertId(){
-return mysql_insert_id();
+switch($this->servertype){
+case 'mysql':
+    return mysql_insert_id();
+break;
+case 'sqlite':
+  return sqlite_last_insert_rowid($this->conn);
+break;
+case 'sqlite3':
+  return $this->conn->lastInsertRowID();
+break;
+}
 }
 
 public function begin(){
-mysql_query('BEGIN');
+return $this->query('BEGIN');
 }
 
 public function commit(){
-mysql_query('COMMIT');
+return $this->query('COMMIT');
 }
 
 public function rollback(){
-mysql_query('rollback');
+return $this->query('rollback');
 }
 
 }
