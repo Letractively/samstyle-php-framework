@@ -1,10 +1,11 @@
 <?php
+chdir('../');
 include_once('app/inc/head.inc.php'); // include the core and engine
 
 /* ****************************************************
 *
 *  Samstyle PHP Framework
-*  Framework Paging Example Page
+*  Framework Examples
 *  Created by: Sam Yong | Date/Time: 11:11pm 21st July 2009 GMT+8
 *
 **************************************************** */
@@ -17,22 +18,14 @@ $page->addRule('title', 'Samstyle PHP Framework - Paging Example');
 $page->addRule('fwversion', $_SITE['fwver']);
 $page->addRule('approot', $_SITE['approot']);
 $page->addRule('robots', 'index,follow');
+$page->addRule('breadcrumb', 'Home &gt; Examples &gt; Pagination');
 
 p(html::jsf('deck/ajax.php?genjs'));
 
+p(html::js('function newUpdate(a){$("#updates").html("Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"<"+"/a><b"+"r/>Current Development: "+a.dev);}$(function(){getVersions([],\'newUpdate\');});'));
 
-p(html::c('Samstyle PHP Framework - Paging Example'));
-
-p('<div id="updates" style="float:right;text-align:right"></div>');
-p(html::js('function newUpdate(a){document.getElementById("updates").innerHTML = "Latest Stable: <a href=\"http://code.google.com/p/samstyle-php-framework/downloads/list\">"+a.stable+"<"+"/a><br"+"/>Current Development: "+a.dev;}window.onload = function(){getVersions(new Array(),\'newUpdate\');};'));
-
-p(html::tag('h1','Welcome to Samstyle PHP Framework'));
-p(html::tag('p','Framework Version {fwversion} | Paging Example'));
-p('{menubar}');
-
-p('<div id="box">');
 $cur = isset($_GET['p'])?(int)$_GET['p']:1;$total = 20;if(!$cur){$cur = 1;}
-$arr = php::paging(url_route('pagingwithnumbers','%d'),$cur, $total); // do paging calcs
+$arr = php::paging(url_route('examples-pagingwithnumbers','%d'),$cur, $total); // do paging calcs
 
 p(html::tag('div','The project homepage on Google Code is at<br/>'.html::tag('a','http://code.google.com/p/samstyle-php-framework/',array('href'=>'http://code.google.com/p/samstyle-php-framework/')),array('style'=>'padding-top:120px;font-size:140%;')));
 
@@ -52,9 +45,5 @@ p('&nbsp;');
 /* do paging display */
 p('</div>');
 
-p('</div>');
-
-p('{footer}');
 
 echo $page->render()->output(); // output buffer
-?>
