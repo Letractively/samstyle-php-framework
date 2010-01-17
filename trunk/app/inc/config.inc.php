@@ -30,7 +30,7 @@ $_SITE['fwver'] = '1.3.2 Beta';
 $_SITE['copyright'] = 'Copyright (c) Company 2009-'.gmdate('Y',strtotime('+1 year')).'. All Rights Reserved.';
 
 /* MySQL login information: s - server; u - username; p - password; udb - default database/schema */
-$_SITE['mysql_info'] = array('s'=>'localhost','u'=>'root','p'=>'password','d'=>'dbapp');
+$_SITE['mysql_info'] = array('s'=>'mysql:host=localhost;dbname=dbapp','u'=>'root','p'=>'password');
 
 /* Enable GZIP or not - boolean */
 $_SITE['enablegzip'] = true;
