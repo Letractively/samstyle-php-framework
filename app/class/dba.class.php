@@ -117,6 +117,53 @@ break;
 return $this->conn;
 }
 
+private function prepareParam($d,$v){
+switch($d){
+
+case 'a': // auto detect
+if(is_string($v)){
+$value = $this->prepareParam('s',$v);
+}elseif(is_numeric($v)){
+$value = $this->prepareParam('d',$v);
+}else{
+$value = $v;
+}
+break;
+
+case 's': // string
+$value = '\''.$this->escapeString($v).'\'';
+break;
+
+case 'd': // digit - float or int
+if(!is_numeric($v)){return false;}
+$value = $v;
+break;
+
+case 'i': // integer
+if(!is_int($v)){return false;}
+$value = (int)$v;
+break;
+
+case 'f': // float
+if(!is_float($v)){return false;}
+$value = (float)$v;
+break;
+
+case 'r': // raw, can be SQL function
+$value = $v;
+break;
+
+default:
+return false;
+break;
+}
+return $value;
+}
+
+public function getResult(){
+return $this->result;
+}
+
 public function execute(){
 if(!$this->query){return false;}
 if($this->countVariable()!=count($this->binds)){return false;}
@@ -125,35 +172,8 @@ $q = $this->query;$t = '';
 $i = 0;$l=0;$a=0;
 while(($i = strpos($q,'?',$i)) !== false){
 if($i>0 && (substr($q, $i-1,1)!='\\' || ($i>1 && substr($q,$i-2,2)=='\\\\'))){
-switch($this->binds[$a][0]){
-
-case 's': // string
-$value = '\''.$this->escapeString($this->binds[$a][1]).'\'';
-break;
-
-case 'd': // digit - float or int
-if(!is_numeric($this->binds[$a][1])){return false;}
-$value = $this->binds[$a][1];
-break;
-
-case 'i': // integer
-if(!is_int($this->binds[$a][1])){return false;}
-$value = (int)$this->binds[$a][1];
-break;
-
-case 'f': // float
-if(!is_float($this->binds[$a][1])){return false;}
-$value = (float)$this->binds[$a][1];
-break;
-
-case 'r': // raw, can be SQL function
-$value = $this->binds[$a][1];
-break;
-
-default:
-return false;
-break;
-}
+$value = $this->prepareParam($this->binds[$a][0], $this->binds[$a][1]);
+if($value === false){return false;}
 $t .= substr($q,$l,$i-$l).$value;
 $a++;
 $l = $i+1;$i++;
@@ -163,7 +183,7 @@ $i++;
 } // WHILE LOOP
 $t.=substr($q,$l); // the rest of the query
 $this->result = $this->query($t);
-return $this->result ? true : false;
+return $this;
 }
 
 private function query($q){
@@ -215,6 +235,41 @@ case 'sqlite3':
   $this->lastError = $this->conn->lastErrorMsg();
 break;
 }
+}
+
+public function fetchNext($into = ''){
+if(!$this->result){return false;}
+$row = false;
+switch($this->servertype){
+case 'mysql':
+if($into === '' || !class_exists($into)){
+$row = mysql_fetch_assoc($this->result);
+}else{
+$row = mysql_fetch_object($this->result,$into);
+}
+break;
+case 'sqlite':
+if($into === '' || !class_exists($into)){
+$row = sqlite_fetch_assoc($this->result,SQLITE_ASSOC);
+}else{
+$row = sqlite_fetch_object($this->result,$into);
+}
+break;
+case 'sqlite3':
+if($into === '' || !class_exists($into)){
+$row = $this->result->fetchArray(SQLITE3_ASSOC);
+}else{
+$row = $this->result->fetchArray(SQLITE3_ASSOC);
+$o = new $into();
+foreach($row as $k => $v){
+$o->$k = $v;
+}
+$row = $o;
+unset($o);
+}
+break;
+}
+return $row;
 }
 
 public function fetch($into = ''){

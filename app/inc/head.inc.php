@@ -96,9 +96,8 @@ if($_SITE['enablegzip']){
 *   Connecting to MySQL Database with the login information
 ************************************************ */
 if($_SITE['mysql_info']){
-$link = @mysql_connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p']);
 $dba = DBA::getInstance();
-$dba->connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p'],$_SITE['mysql_info']['d']);
+$dba->connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p']);
 }
 
 
