@@ -76,6 +76,7 @@ private function parseConnStr($s){
 }
 
 public function prepare($q){
+    $this->binds = array();
     return $this->query = $q;
 }
 
@@ -203,7 +204,7 @@ if(!$r){$this->setLastError();}
 return $r;
 }
 
-private function escape_string($s){
+private function escapeString($s){
 switch($this->servertype){
 case 'mysql':
   return mysql_real_escape_string($s);
