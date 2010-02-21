@@ -37,5 +37,3 @@ return (bool)get_headers($u);
 }
 
 }
-
-?>

@@ -82,5 +82,3 @@ return self::js($s);
 }
 
 }
-
-?>

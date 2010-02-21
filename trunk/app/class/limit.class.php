@@ -76,5 +76,3 @@ public static function check($f){
 }
 
 }
-
-?>

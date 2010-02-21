@@ -22,5 +22,3 @@ $r = @mysql_query($sql_query);return mysql_retAllRows($r);}
 
 function settings_Count(){$sql_query = 'SELECT Count(`key`) FROM `settings`';
 $r = @mysql_query($sql_query);return (int)mysql_retValue($r,'Count(`key`)');}
-
-?>

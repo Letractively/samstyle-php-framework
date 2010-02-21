@@ -96,5 +96,3 @@ class string extends base{
 
 
 }
-
-?>

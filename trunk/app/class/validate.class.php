@@ -68,5 +68,3 @@ return (bool)preg_match($pat, $v);
 }
 
 }
-
-?>

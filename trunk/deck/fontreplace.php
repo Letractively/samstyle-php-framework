@@ -143,5 +143,3 @@ function javascript2html($text){
 
     return $text;
 }
-
-?>
