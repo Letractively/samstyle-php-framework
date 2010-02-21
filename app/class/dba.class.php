@@ -352,5 +352,3 @@ return $this->query('rollback');
 }
 
 }
-
-?>

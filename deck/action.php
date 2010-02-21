@@ -14,5 +14,3 @@ if(!validate::alnum($c)){exit;}
 if(!file_exists($controller = 'app/controller/'.$c.'.ctrl.php')){exit;}
 
 include($controller);
-
-?>

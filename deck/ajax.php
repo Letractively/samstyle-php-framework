@@ -88,5 +88,3 @@ echo $page->render()->output();
 if(isset($get['callback'])){echo ');';}elseif($_ajax['callback']){echo ');';}
 /* reason being that we do not want to render template into it */
 }
-
-?>

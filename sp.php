@@ -132,4 +132,3 @@ cache_save($id,$buffer);
 }
 
 echo $buffer;
-?>

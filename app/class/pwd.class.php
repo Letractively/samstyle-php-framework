@@ -59,5 +59,3 @@ return validate::alnum(substr($hash,32,8)) && validate::hex(substr($hash,0,32).s
 }
 
 }
-
-?>

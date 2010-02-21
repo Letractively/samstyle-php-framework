@@ -49,5 +49,3 @@ class flagsenum extends enum{
         }
     }
 }
-
-?>

@@ -33,6 +33,3 @@ function off(&$bf,$n){$n = pow(2,$n);$bf&=~$n;}
 function toggle(&$bf,$n){$n = pow(2,$n);$bf^=$n;}
 
 }
-
-
-?>
