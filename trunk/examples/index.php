@@ -27,7 +27,7 @@ p('<ul class="example">');
 p('<li><a href="'.url_route('examples-ajax').'">AJAX and PHP Function Calls</a><br/><span>Calling PHP functions directly from Javascript</span></li>');
 p('<li><a href="'.url_route('examples-pagingwithoutnumbers').'">Pagination</a><br/><span>Easy pagination with our built-in function.</span></li>');
 p('<li><a href="'.url_route('examples-fontreplace').'">fontreplace (FLIR)</a><br/><span>a technique based on sIFR and FLIR to display fonts dynamically in cases where the user does not have that particular font.</span></li>');
-p('<li><a href="'.url_route('examples-csrf').'">CSRF Protection</a><br/><span>Easy pagination with our built-in function.</span></li>');
+p('<li><a href="'.url_route('examples-csrf').'">CSRF Protection</a><br/><span>All your POST forms are protected automatically from <a href="http://en.wikipedia.org/wiki/CSRF" target="_blank">CSRF</a>.</span></li>');
 p('</ul>');
 
 p(html::c('Samstyle PHP Framework'));
