@@ -28,15 +28,6 @@ $page->addRule('content',$page->getRule('content'). $tr);
 }
 
 /*
-*  function cblock() - REMOVED
-*    allows you to define and call and block easily
-*    $b - the block identifier
-*    $c - the content/file of the block
-*/
-//function cblock($b,$c){if($b == '' || !is_string($b)){return false;}global $_PAGE;$_PAGE['blocks'][$b] = $c;
-//if(@file_exists($c)){$content = '';@include($c);p($content);}else{p($c);}}
-
-/*
 *  function g($k, [$v])
 *    allows you to get a variable which is currently defined in the global scope of the script using $GLOBALS
 *    $k - the name of the variable

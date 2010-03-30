@@ -13,6 +13,12 @@ $_routingkey = '_urlrouting_';
 
 $_routes = array();
 
+$_routes['deckaction'] = array(
+'rewrite'=> 'deck/action/$1',
+'actual'=>'deck/action.php?c=$1',
+'params' => array('$1'=>'([a-zA-Z0-9]*)')
+);
+
 $_routes['examples'] = array(
 'rewrite'=> 'examples/',
 'actual'=>'examples/index.php',
@@ -42,5 +48,18 @@ $_routes['examples-pagingwithoutnumbers'] = array(
 'actual'=>'examples/page.php',
 'params' => array()
 );
+
+$_routes['examples-csrf'] = array(
+'rewrite'=> 'examples/csrf-protection',
+'actual'=>'examples/csrf.php',
+'params' => array()
+);
+
+$_routes['examples-csrffail'] = array(
+'rewrite'=> 'examples/csrf-fail',
+'actual'=>'examples/csrf-fail.php',
+'params' => array()
+);
+
 
 ?>

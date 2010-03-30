@@ -51,23 +51,24 @@ $types = array('text/css; charset=utf-8',
 
 if(!isset($_GET['t']) || !isset($types[$_GET['t']])){exit;}
 
-header('Content-Type: '.$types[$_GET['t']]);
+$page = Page::getInstance();
+$page->addHeader('Content-Type', $types[$_GET['t']]);
 
 // checks whether to do client caching it or not
 if(isset($_GET['cache'])){
-header('Expires: '.gmdate('r',time()+15552000));
-header('Cache-Control: max-age=15552000');
-header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
-header('Last-Modified: '.gmdate('r',10));
-header('Expires-Active: On');
-header('Pragma: ');
-header('Vary: ');
+$page->addHeader('Expires', gmdate('r',time()+15552000));
+$page->addHeader('Cache-Control', 'max-age=15552000');
+$page->addHeader('ETag', dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
+$page->addHeader('Last-Modified', gmdate('r',10));
+$page->addHeader('Expires-Active', 'On');
+$page->addHeader('Pragma', '');
+$page->addHeader('Vary: ','');
 }else{
-header('Expires: '.gmdate('r',time()-15552000));
-header('Cache-Control: no-cache');
-header('ETag: '.dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
-header('Last-Modified: '.gmdate('r'));
-header('Pragma: no-cache');
+$page->addHeader('Expires', gmdate('r',time()-15552000));
+$page->addHeader('Cache-Control', 'no-cache');
+$page->addHeader('ETag', dechex(crc32($_GET['s'])).'-'.substr(dechex(crc32($_SERVER['REQUEST_URI'])),-5));
+$page->addHeader('Last-Modified', gmdate('r'));
+$page->addHeader('Pragma', 'no-cache');
 }
 
 // initialize buffer
@@ -131,4 +132,5 @@ cache_save($id,$buffer);
 }
 }
 
+$page->render();
 echo $buffer;
