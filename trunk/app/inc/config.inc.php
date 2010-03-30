@@ -48,6 +48,10 @@ $_SITE['autoparsehttpargs'] = true;
 /* the length of the session in seconds */
 $_SITE['session_length'] = 36000;
 
+/* website activity level, integer from 0 to 10 */
+// 0 to use server detault
+$_SITE['site_activity'] = 0;
+
 /* maintenance mode - false or message string */
 $_SITE['maintenance'] = false;
 /* hint: you can use 'maintenance' from a static HTML file
@@ -86,7 +90,7 @@ $_SITE['error'] = array(
 $_CONF = array();
 
 /* EXAMPLE
-$_CONF['fb_api'] = array('key'=>'39ab360839e0c5b858c69da01060e25','secret'=>'39ab360839e0c5b858c69da01060e25');
+// $_CONF['fb_api'] = array('key'=>'39ab360839e0c5b858c69da01060e25','secret'=>'39ab360839e0c5b858c69da01060e25');
 *  EXAMPLE */
 
 /* *************************************************
@@ -122,6 +126,7 @@ $_includes = array(
 'app/inc/page.inc.php',
 'app/inc/library.inc.php',
 'app/inc/urlrouting.inc.php',
+'app/class/csrfprotect.class.php',
 'app/class/dba.class.php',
 'app/class/base.class.php',
 'app/class/string.class.php',
