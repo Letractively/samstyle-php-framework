@@ -351,4 +351,22 @@ public function rollback(){
 return $this->query('rollback');
 }
 
+public function getServerVersion(){
+switch($this->servertype){
+case 'mysql':
+$this->prepare('SELECT VERSION() as `v`');
+break;
+case 'sqlite':
+$this->prepare('SELECT SQLITE_VERSION() as `v`');
+break;
+case 'sqlite3':
+$this->prepare('SELECT SQLITE_VERSION() as `v`');
+break;
+default:
+return false;
+break;
+}
+return $this->execute()->fetchValue('v');
+}
+
 }
