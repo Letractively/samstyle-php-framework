@@ -121,9 +121,9 @@ if($_SITE['enablegzip']){
 /* ************************************************
 *   Connecting to MySQL Database with the login information
 ************************************************ */
-if($_SITE['mysql_info']){
+if($_SITE['db_info']){
     $dba = DBA::getInstance();
-    $dba->connect($_SITE['mysql_info']['s'],$_SITE['mysql_info']['u'],$_SITE['mysql_info']['p']);
+    $dba->connect($_SITE['db_info']['s'],$_SITE['db_info']['u'],$_SITE['db_info']['p']);
     unset($dba);
 }
 
