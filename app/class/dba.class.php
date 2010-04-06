@@ -339,19 +339,25 @@ break;
 }
 }
 
+public function quickQuery($q){
+$this->prepare($q);
+return $this->execute()->getResult();
+}
+
 public function begin(){
-return $this->query('BEGIN');
+return $this->quickQuery('BEGIN');
 }
 
 public function commit(){
-return $this->query('COMMIT');
+return $this->quickQuery('COMMIT');
 }
 
 public function rollback(){
-return $this->query('rollback');
+return $this->quickQuery('ROLLBACK');
 }
 
 public function getServerVersion(){
+$ret = false;
 switch($this->servertype){
 case 'mysql':
 $this->prepare('SELECT VERSION() as `v`');
@@ -366,7 +372,8 @@ default:
 return false;
 break;
 }
-return $this->execute()->fetchValue('v');
+$ret = $this->execute()->fetchValue('v');
+return $ret;
 }
 
 }
